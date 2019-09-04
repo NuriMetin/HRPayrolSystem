@@ -1,0 +1,59 @@
+﻿@model IEnumerable<EmployeList>
+@{
+    ViewData["Title"] = "EmployeeList";
+}
+
+<h2>EmployeeList</h2>
+
+<div class="container">
+    <div>
+        <table class="table table-bordered table-stripted">
+            <thead>
+                <tr>
+                    <th>Image</th>
+                    <th>Name</th>
+                    <th>Surname</th>
+                    <th>Father Name</th>
+                    <th>Born</th>
+                    <th>Residence</th>
+                    <th>Personality Card Number</th>
+                    <th>Personality Card End Date</th>
+                    <th>OldWorkPlaces</th>
+                    <th>Education</th>
+                    <th>Gender</th>
+                    <th>MaritalStatus</th>
+                    <th>Operations</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                <tr>
+                    <td><img src="~/images/@item.Image" style="width:50px; height:50px; border:.2px solid black; border-radius:15px; text-align:center; margin-top:10px;" alt="" /></td>
+                    <td>@item.Name</td>
+                    <td>@item.Surname</td>
+                    <td>@item.FatherName</td>
+                    <td>@item.Born.ToShortDateString()</td>
+                    <td>@item.Residence</td>
+                    <td>@item.PersonalityCardNumber</td>
+                    <td>@item.PersonalityCardEndDate.ToShortDateString()</td>
+                    <td>@item.OldWorkPlaces</td>
+                    <td>@item.Education</td>
+                    <td>@item.Gender</td>
+                    <td>@item.MaritalStatus</td>
+                    <td>
+                        <form asp-action="Edit" asp-controller="Employee" method="get" asp-route-id="@item.ID" class="form-horizontal">
+                            <input type="hidden" name="ID" value="@item.ID" />
+                            <input type="submit" value="Edit" class="btn btn-warning" />
+                        </form>
+                        <form asp-action="Delete" asp-controller="Employee" method="post" asp-route-id="@item.ID">
+                            <input type="hidden" name="ID" value="@item.ID" />
+                            <input type="submit" value="Delete" class="btn btn-danger" />
+                        </form>
+                    </td>
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

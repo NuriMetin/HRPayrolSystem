@@ -1,0 +1,94 @@
+﻿@model WorkersViewModel
+@{
+    ViewData["Title"] = "Create";
+}
+<div class="container">
+    <div class="col-md-4">
+        <form method="post" asp-controller="Worker" asp-action="Create">
+            <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+            <div class="form-group">
+                <label asp-for="Employees" class="control-label"></label>
+                <select asp-for="SelectedEmployee" asp-items="@(new SelectList(Model.Employees,"ID","Name"))">
+                    <option value="">--Select Employee--</option>
+                </select>
+                @* @Html.DropDownListFor(model => model.SelectedGender, new SelectList(Model.Genders, "GenderID", "GenderName"), new { id = "normalDropDown" })*@
+                <span asp-validation-for="Employees" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Departments" class="control-label"></label>
+                <select asp-for="SelectedDepartment" class="departments" asp-items="@(new SelectList(Model.Departments,"ID","Name"))">
+                    <option value="">--Select Department--</option>
+                </select>
+                @* @Html.DropDownListFor(model => model.SelectedGender, new SelectList(Model.Genders, "GenderID", "GenderName"), new { id = "normalDropDown" })*@
+                <span asp-validation-for="Departments" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <select asp-for="SelectedPosition"  style="margin-top:20px;" class="form-control">
+                    <option value="">Select Position...</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label class="control-label" asp-for="Email"></label>
+                <input class="form-control" asp-for="Email" />
+                <span class="text-danger" asp-validation-for="Email"></span>
+            </div>
+            @*<div class="form-group">
+                <label class="control-label" asp-for="Password"></label>
+                <input class="form-control" asp-for="Password" />
+                <span class="text-danger" asp-validation-for="Password"></span>
+            </div>*@
+            @*<div class="form-group">
+                <label class="control-label" asp-for="ConfirmPassword"></label>
+                <input class="form-control" asp-for="ConfirmPassword" />
+                <span class="text-danger" asp-validation-for="ConfirmPassword"></span>
+            </div>*@           
+            <div class="form-group">
+                <input type="submit" value="Create Worker" class="btn btn-warning" />
+            </div>
+        </form>
+    </div>
+</div>
+@section scripts{
+    @Html.Partial("_ValidationScriptsPartial")
+    <script>
+        $(function () {
+            $("#normalDropDown").chosen();
+        });
+
+          $(document).on("change", ".departments", function () {
+            var data = $(".departments").val();
+            if (data) {
+                $.ajax({
+                    url: "/Ajax/LoadPositions",
+                    data: { departmentId: data },
+                    type: "POST",
+                    success: function (res) {
+                        $("#SelectedPosition").html(res);
+                    }
+                });
+            }
+            else {
+                $("#SelectedPosition").html("<option value=''>--Select Position--</option>");
+            }
+        });
+    </script>
+
+}
+
+@*@section Scripts{
+        @Html.Partial("_ValidationScriptsPartial")
+    <script>
+        $(document).on("change","#gender",function () {
+            var genData = $("#gender").val();
+            if (genData) {
+                $.ajax({
+                    url:"/Employee/Create",
+                    data: { genId: genData },
+                    type: "POST"
+                });
+            }
+        })
+    </script>
+
+    }*@
+

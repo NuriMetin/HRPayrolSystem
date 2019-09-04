@@ -1,0 +1,59 @@
+﻿@model IEnumerable<WorkersViewModel>
+@{
+    ViewData["Title"] = "WorkerList";
+}
+
+<h2>WorkerList</h2>
+
+<div class="container">
+    <div>
+        <table class="table table-bordered table-stripted">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Surname</th>
+                    <th>Email</th>
+                    <th>Position</th>
+                    <th>Department</th>
+                    <th>Add Absens</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Name</td>
+                        <td>@item.Surname</td>
+                        <td>@item.Email</td>
+                        <td>@item.Position</td>
+                        <td>@item.Department</td>
+                        <td>
+                            @if (User.IsInRole(SD.HR.ToString()))
+                            {
+                                <form asp-action="Edit" asp-controller="Worker" method="get" asp-route-id="@item.WorkerId" class="form-horizontal">
+                                    <input type="hidden" name="ID" value="@item.WorkerId" />
+                                    <input type="submit" value="Add Absens" class="btn btn-warning" />
+                                </form>
+                            }
+
+                            @if (User.IsInRole(SD.PayrollSpecalist.ToString()))
+                            {
+                                <form asp-action="Edit" asp-controller="Worker" method="get" asp-route-id="@item.WorkerId" class="form-horizontal">
+                                    <input type="hidden" name="ID" value="@item.WorkerId" />
+                                    <input type="submit" value="Edit" class="btn btn-warning" />
+                                </form>
+                                <form asp-action="Delete" asp-controller="Worker" method="post" asp-route-id="@item.WorkerId">
+                                    <input type="hidden" name="ID" value="@item.WorkerId" />
+                                    <input type="submit" value="Delete" class="btn btn-danger" />
+                                </form>
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+
