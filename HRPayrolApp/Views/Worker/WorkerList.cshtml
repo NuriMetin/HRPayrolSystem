@@ -15,7 +15,8 @@
                     <th>Email</th>
                     <th>Position</th>
                     <th>Department</th>
-                    <th>Add Absens</th>
+                    <th>Beginnig Date</th>
+                    <th>Crud</th>
                 </tr>
             </thead>
             <tbody>
@@ -27,6 +28,7 @@
                         <td>@item.Email</td>
                         <td>@item.Position</td>
                         <td>@item.Department</td>
+                        <td>@item.BeginDate.ToShortDateString()</td>
                         <td>
                             @if (User.IsInRole(SD.HR.ToString()))
                             {

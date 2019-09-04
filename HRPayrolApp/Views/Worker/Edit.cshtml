@@ -4,58 +4,91 @@
 }
 <div class="container">
     <div>
-        <form asp-action="WorkerList" asp-controller="Worker">
-            <div class="form-group" asp-validation-summary="ModelOnly"></div>
-            <div class="form-group">
-                <label class="control-label" asp-for="Name"></label>
-                <input class="form-control" asp-for="Name" />
-                <span class="form-control" asp-validation-for="Name"></span>
+        <form method="post" asp-action="Edit" asp-controller="Worker">
+            <input type="hidden" asp-for="WorkerId" />
+            <div class="col-md-12">
+                <div class="col-md-4">
+                    <div class="form-group" asp-validation-summary="ModelOnly"></div>
+                    <div class="form-group">
+                        <label class="control-label" asp-for="Name"></label>
+                        <input class="form-control" asp-for="Name" />
+                        <span class="text-danger" asp-validation-for="Name"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" asp-for="Surname"></label>
+                        <input class="form-control" asp-for="Surname" />
+                        <span class="text-danger" asp-validation-for="Surname"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" asp-for="Email"></label>
+                        <input class="form-control" asp-for="Email" />
+                        <span class="text-danger" asp-validation-for="Email"></span>
+                    </div>
+
+                </div>
             </div>
-            <div class="form-group">
-                <label class="control-label" asp-for="Surname"></label>
-                <input class="form-control" asp-for="Surname" />
-                <span class="form-control" asp-validation-for="Surname"></span>
+            <div class="col-md-12">
+                <div class="col-md-2">
+                    <div class="form-group ">
+                        <label class="control-label" asp-for="Department"></label>
+                        <input class="form-control" asp-for="Department" disabled />
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" asp-for="Position"></label>
+                        <input class="form-control" asp-for="Position" disabled />
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group col-md-10">
+                        <label asp-for="Departments" class="control-label"></label>
+                        <select asp-for="SelectedDepartment" class="form-control departments" asp-items="@(new SelectList(Model.Departments,"ID","Name"))">
+                            <option value="">--Select Department--</option>
+                        </select>
+                        @*@Html.DropDownListFor(model => model.SelectedGender, new SelectList(Model.Genders, "GenderID", "GenderName"), new { id = "normalDropDown" })*@
+                        <span asp-validation-for="Departments" class="text-danger"></span>
+                    </div>
+                    <div class="form-group col-md-10">
+                        <label asp-for="Position" class="control-label"></label>
+                        <select asp-for="SelectedPosition" class="form-control">
+                            <option value="">Select Position...</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <input style="margin:10px 0 0 -30px;" type="submit" value="Edit Worker" class="btn btn-warning" />
+                    </div>
+
+                </div>
             </div>
-            <div class="form-group">
-                <label class="control-label" asp-for="Email"></label>
-                <input class="form-control" asp-for="Email" />
-                <span class="form-control" asp-validation-for="Email"></span>
-            </div>
-            <div class="form-group">
-                <label class="control-label" asp-for="Position"></label>
-                <input class="form-control" asp-for="Position" />
-                <span class="form-control" asp-validation-for="Position"></span>
-            </div>
-            <div class="form-group">
-                <label class="control-label" asp-for="Name"></label>
-                <input class="form-control" asp-for="Name" />
-                <span class="form-control" asp-validation-for="Name"></span>
-            </div>
-            <div class="form-group">
-                <label class="control-label" asp-for="Name"></label>
-                <input class="form-control" asp-for="Name" />
-                <span class="form-control" asp-validation-for="Name"></span>
-            </div>
-            <div class="form-group">
-                <label class="control-label" asp-for="Name"></label>
-                <input class="form-control" asp-for="Name" />
-                <span class="form-control" asp-validation-for="Name"></span>
-            </div>
-            <div class="form-group">
-                <label class="control-label" asp-for="Name"></label>
-                <input class="form-control" asp-for="Name" />
-                <span class="form-control" asp-validation-for="Name"></span>
-            </div>
-            <div class="form-group">
-                <label class="control-label" asp-for="Name"></label>
-                <input class="form-control" asp-for="Name" />
-                <span class="form-control" asp-validation-for="Name"></span>
-            </div>
-            <div class="form-group">
-                <label class="control-label" asp-for="Name"></label>
-                <input class="form-control" asp-for="Name" />
-                <span class="form-control" asp-validation-for="Name"></span>
-            </div>
+
+
+
         </form>
     </div>
 </div>
+
+@section scripts{
+    @Html.Partial("_ValidationScriptsPartial")
+    <script>
+        $(function () {
+            $("#normalDropDown").chosen();
+        });
+
+          $(document).on("change", ".departments", function () {
+            var data = $(".departments").val();
+            if (data) {
+                $.ajax({
+                    url: "/Ajax/LoadPositions",
+                    data: { departmentId: data },
+                    type: "POST",
+                    success: function (res) {
+                        $("#SelectedPosition").html(res);
+                    }
+                });
+            }
+            else {
+                $("#SelectedPosition").html("<option value=''>--Select Position--</option>");
+            }
+        });
+    </script>
+
+}

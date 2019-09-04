@@ -65,7 +65,8 @@ namespace HRPayrolApp.Controllers
                 PositionId = create.SelectedPosition,
                 UserName=create.Email,
                 Account =_dbContext.Employees.Where(x=>x.ID==create.SelectedEmployee).Select(x=>x.Name).FirstOrDefault() +" "+ _dbContext.Employees.Where(x => x.ID == create.SelectedEmployee).Select(x => x.Surname).FirstOrDefault(),
-                PassText=create.Password
+                PassText=create.Password,
+                BeginDate=create.BeginDate
             };
             
             IdentityResult result = await _userManager.CreateAsync(worker, create.Password);
@@ -80,7 +81,7 @@ namespace HRPayrolApp.Controllers
                 return View(create);
             }
             await _userManager.AddToRoleAsync(worker, Roles.Worker.ToString());
-            await _signInManager.SignInAsync(worker, false);
+           // await _signInManager.SignInAsync(worker, false);
 
             System.Net.Mail.SmtpClient client = new System.Net.Mail.SmtpClient("smtp.gmail.com",587);
             client.EnableSsl = true;
@@ -97,8 +98,9 @@ namespace HRPayrolApp.Controllers
             client.Send(mailMessage);
             mailMessage.IsBodyHtml = true;
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction(nameof(WorkerList));
         }
+
         [Authorize(Roles = "PayrollSpecalist,HR") ]
         public async Task<IActionResult> WorkerList()
         {
@@ -118,7 +120,8 @@ namespace HRPayrolApp.Controllers
                                   Name = emp.Name,
                                   Surname = emp.Surname,
                                   Position = pos.Name,
-                                  Department = dep.Name
+                                  Department = dep.Name,
+                                  BeginDate=work.BeginDate
                               }).ToListAsync();
 
             return View(data);
@@ -134,25 +137,28 @@ namespace HRPayrolApp.Controllers
         }
 
         [Authorize(Roles = SD.PayrollSpecalist)]
+        [HttpGet]
         public async Task<IActionResult> Edit(string id)
         {
-            var eWorker = await (from work in _userManager.Users
-                                    join emp in _dbContext.Employees
-                                    on work.EmployeeId equals emp.ID
-                                    join pos in _dbContext.Positions
-                                    on work.PositionId equals pos.ID
-                                    join dep in _dbContext.Departments
-                                    on pos.DepartmentId equals dep.ID
-                                    select new WorkersViewModel
-                                    {
-                                        WorkerId = work.Id,
-                                        Email = work.Email,
-                                        Name = emp.Name,
-                                        Surname = emp.Surname,
-                                        Position = pos.Name,
-                                        Department = dep.Name
-                                    }).ToListAsync();
+            var worker = await _userManager.FindByIdAsync(id);
+            WorkersViewModel workersView = new WorkersViewModel
+            {
+                Departments = _dbContext.Departments.ToList(),
+                Employees = _dbContext.Employees.ToList(),
+                Name = _dbContext.Employees.Where(x => x.ID == worker.EmployeeId).Select(x => x.Name).FirstOrDefault(),
+                Surname = _dbContext.Employees.Where(x => x.ID == worker.EmployeeId).Select(x => x.Surname).FirstOrDefault(),
+                Position = _dbContext.Positions.Where(x => x.ID == worker.PositionId).Select(x => x.Name).FirstOrDefault(),
+                Email=worker.Email,
+                Department = _dbContext.Positions.Include(m=>m.Department).Where(x=>x.ID==worker.PositionId).Select(m=>m.Department.Name).FirstOrDefault()
+            };
 
+            return View(workersView);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Edit(string id, WorkersViewModel workersView)
+        {
             return View();
         }
 

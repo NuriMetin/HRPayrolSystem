@@ -18,7 +18,7 @@ namespace HRPayrolApp.Models.ViewModels
         public int SelectedEmployee { get; set; }
 
         public int SelectedPosition { get; set; }
-
+        public DateTime BeginDate { get; set; }
         public IEnumerable<Department> Departments { get; set; }
 
         public int SelectedDepartment { get; set; }
