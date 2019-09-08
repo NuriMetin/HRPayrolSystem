@@ -32,9 +32,17 @@
                         <td>
                             @if (User.IsInRole(SD.HR.ToString()))
                             {
-                                <form asp-action="Edit" asp-controller="Worker" method="get" asp-route-id="@item.WorkerId" class="form-horizontal">
+                                <form asp-action="AddBonus" asp-controller="Worker" method="get" asp-route-id="@item.WorkerId" class="form-horizontal">
                                     <input type="hidden" name="ID" value="@item.WorkerId" />
-                                    <input type="submit" value="Add Absens" class="btn btn-warning" />
+                                    <input type="submit" value="Add Bonus" class="btn btn-warning" />
+                                </form>
+                                <form style="margin-top:5px;" asp-action="AddAbsens" asp-controller="Worker" method="get" asp-route-id="@item.WorkerId" class="form-horizontal">
+                                    <input type="hidden" name="ID" value="@item.WorkerId" />
+                                    <input type="submit" value="Add Absens" class="btn btn-danger" />
+                                </form>
+                                <form style="margin-top:5px;" asp-action="CalculateSalary" asp-controller="Worker" method="get" asp-route-id="@item.WorkerId" class="form-horizontal">
+                                    <input type="hidden" name="ID" value="@item.WorkerId" />
+                                    <input type="submit" value="Calculate" class="btn btn-danger" />
                                 </form>
                             }
 

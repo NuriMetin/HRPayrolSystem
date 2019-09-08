@@ -31,5 +31,15 @@ namespace HRPayrolApp.Controllers
 
             return PartialView("_LoadPositionsPartial", data);
         }
+
+        public IActionResult LoadAbsens(int? absensId)
+        {
+            
+
+          
+            
+
+            return NotFound();
+        }
     }
 }

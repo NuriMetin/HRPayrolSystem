@@ -59,7 +59,7 @@ using HRPayrolApp.Models.ViewModels;
             WriteLiteral("\r\n");
             EndContext();
             BeginContext(32, 44, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "668e372a26a4489fa030ac177b59829b", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "591b59481dad43bda20c6e019e946bcf", async() => {
                 BeginContext(49, 18, true);
                 WriteLiteral("Select Position...");
                 EndContext();
@@ -90,7 +90,7 @@ using HRPayrolApp.Models.ViewModels;
             WriteLiteral("    ");
             EndContext();
             BeginContext(121, 52, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "27e417bc30824d7ba85ca7465c16eb00", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f1dfca29960948f6b0e4731cf734ff5a", async() => {
                 BeginContext(151, 13, false);
 #line 7 "M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\HRPayrolApp\Views\Shared\_LoadPositionsPartial.cshtml"
                             Write(position.Name);

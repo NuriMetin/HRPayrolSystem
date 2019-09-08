@@ -1,0 +1,35 @@
+﻿@model AddBonus
+@{
+    ViewData["Title"] = "AddBonus";
+}
+<h2>AddBonus</h2>
+<div class="container">
+    <div class="col-md-12">
+        <form method="post" asp-action="AddBonus" asp-controller="Worker">
+            <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+            <input class="form-control" asp-for="WorkerID" />
+            <div class="form-group">
+                <label class="control-label" asp-for="WorkerAccount"></label>
+                <input class="form-control" asp-for="WorkerAccount" disabled />
+            </div>
+            <div class="form-group">
+                <label class="control-label" asp-for="BonusSalary"></label>
+                <input class="form-control" asp-for="BonusSalary" />
+                <span class="text-danger" asp-validation-for="BonusSalary"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label" asp-for="Reason"></label>
+                <input class="form-control" asp-for="Reason" />
+                <span class="text-danger" asp-validation-for="Reason"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label" asp-for="BonusDate"></label>
+                <input class="form-control" type="date" asp-for="BonusDate" />
+                <span class="text-danger" asp-validation-for="BonusDate"></span>
+            </div>
+            <div class="form-group">
+                <input  type="submit" value="Add bonus" class="btn btn-warning" />
+            </div>
+        </form>
+    </div>
+</div>

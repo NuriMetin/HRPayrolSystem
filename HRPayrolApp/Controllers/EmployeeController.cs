@@ -18,7 +18,7 @@ using static HRPayrolApp.Utilities.Utilities;
 
 namespace HRPayrolApp.Controllers
 {
-    [Authorize(Roles = SD.HR)]
+   // [Authorize(Roles = SD.HR)]
     public class EmployeeController : Controller
     {
         private readonly HRPayrollDbContext _dbContext;
@@ -77,7 +77,7 @@ namespace HRPayrolApp.Controllers
             employee.Residence = create.Residence;
             employee.PersonalityCardNumber = create.PersonalityCardNumber;
             employee.PersonalityCardEndDate = create.PersonalityCardEndDate;
-            employee.OldWorkPlaces = create.OldWorkPlaces;
+            //employee.OldWorkPlaces = create.OldWorkPlaces;
             employee.DistrictRegistration = create.DistrictRegistration;
             employee.EducationId = create.SelectedEducation;
             employee.GenderId = create.SelectedGender;
@@ -104,7 +104,7 @@ namespace HRPayrolApp.Controllers
                 Gender = _dbContext.Genders.Where(m => m.GenderId == x.GenderId).Select(m => m.GenderName).FirstOrDefault(),
                 MaritalStatus = _dbContext.MaritalStatuses.Where(m => m.MaritalStatusId == x.MaritalStatusId).Select(m => m.MaritalStatusName).FirstOrDefault(),
                 Name = x.Name,
-                OldWorkPlaces = x.OldWorkPlaces,
+               // OldWorkPlaces = x.OldWorkPlaces,
                 PersonalityCardEndDate = x.PersonalityCardEndDate,
                 PersonalityCardNumber = x.PersonalityCardNumber,
                 Residence = x.Residence,
@@ -132,7 +132,7 @@ namespace HRPayrolApp.Controllers
                 GenderText = _dbContext.Genders.Where(k => k.GenderId == emp.GenderId).Select(k => k.GenderName).FirstOrDefault(),
                 EducationText = _dbContext.Educations.Where(k => k.EducationId == emp.EducationId).Select(k => k.EducationName).FirstOrDefault(),
                 MaritalStatusText = _dbContext.MaritalStatuses.Where(k => k.MaritalStatusId == emp.MaritalStatusId).Select(k => k.MaritalStatusName).FirstOrDefault(),
-                OldWorkPlaces = emp.OldWorkPlaces,
+               // OldWorkPlaces = emp.OldWorkPlaces,
                 PersonalityCardEndDate = emp.PersonalityCardEndDate,
                 PersonalityCardNumber = emp.PersonalityCardNumber,
                 Residence = emp.Residence,
@@ -186,7 +186,7 @@ namespace HRPayrolApp.Controllers
             employee.DistrictRegistration = empViewModel.DistrictRegistration;
             employee.PersonalityCardEndDate = empViewModel.PersonalityCardEndDate;
             employee.PersonalityCardNumber = empViewModel.PersonalityCardNumber;
-            employee.OldWorkPlaces = empViewModel.OldWorkPlaces;
+            //employee.OldWorkPlaces = empViewModel.OldWorkPlaces;
             employee.EducationId = empViewModel.SelectedEducation;
             employee.GenderId = empViewModel.SelectedGender;
             employee.MaritalStatusId = empViewModel.SelectedMarital;
@@ -197,6 +197,8 @@ namespace HRPayrolApp.Controllers
             return RedirectToAction(nameof(EmployeeList));
 
         }
+
+      
 
         [HttpPost]
         [ValidateAntiForgeryToken]

@@ -1,0 +1,42 @@
+﻿@model Salary
+@{
+    ViewData["Title"] = "CalculateSalary";
+}
+
+<h2>CalculateSalary</h2>
+
+<div class="container">
+    <div class="col-md-12">
+        <form method="post" asp-action="AddBonus" asp-controller="Worker">
+            <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+            <input class="form-control" asp-for="WorkerId" />
+            <div class="form-group">
+                <label class="control-label" asp-for="WorkerId"></label>
+                <input class="form-control" asp-for="WorkerAccount" disabled />
+            </div>
+            <div class="form-group">
+                <label class="control-label" asp-for="Bonus"></label>
+                <input class="form-control" asp-for="Bonus" />
+                <span class="text-danger" asp-validation-for="Bonus"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label" asp-for="MonthlySalary"></label>
+                <input class="form-control" asp-for="MonthlySalary" />
+                <span class="text-danger" asp-validation-for="MonthlySalary"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label" asp-for="AbsensCount"></label>
+                <input class="form-control" type="date" asp-for="AbsensCount" />
+                <span class="text-danger" asp-validation-for="AbsensCount"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label" asp-for="TotalSalary"></label>
+                <input class="form-control" type="date" asp-for="TotalSalary" />
+                <span class="text-danger" asp-validation-for="TotalSalary"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Add bonus" class="btn btn-warning" />
+            </div>
+        </form>
+    </div>
+</div>

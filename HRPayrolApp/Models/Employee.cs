@@ -32,7 +32,6 @@ namespace HRPayrolApp.Models
 
         public virtual Worker Worker { get; set; } //Clasa cixart
 
-        public string OldWorkPlaces { get; set; }
 
         [Required]
         public int MaritalStatusId { get; set; }
@@ -46,6 +45,8 @@ namespace HRPayrolApp.Models
         [Required]
         public int EducationId { get; set; }
         public virtual Education Education { get; set; }
+
+        public virtual ICollection<OldWorkPlace> OldWorkPlaces { get; set; }
 
         public string Image { get; set; }
 

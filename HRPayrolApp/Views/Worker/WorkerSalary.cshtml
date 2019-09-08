@@ -1,0 +1,43 @@
+﻿@model IEnumerable<Salary>
+@{
+    ViewData["Title"] = "WorkerSalary";
+}
+
+<h2>WorkerSalary</h2>
+
+<div class="container">
+    <div>
+        <table class="table table-bordered table-stripted">
+            <thead>
+                <tr>
+                    <th>WorkerId</th>
+                    <th>Worker Account</th>
+                    <th>Bonus</th>
+                    <th>Monthly Salary</th>
+                    <th>Excusable Absens</th>
+                    <th>UnExcusable Absens</th>
+                    <th>Absens Count</th>
+                    <th>TotalSalary</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.WorkerId</td>
+                        <td>@item.WorkerAccount</td>
+                        <td>@item.Bonus</td>
+                        <td>@item.MonthlySalary</td>
+                        <td>@item.ExcusableAbsens</td>
+                        <td>@item.UnExcusableAbsens</td>
+                        <td>@item.AbsensCount</td>
+                        <td>@item.TotalSalary</td>
+                       
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+

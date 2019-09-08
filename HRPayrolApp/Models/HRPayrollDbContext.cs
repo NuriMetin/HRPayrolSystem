@@ -1,5 +1,4 @@
-﻿using HRPayrolApp.Models.ViewModels;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -10,9 +9,9 @@ namespace HRPayrolApp.Models
 {
     public class HRPayrollDbContext : IdentityDbContext<Worker>
     {
-        public HRPayrollDbContext(DbContextOptions<HRPayrollDbContext> dbContextOptions):base(dbContextOptions) { }
+        public HRPayrollDbContext(DbContextOptions<HRPayrollDbContext> dbContextOptions) : base(dbContextOptions) { }
 
-        public DbSet<Bonus> Bonus { get; set; }
+        //public DbSet<Bonus> Bonus { get; set; }
         public DbSet<Company> Companies { get; set; }
         public DbSet<Department> Departments { get; set; }
         public DbSet<WorkerDismiss> WorkerDismisses { get; set; }
@@ -25,8 +24,13 @@ namespace HRPayrolApp.Models
         public DbSet<Position> Positions { get; set; }
         public DbSet<Store> Stores { get; set; }
         public DbSet<WorkerAbsens> WorkerAbsens { get; set; }
-        public DbSet<ExcusableAbsens> ExcusableAbsens { get; set; }
-        public DbSet<UnExcusableAbsens> UnExcusableAbsens { get; set; }
+        public DbSet<CompanyWorkPlaceAbsens> CompanyWorkPlaceAbsens { get; set; }
+
+        public DbSet<CompanyWorkPlaceBonus> CompanyWorkPlaceBonus { get; set; }
+
+        public DbSet<WorkerBonus> WorkerBonus { get; set; }
+
+        public DbSet<CompanyWorkPlace> CompanyWorkPlaces { get; set; }
         public DbSet<Absens> Absens { get; set; }
         public DbSet<OldWorkPlace> OldWorkPlaces { get; set; }
 
@@ -64,6 +68,7 @@ namespace HRPayrolApp.Models
                 new Position { ID = 3, DepartmentId = 2, Name = "Senior Programmer", Salary = 3500 }
                 );
         }
+
 
     }
 }

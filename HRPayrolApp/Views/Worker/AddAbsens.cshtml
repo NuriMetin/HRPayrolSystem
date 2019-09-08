@@ -1,0 +1,41 @@
+﻿@model AddAbsens
+@{
+    ViewData["Title"] = "AddAbsens";
+}
+
+<h2>AddAbsens</h2>
+
+<div class="container">
+    <div class="col-md-3">
+        <form method="post" asp-action="AddAbsens" asp-controller="Worker">
+            <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+            <input class="form-control" asp-for="WorkerId" disabled />
+            <div class="form-group">
+                <label class="control-label" asp-for="WorkerAccount"></label>
+                <input class="form-control" asp-for="WorkerAccount" disabled />
+            </div>
+
+            <div class="form-group">
+                <label class="control-label" asp-for="Absens"></label>
+                <select class="form-control" asp-for="SelectedAbsens" asp-items="@(new SelectList(Model.Absens,"ID","Name"))">
+                    <option value="">--Select Absens--</option>
+                </select>
+                @* @Html.DropDownListFor(model => model.SelectedGender, new SelectList(Model.Genders, "GenderID", "GenderName"), new { id = "normalDropDown" })*@
+                <span asp-validation-for="Absens" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label" asp-for="Reason"></label>
+                <input class="form-control" type="text" asp-for="Reason" style="hyphens:unset;"/>
+                <span class="text-danger" asp-validation-for="Reason"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label" asp-for="Date"></label>
+                <input class="form-control" type="date" asp-for="Date" />
+                <span class="text-danger" asp-validation-for="Date"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Add Absens" class="btn btn-warning" />
+            </div>
+        </form>
+    </div>
+</div>

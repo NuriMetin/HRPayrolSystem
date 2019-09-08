@@ -52,18 +52,23 @@
                     }
                 </ul>
                 <ul class="nav navbar-nav">
+                    <li><a asp-area="" asp-controller="Employee" asp-action="Create">Add Employee</a></li>
+                    <li><a asp-area="" asp-controller="Employee" asp-action="EmployeeList">Look all employees</a></li>
+
+                    <li><a asp-area="" asp-controller="Worker" asp-action="Create">Add worker</a></li>
+
+                    <li><a asp-area="" asp-controller="Worker" asp-action="WorkerList">Look all workers</a></li>
                     @if (User.IsInRole(SD.HR.ToString()))
                     {
-                        <li><a asp-area="" asp-controller="Employee" asp-action="Create">Add Employee</a></li>
-                        <li><a asp-area="" asp-controller="Employee" asp-action="EmployeeList">Look all employees</a></li>
+
                     }
                     @if (User.IsInRole(SD.PayrollSpecalist.ToString()))
                     {
-                        <li><a asp-area="" asp-controller="Worker" asp-action="Create">Add worker</a></li>
+
                     }
                     @if (User.IsInRole(SD.PayrollSpecalist.ToString()) || User.IsInRole(SD.HR.ToString()))
                     {
-                        <li><a asp-area="" asp-controller="Worker" asp-action="WorkerList">Look all workers</a></li>
+
                     }
                 </ul>
             </div>
