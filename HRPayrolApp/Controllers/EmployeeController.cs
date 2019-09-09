@@ -77,12 +77,11 @@ namespace HRPayrolApp.Controllers
             employee.Residence = create.Residence;
             employee.PersonalityCardNumber = create.PersonalityCardNumber;
             employee.PersonalityCardEndDate = create.PersonalityCardEndDate;
-            //employee.OldWorkPlaces = create.OldWorkPlaces;
             employee.DistrictRegistration = create.DistrictRegistration;
             employee.EducationId = create.SelectedEducation;
             employee.GenderId = create.SelectedGender;
             employee.MaritalStatusId = create.SelectedMarital;
-            //employee.Image = fileName;
+          
 
            
             await _dbContext.Employees.AddAsync(employee);
@@ -90,6 +89,19 @@ namespace HRPayrolApp.Controllers
             return RedirectToAction(nameof(EmployeeList));
         }
 
+        [HttpGet]
+        public async Task<IActionResult> AddWorkPlace(int id)
+        {
+            var employe =await _dbContext.Employees.FindAsync(id);
+            return View();
+        }
+
+        [HttpPost,ValidateAntiForgeryToken]
+        public async Task<IActionResult> AddWorkPlace(Employee employee)
+        {
+
+            return View();
+        }
 
         [HttpGet]
         public async Task<IActionResult> EmployeeList()

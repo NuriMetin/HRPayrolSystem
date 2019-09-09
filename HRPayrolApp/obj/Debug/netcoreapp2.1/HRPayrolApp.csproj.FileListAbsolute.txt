@@ -38,6 +38,6 @@ M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\HRPayrolApp\obj\D
 M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\HRPayrolApp\obj\Debug\netcoreapp2.1\Razor\Views\Employee\Edit.g.cshtml.cs
 M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\HRPayrolApp\obj\Debug\netcoreapp2.1\Razor\Views\Worker\AddBonus.g.cshtml.cs
 M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\HRPayrolApp\obj\Debug\netcoreapp2.1\Razor\Views\Worker\AddAbsens.g.cshtml.cs
-M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\HRPayrolApp\obj\Debug\netcoreapp2.1\HRPayrolApp.csprojAssemblyReference.cache
 M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\HRPayrolApp\obj\Debug\netcoreapp2.1\Razor\Views\Worker\CalculateSalary.g.cshtml.cs
 M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\HRPayrolApp\obj\Debug\netcoreapp2.1\Razor\Views\Worker\WorkerSalary.g.cshtml.cs
+M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\HRPayrolApp\obj\Debug\netcoreapp2.1\Razor\Views\Employee\AddWorkPlace.g.cshtml.cs

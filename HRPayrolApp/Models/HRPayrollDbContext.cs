@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using HRPayrolApp.Models.ViewModels;
 
 namespace HRPayrolApp.Models
 {
@@ -22,6 +23,7 @@ namespace HRPayrolApp.Models
         public DbSet<Gender> Genders { get; set; }
         public DbSet<MaritalStatus> MaritalStatuses { get; set; }
         public DbSet<Position> Positions { get; set; }
+        public DbSet<WorkPlace> WorkPlaces { get; set; }
         public DbSet<Store> Stores { get; set; }
         public DbSet<WorkerAbsens> WorkerAbsens { get; set; }
         public DbSet<CompanyWorkPlaceAbsens> CompanyWorkPlaceAbsens { get; set; }
@@ -32,7 +34,7 @@ namespace HRPayrolApp.Models
 
         public DbSet<CompanyWorkPlace> CompanyWorkPlaces { get; set; }
         public DbSet<Absens> Absens { get; set; }
-        public DbSet<OldWorkPlace> OldWorkPlaces { get; set; }
+      
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -68,6 +70,9 @@ namespace HRPayrolApp.Models
                 new Position { ID = 3, DepartmentId = 2, Name = "Senior Programmer", Salary = 3500 }
                 );
         }
+      
+
+        public DbSet<HRPayrolApp.Models.ViewModels.WorkPlaceViewModel> WorkPlaceViewModel { get; set; }
 
 
     }

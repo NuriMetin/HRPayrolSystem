@@ -11,6 +11,7 @@ namespace HRPayrolApp.Models.ViewModels
         public string WorkerId { get; set; }
         public string WorkerAccount { get; set; }
         public decimal Bonus { get; set; }
+        public string Position { get; set; }
         public decimal MonthlySalary { get; set; }
 
         public int ExcusableAbsens { get; set; }

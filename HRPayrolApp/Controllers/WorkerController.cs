@@ -364,31 +364,27 @@ namespace HRPayrolApp.Controllers
             return BadRequest();
         }
 
-        [HttpPost]
+        [HttpGet]
         public async Task<IActionResult> CalculateSalary(string id)
         {
             var workers =await _userManager.FindByIdAsync(id);
+            decimal bonus = _dbContext.WorkerBonus.Where(x => x.WorkerId == workers.Id).Sum(x => x.BonusSalary)
+                 + _dbContext.CompanyWorkPlaceBonus.Include(m => m.CompanyWorkPlace).Where(x => x.CompanyWorkPlace.EmployeeId == workers.EmployeeId).Select(x => x.BonusSalary).FirstOrDefault();
+            int excusableAbsens = _dbContext.WorkerAbsens.Where(x => x.AbsensId == 1).Count() + _dbContext.CompanyWorkPlaceAbsens.Where(x => x.CompanyWorkPlace.EmployeeId == workers.EmployeeId).Select(x => x.ExcusableAbsens).FirstOrDefault();
+            int unExcusableAbsens = _dbContext.WorkerAbsens.Where(x => x.AbsensId == 2).Count() + _dbContext.CompanyWorkPlaceAbsens.Where(x => x.CompanyWorkPlace.EmployeeId == workers.EmployeeId).Select(x => x.UnExcusableAbsens).FirstOrDefault();
+             decimal monthlySalary = _dbContext.Positions.Where(x => x.ID == workers.PositionId).Select(x => x.Salary).FirstOrDefault();
 
             Salary salary = new Salary
             {
                 WorkerId = workers.Id,
                 WorkerAccount = workers.Account,
-                MonthlySalary = _dbContext.Positions.Where(x => x.ID == workers.PositionId).Select(x => x.Salary).FirstOrDefault(),
-                Bonus = Convert.ToDecimal(await _dbContext.WorkerBonus.Where(x => x.WorkerId == workers.Id).Select(x => x.BonusSalary).SumAsync())
-                    + Convert.ToDecimal(_dbContext.CompanyWorkPlaceBonus.Where(x => x.CompanyWorkPlace.EmployeeId == workers.EmployeeId).Select(x => x.BonusSalary).FirstOrDefault()),
-                ExcusableAbsens = await _dbContext.WorkerAbsens.Where(x => x.WorkerId == workers.Id && x.AbsensId == 1).CountAsync(),
-                UnExcusableAbsens = await _dbContext.WorkerAbsens.Where(x => x.WorkerId == workers.Id && x.AbsensId == 2).CountAsync(),
-                AbsensCount = await _dbContext.WorkerAbsens.Where(x => x.WorkerId == workers.Id && x.AbsensId == 1).CountAsync()
-                       + await _dbContext.WorkerAbsens.Where(x => x.WorkerId == workers.Id && x.AbsensId == 2).CountAsync()
-                        + _dbContext.CompanyWorkPlaceAbsens.Include(m => m.CompanyWorkPlace).Where(m => m.CompanyWorkPlace.EmployeeId == workers.EmployeeId).Select(x => x.UnExcusableAbsens).Sum()
-                            + _dbContext.CompanyWorkPlaceAbsens.Include(m => m.CompanyWorkPlace).Where(m => m.CompanyWorkPlace.EmployeeId == workers.EmployeeId).Select(x => x.ExcusableAbsens).Sum(),
-
-                TotalSalary = (_dbContext.Positions.Where(x => x.ID == workers.PositionId).Select(x => x.Salary).FirstOrDefault()) / (
-                       await _dbContext.WorkerAbsens.Where(x => x.WorkerId == workers.Id && x.AbsensId == 2).CountAsync()
-                        + _dbContext.CompanyWorkPlaceAbsens.Include(m => m.CompanyWorkPlace).Where(m => m.CompanyWorkPlace.EmployeeId == workers.EmployeeId).Select(x => x.UnExcusableAbsens).Sum()
-                            + _dbContext.CompanyWorkPlaceAbsens.Include(m => m.CompanyWorkPlace).Where(m => m.CompanyWorkPlace.EmployeeId == workers.EmployeeId).Select(x => x.ExcusableAbsens).Sum())
-                            + Convert.ToDecimal(await _dbContext.WorkerBonus.Where(x => x.WorkerId == workers.Id).Select(x => x.BonusSalary).SumAsync())
-
+                 Position=_dbContext.Positions.Where(x=>x.ID==workers.PositionId).Select(x=>x.Name).FirstOrDefault(), 
+                MonthlySalary = monthlySalary,
+                Bonus = bonus,
+                ExcusableAbsens= excusableAbsens,
+                UnExcusableAbsens= unExcusableAbsens,
+                AbsensCount=excusableAbsens+unExcusableAbsens,
+                 TotalSalary= monthlySalary - monthlySalary / 30 * Convert.ToDecimal(unExcusableAbsens)+bonus
             };
 
             return View(salary);
@@ -401,22 +397,28 @@ namespace HRPayrolApp.Controllers
             Salary salary = new Salary
             {
                 WorkerId = workers.Id,
+
                 WorkerAccount = workers.Account,
+
                 MonthlySalary = _dbContext.Positions.Where(x => x.ID == workers.PositionId).Select(x => x.Salary).FirstOrDefault(),
+
                 Bonus = Convert.ToDecimal(await _dbContext.WorkerBonus.Where(x => x.WorkerId == workers.Id).Select(x => x.BonusSalary).SumAsync())
                     + Convert.ToDecimal(_dbContext.CompanyWorkPlaceBonus.Where(x => x.CompanyWorkPlace.EmployeeId == workers.EmployeeId).Select(x => x.BonusSalary).FirstOrDefault()),
+
                 ExcusableAbsens = await _dbContext.WorkerAbsens.Where(x => x.WorkerId == workers.Id && x.AbsensId == 1).CountAsync(),
+
                 UnExcusableAbsens = await _dbContext.WorkerAbsens.Where(x => x.WorkerId == workers.Id && x.AbsensId == 2).CountAsync(),
+
                 AbsensCount = await _dbContext.WorkerAbsens.Where(x => x.WorkerId == workers.Id && x.AbsensId == 1).CountAsync()
                        + await _dbContext.WorkerAbsens.Where(x => x.WorkerId == workers.Id && x.AbsensId == 2).CountAsync()
                         + _dbContext.CompanyWorkPlaceAbsens.Include(m => m.CompanyWorkPlace).Where(m => m.CompanyWorkPlace.EmployeeId == workers.EmployeeId).Select(x => x.UnExcusableAbsens).Sum()
                             + _dbContext.CompanyWorkPlaceAbsens.Include(m => m.CompanyWorkPlace).Where(m => m.CompanyWorkPlace.EmployeeId == workers.EmployeeId).Select(x => x.ExcusableAbsens).Sum(),
 
-                TotalSalary = (_dbContext.Positions.Where(x => x.ID == workers.PositionId).Select(x => x.Salary).FirstOrDefault()) / (
+                TotalSalary = Convert.ToDecimal((_dbContext.Positions.Where(x => x.ID == workers.PositionId).Select(x => x.Salary).FirstOrDefault()) / (
                        await _dbContext.WorkerAbsens.Where(x => x.WorkerId == workers.Id && x.AbsensId == 2).CountAsync()
                         + _dbContext.CompanyWorkPlaceAbsens.Include(m => m.CompanyWorkPlace).Where(m => m.CompanyWorkPlace.EmployeeId == workers.EmployeeId).Select(x => x.UnExcusableAbsens).Sum()
                             + _dbContext.CompanyWorkPlaceAbsens.Include(m => m.CompanyWorkPlace).Where(m => m.CompanyWorkPlace.EmployeeId == workers.EmployeeId).Select(x => x.ExcusableAbsens).Sum())
-                            + Convert.ToDecimal(await _dbContext.WorkerBonus.Where(x => x.WorkerId == workers.Id).Select(x => x.BonusSalary).SumAsync())
+                            + Convert.ToDecimal(await _dbContext.WorkerBonus.Where(x => x.WorkerId == workers.Id).Select(x => x.BonusSalary).SumAsync()))
 
             };
             return View(salary);

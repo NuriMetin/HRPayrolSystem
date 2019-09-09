@@ -107,7 +107,7 @@ using HRPayrolApp.Models.ViewModels;
             WriteLiteral("                <tr>\r\n                    <td>");
             EndContext();
             BeginContext(967, 155, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "1ddf23e31f974a4592da690873a0e7fb", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "aac3c4f5803241b98476efd0b3d35c06", async() => {
             }
             );
             __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();
@@ -244,7 +244,7 @@ AddHtmlAttributeValue("", 986, item.Image, 986, 11, false);
             WriteLiteral("</td>\r\n                    <td>\r\n                        ");
             EndContext();
             BeginContext(1744, 314, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "a94ce193c2c246a1ad354cd66fde785c", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "eaaecc714d1f48758475700ef6fd371e", async() => {
                 BeginContext(1855, 60, true);
                 WriteLiteral("\r\n                            <input type=\"hidden\" name=\"ID\"");
                 EndContext();
@@ -296,7 +296,7 @@ WriteAttributeValue("", 1923, item.ID, 1923, 8, false);
             WriteLiteral("\r\n                        ");
             EndContext();
             BeginContext(2084, 294, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "e4ee523378414b85bf08d08657347b91", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "868b8bf58428470884cf732f4582a016", async() => {
                 BeginContext(2174, 60, true);
                 WriteLiteral("\r\n                            <input type=\"hidden\" name=\"ID\"");
                 EndContext();

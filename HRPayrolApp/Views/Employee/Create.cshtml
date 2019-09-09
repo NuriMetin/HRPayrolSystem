@@ -135,10 +135,52 @@
             </div>
             <div class="col-md-3">
                 <div id="imgPreview">
-                    <img src=""  style="display:block; border:1px solid black; height:200px; width:100%; background-image: url(/images/no_photo.jpg); background-size:contain;" id="image">
+                    <img src="" style="display:block; border:1px solid black; height:200px; width:100%; background-image: url(/images/no_photo.jpg); background-size:contain;" id="image">
                 </div>
-                <input style="margin-top:5px";  accept="image/*" asp-for="Photo" type="file" onchange="showImage.call(this)" />
+                <input style="margin-top:5px" ; accept="image/*" asp-for="Photo" type="file" onchange="showImage.call(this)" />
                 <span class="text-danger" asp-validation-for="Photo"></span>
+                <div class="form-group">
+                    <select class="form-control" id="workplace">
+                        <option class="false" value="0">OldworkPlace</option>
+                        <option value="1">Worked</option>
+                        <option class="false" value="1">Don't Worked</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row work" style="display:none;">
+                <div >
+                  
+                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                        <div class="form-group">
+                            <label  class="control-label"></label>
+                            <input a class="form-control" />
+                            <span  class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label"></label>
+                            <input class="form-control" />
+                            <span  class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label  class="control-label"></label>
+                            <input class="form-control" />
+                            <span  class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label  class="control-label"></label>
+                            <input  class="form-control" />
+                            <span  class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <label  class="control-label"></label>
+                            <input  class="form-control" />
+                            <span  class="text-danger"></span>
+                        </div>
+                        <div class="form-group">
+                            <input type="submit" value="Create" class="btn btn-default" />
+                        </div>
+                    
+                </div>
             </div>
         </form>
     </div>
@@ -158,23 +200,23 @@
             }
         }
     </script>
+    <script>
+        $(document).on("change", "#workplace", function () {
+            var data = $("#workplace").val();
+            if (data === OldworkPlace || data === "Don't Worked") {
 
+                $(".work").show();
+
+            }
+
+
+        });
+    </script>
 }
 
 @*@section Scripts{
         @Html.Partial("_ValidationScriptsPartial")
-    <script>
-        $(document).on("change","#gender",function () {
-            var genData = $("#gender").val();
-            if (genData) {
-                $.ajax({
-                    url:"/Employee/Create",
-                    data: { genId: genData },
-                    type: "POST"
-                });
-            }
-        })
-    </script>
+
 
     }*@
 

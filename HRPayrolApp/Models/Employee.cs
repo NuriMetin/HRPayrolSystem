@@ -46,7 +46,7 @@ namespace HRPayrolApp.Models
         public int EducationId { get; set; }
         public virtual Education Education { get; set; }
 
-        public virtual ICollection<OldWorkPlace> OldWorkPlaces { get; set; }
+        public virtual ICollection<WorkPlace> WorkPlaces { get; set; }
 
         public string Image { get; set; }
 

@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29123.88
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HRPayrolApp", "HRPayrolApp\HRPayrolApp.csproj", "{48E6239F-ADB2-4256-AA95-182BB0948C0E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HRPayrolApp", "HRPayrolApp\HRPayrolApp.csproj", "{48E6239F-ADB2-4256-AA95-182BB0948C0E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BankApi", "BankApi\BankApi.csproj", "{B8917DBE-8532-4225-BD83-6CBFC57515D0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{48E6239F-ADB2-4256-AA95-182BB0948C0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{48E6239F-ADB2-4256-AA95-182BB0948C0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{48E6239F-ADB2-4256-AA95-182BB0948C0E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B8917DBE-8532-4225-BD83-6CBFC57515D0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8917DBE-8532-4225-BD83-6CBFC57515D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8917DBE-8532-4225-BD83-6CBFC57515D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8917DBE-8532-4225-BD83-6CBFC57515D0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

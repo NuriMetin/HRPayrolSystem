@@ -260,33 +260,6 @@ namespace HRPayrolApp.Migrations
                     );
                 });
 
-            modelBuilder.Entity("HRPayrolApp.Models.OldWorkPlace", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int?>("EmployeeID");
-
-                    b.Property<DateTime>("EnterDate");
-
-                    b.Property<DateTime>("LeaveDate");
-
-                    b.Property<string>("LeaveReason");
-
-                    b.Property<string>("Name");
-
-                    b.Property<string>("WorkerId");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("EmployeeID");
-
-                    b.HasIndex("WorkerId");
-
-                    b.ToTable("OldWorkPlaces");
-                });
-
             modelBuilder.Entity("HRPayrolApp.Models.Position", b =>
                 {
                     b.Property<int>("ID")
@@ -327,6 +300,27 @@ namespace HRPayrolApp.Migrations
                     b.HasIndex("CompanyID");
 
                     b.ToTable("Stores");
+                });
+
+            modelBuilder.Entity("HRPayrolApp.Models.ViewModels.WorkPlaceViewModel", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("EmployeeId");
+
+                    b.Property<DateTime>("EnterDate");
+
+                    b.Property<DateTime>("LeaveDate");
+
+                    b.Property<string>("LeaveReason");
+
+                    b.Property<string>("WorkName");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("WorkPlaceViewModel");
                 });
 
             modelBuilder.Entity("HRPayrolApp.Models.Worker", b =>
@@ -461,6 +455,29 @@ namespace HRPayrolApp.Migrations
                     b.HasIndex("WorkerId");
 
                     b.ToTable("WorkerDismisses");
+                });
+
+            modelBuilder.Entity("HRPayrolApp.Models.WorkPlace", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("EmployeeId");
+
+                    b.Property<DateTime>("EnterDate");
+
+                    b.Property<DateTime>("LeaveDate");
+
+                    b.Property<string>("LeaveReason");
+
+                    b.Property<string>("WorkName");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("EmployeeId");
+
+                    b.ToTable("WorkPlaces");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -633,17 +650,6 @@ namespace HRPayrolApp.Migrations
                         .HasForeignKey("WorkerId");
                 });
 
-            modelBuilder.Entity("HRPayrolApp.Models.OldWorkPlace", b =>
-                {
-                    b.HasOne("HRPayrolApp.Models.Employee")
-                        .WithMany("OldWorkPlaces")
-                        .HasForeignKey("EmployeeID");
-
-                    b.HasOne("HRPayrolApp.Models.Worker", "Worker")
-                        .WithMany("OldWorkPlaces")
-                        .HasForeignKey("WorkerId");
-                });
-
             modelBuilder.Entity("HRPayrolApp.Models.Position", b =>
                 {
                     b.HasOne("HRPayrolApp.Models.Department", "Department")
@@ -705,6 +711,14 @@ namespace HRPayrolApp.Migrations
                     b.HasOne("HRPayrolApp.Models.Worker", "Worker")
                         .WithMany("WorkerDismisses")
                         .HasForeignKey("WorkerId");
+                });
+
+            modelBuilder.Entity("HRPayrolApp.Models.WorkPlace", b =>
+                {
+                    b.HasOne("HRPayrolApp.Models.Employee", "Employee")
+                        .WithMany("WorkPlaces")
+                        .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

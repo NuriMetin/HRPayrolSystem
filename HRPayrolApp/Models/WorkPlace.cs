@@ -5,14 +5,14 @@ using System.Threading.Tasks;
 
 namespace HRPayrolApp.Models
 {
-    public class OldWorkPlace
+    public class WorkPlace
     {
         public int ID { get; set; }
-        public string Name { get; set; }
+        public string WorkName { get; set; }
         public DateTime EnterDate { get; set; }
         public string LeaveReason { get; set; }
         public DateTime LeaveDate { get; set; }
-        public string WorkerId { get; set; }
-        public virtual Worker Worker { get; set; }
+        public int EmployeeId { get; set; }
+        public virtual Employee Employee { get; set; }
     }
 }
