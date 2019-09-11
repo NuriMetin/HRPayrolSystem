@@ -22,10 +22,21 @@ namespace BankApi.Controllers
         }
         // GET: api/Salary
         [HttpGet]
-        public async Task<IEnumerable<Card>> Get()
+        public async Task<IEnumerable<SalaryModel>> Get()
         {
-            var cards = await _dbContext.Cards.ToListAsync();
-            return cards;
+            var card = await _dbContext.Cards.Select(x=> new SalaryModel{
+                 IDCardNumber=x.User.IDCardNumber,
+                  Balance=x.Balans
+            }).ToListAsync();
+           // var user = await _dbContext.Users.ToListAsync();
+            //SalaryModel model = new SalaryModel
+            //{
+            //    Balance = card.Balans,
+            //    CardNumber = card.CardNumber,
+            //    IDCardNumber =_dbContext.Users.Where(x=>x.ID==card.UserId).Select(x=>x.IDCardNumber).FirstOrDefault()
+
+            //};
+            return card;
         }
 
         // GET: api/Salary/5
@@ -39,11 +50,8 @@ namespace BankApi.Controllers
             {
                 Balance = card.Balans,
                 CardNumber = card.CardNumber,
-                IDCardNumber = user.IDCardNumber,
-                CVC = card.CVC,
-                IDCardFincode = user.IDcardFincode,
-                Name = user.Name,
-                Surname = user.Surname
+                IDCardNumber = user.IDCardNumber
+               
             };
 
             return model;

@@ -12,7 +12,8 @@ namespace HRPayrolApp.Models.ViewModels
         public string Name { get; set; }
         public string Surname { get; set; }
         public string Position { get; set; }
-
+        public DateTime OldCalcdate { get; set; }
+        public decimal TotalSalary { get; set; }
         public string Department { get; set; }
         public IEnumerable<Employee> Employees{ get; set; }
         public int SelectedEmployee { get; set; }
@@ -32,6 +33,8 @@ namespace HRPayrolApp.Models.ViewModels
         public string Password { get; set; }
 
         public DateTime ChangedPositionDate { get; set; }
+
+        public List<AvialableWorker> AvialableWorkers { get; set; }
         //[DataType(DataType.Password)]
         //[Compare(nameof(Password))]
         //public string ConfirmPassword { get; set; }

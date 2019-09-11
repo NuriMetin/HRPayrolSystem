@@ -1,4 +1,4 @@
-﻿@model Salary
+﻿@model SalaryViewModel
 @{
     ViewData["Title"] = "CalculateSalary";
 }
@@ -48,6 +48,11 @@
                 <label class="control-label" asp-for="TotalSalary"></label>
                 <input class="form-control" asp-for="TotalSalary" />
                 <span class="text-danger" asp-validation-for="TotalSalary"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label" asp-for="SalaryFromBank"></label>
+                <input class="form-control" asp-for="SalaryFromBank" />
+                <span class="text-danger" asp-validation-for="SalaryFromBank"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Enter" class="btn btn-warning" />

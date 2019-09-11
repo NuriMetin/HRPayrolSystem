@@ -5,7 +5,7 @@
 
 <h2>WorkerList</h2>
 
-<div class="container">
+<div class="col-md-12">
     <div>
         <table class="table">
             <thead>
@@ -32,22 +32,14 @@
                         <td>
                             @if (User.IsInRole(SD.HR.ToString()))
                             {
-                                <form asp-action="AddBonus" asp-controller="Worker" method="get" asp-route-id="@item.WorkerId" class="form-horizontal">
-                                    <input type="hidden" name="ID" value="@item.WorkerId" />
-                                    <input type="submit" value="Add Bonus" class="btn btn-warning" />
-                                </form>
-                                <form style="margin-top:5px;" asp-action="AddAbsens" asp-controller="Worker" method="get" asp-route-id="@item.WorkerId" class="form-horizontal">
-                                    <input type="hidden" name="ID" value="@item.WorkerId" />
-                                    <input type="submit" value="Add Absens" class="btn btn-danger" />
-                                </form>
-                                <form style="margin-top:5px;" asp-action="CalculateSalary" asp-controller="Worker" method="get" asp-route-id="@item.WorkerId" class="form-horizontal">
-                                    <input type="hidden" name="ID" value="@item.WorkerId" />
-                                    <input type="submit" value="Calculate" class="btn btn-danger" />
-                                </form>
+                                <a asp-action="AddBonus" asp-controller="Worker" asp-route-id="@item.WorkerId">Add Bonus |</a>
+                                <a asp-action="AddAbsens" asp-controller="Worker" asp-route-id="@item.WorkerId">Add Absens |</a>
+                                <a asp-action="CalculateSalary" asp-controller="Worker" asp-route-id="@item.WorkerId">Calculate</a>
                             }
 
                             @if (User.IsInRole(SD.PayrollSpecalist.ToString()))
                             {
+
                                 <form asp-action="Edit" asp-controller="Worker" method="get" asp-route-id="@item.WorkerId" class="form-horizontal">
                                     <input type="hidden" name="ID" value="@item.WorkerId" />
                                     <input type="submit" value="Edit" class="btn btn-warning" />

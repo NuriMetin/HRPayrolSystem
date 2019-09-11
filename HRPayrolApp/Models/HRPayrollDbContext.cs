@@ -12,7 +12,7 @@ namespace HRPayrolApp.Models
     {
         public HRPayrollDbContext(DbContextOptions<HRPayrollDbContext> dbContextOptions) : base(dbContextOptions) { }
 
-        //public DbSet<Bonus> Bonus { get; set; }
+        public DbSet<Salary> Salaries { get; set; }
         public DbSet<Company> Companies { get; set; }
         public DbSet<Department> Departments { get; set; }
         public DbSet<WorkerDismiss> WorkerDismisses { get; set; }

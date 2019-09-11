@@ -21,6 +21,8 @@ namespace HRPayrolApp.Models
 
         public virtual ICollection<Escape> Escapes { get; set; }
 
+        public virtual ICollection<WorkerAbsens> WorkerAbsens { get; set; }
+
         public virtual ICollection<WorkerDismiss> WorkerDismisses { get; set; }
 
 

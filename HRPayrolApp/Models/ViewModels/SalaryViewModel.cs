@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace HRPayrolApp.Models.ViewModels
 {
-    public class Salary
+    public class SalaryViewModel
     {
         public int ID { get; set; }
         public string WorkerId { get; set; }
@@ -13,12 +13,10 @@ namespace HRPayrolApp.Models.ViewModels
         public decimal Bonus { get; set; }
         public string Position { get; set; }
         public decimal MonthlySalary { get; set; }
-
         public int ExcusableAbsens { get; set; }
-
         public int UnExcusableAbsens { get; set; }
-
         public int AbsensCount { get; set; }
+        public int SalaryFromBank { get; set; }
         public decimal TotalSalary { get; set; }
     }
 }
