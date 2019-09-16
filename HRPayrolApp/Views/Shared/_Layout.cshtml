@@ -6,7 +6,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - HRPayrolApp</title>
-
+    <script src="~/js/index.js"></script>
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="~/css/site.css" />
@@ -39,7 +39,7 @@
                             <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
                             <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
                             var data = await _userManager.FindByNameAsync(User.Identity.Name);
-                            <li><a >Salam @data.Account</a></li>
+                            <li><a>Salam @data.Account</a></li>
                             <li><a asp-controller="Account" asp-action="Logout">Logout</a></li>
                         }
                         else
@@ -47,7 +47,7 @@
                             <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
                             <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
                             <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
-                            <li><a asp-area="" asp-controller="Account" asp-action="Login">Login</a></li>
+                            <li><a asp-area="" asp-controller="Account" asp-action="Login" id="signUp">Login</a></li>
                         }
                     }
                 </ul>
@@ -75,7 +75,7 @@
             </div>
         </div>
     </nav>
-
+   
     <partial name="_CookieConsentPartial" />
 
     <div class="container body-content">

@@ -9,11 +9,13 @@ namespace HRPayrolApp.Models.ViewModels
     public class WorkersViewModel
     {
         public string WorkerId { get; set; }
+        public int EmployeeId { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
         public string Position { get; set; }
         public DateTime OldCalcdate { get; set; }
         public decimal TotalSalary { get; set; }
+        public DateTime CalculatedDate { get; set; }
         public string Department { get; set; }
         public IEnumerable<Employee> Employees{ get; set; }
         public int SelectedEmployee { get; set; }

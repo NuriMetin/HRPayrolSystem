@@ -1,0 +1,10 @@
+M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\UseApi\bin\Debug\netcoreapp2.1\UseApi.deps.json
+M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\UseApi\bin\Debug\netcoreapp2.1\UseApi.runtimeconfig.json
+M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\UseApi\bin\Debug\netcoreapp2.1\UseApi.runtimeconfig.dev.json
+M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\UseApi\bin\Debug\netcoreapp2.1\UseApi.dll
+M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\UseApi\bin\Debug\netcoreapp2.1\UseApi.pdb
+M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\UseApi\obj\Debug\netcoreapp2.1\UseApi.csproj.CoreCompileInputs.cache
+M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\UseApi\obj\Debug\netcoreapp2.1\UseApi.AssemblyInfoInputs.cache
+M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\UseApi\obj\Debug\netcoreapp2.1\UseApi.AssemblyInfo.cs
+M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\UseApi\obj\Debug\netcoreapp2.1\UseApi.dll
+M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\UseApi\obj\Debug\netcoreapp2.1\UseApi.pdb

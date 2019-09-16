@@ -10,6 +10,7 @@ namespace HRPayrolApp.Models.ViewModels
         public int ID { get; set; }
         public string WorkerId { get; set; }
         public string WorkerAccount { get; set; }
+        public string IDCardNumber { get; set; }
         public decimal Bonus { get; set; }
         public string Position { get; set; }
         public decimal MonthlySalary { get; set; }

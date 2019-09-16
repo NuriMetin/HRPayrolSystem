@@ -20,6 +20,9 @@ using HRPayrolApp.Helper;
 using System.Net.Http;
 using Newtonsoft.Json;
 using RestSharp;
+using System.Net.Http.Headers;
+using System.Net.Http.Formatting;
+using NUnit.Framework;
 
 namespace HRPayrolApp.Controllers
 {
@@ -374,19 +377,22 @@ namespace HRPayrolApp.Controllers
             var workers = await _userManager.FindByIdAsync(id);
             var calcDate = await _dbContext.Salaries.Where(x=>x.EmployeeId==workers.EmployeeId).Select(x=>x.CalculatedDate).FirstOrDefaultAsync();
 
-            //var dateNow = DateTime.Now;
-            //if (calcDate.Year == dateNow.Year && calcDate.Month==dateNow.Month)
-            //{
-            //    return Content("Calculated");
-            //}
-
             decimal bonus = _dbContext.WorkerBonus.Where(x => x.WorkerId == workers.Id).Sum(x => x.BonusSalary)
                  + _dbContext.CompanyWorkPlaceBonus.Include(m => m.CompanyWorkPlace).Where(x => x.CompanyWorkPlace.EmployeeId == workers.EmployeeId).Select(x => x.BonusSalary).FirstOrDefault();
             int excusableAbsens = _dbContext.WorkerAbsens.Where(y => y.AbsensId == 1 && y.WorkerId==workers.Id).Count() + _dbContext.CompanyWorkPlaceAbsens.Where(y => y.CompanyWorkPlace.EmployeeId == workers.EmployeeId).Select(y => y.ExcusableAbsens).FirstOrDefault();
             int unExcusableAbsens = _dbContext.WorkerAbsens.Where(y => y.AbsensId == 2  && y.WorkerId == workers.Id).Count() + _dbContext.CompanyWorkPlaceAbsens.Where(y => y.CompanyWorkPlace.EmployeeId == workers.EmployeeId).Select(y => y.UnExcusableAbsens).FirstOrDefault();
             decimal monthlySalary = _dbContext.Positions.Where(y => y.ID == workers.PositionId).Select(y => y.Salary).FirstOrDefault();
 
-            
+            List<SalaryModel> salaryModels = new List<SalaryModel>();
+            HttpClient client = _api.Initial();
+            HttpResponseMessage res = await client.GetAsync("api/Salary");
+            if (res.IsSuccessStatusCode)
+            {
+                var result = res.Content.ReadAsStringAsync().Result;
+                salaryModels = JsonConvert.DeserializeObject<List<SalaryModel>>(result);
+            }
+
+
             SalaryViewModel salaryViewModel = new SalaryViewModel
             {
                 WorkerId = workers.Id,
@@ -397,7 +403,8 @@ namespace HRPayrolApp.Controllers
                 ExcusableAbsens= excusableAbsens,
                 UnExcusableAbsens= unExcusableAbsens,
                 AbsensCount=excusableAbsens+unExcusableAbsens,
-                 TotalSalary = monthlySalary - monthlySalary / 30 * Convert.ToDecimal(unExcusableAbsens)+bonus
+                 TotalSalary = monthlySalary - monthlySalary / 30 * Convert.ToDecimal(unExcusableAbsens)+bonus,
+                  IDCardNumber=_dbContext.Employees.Where(x=>x.ID==workers.EmployeeId).Select(x=>x.PersonalityCardNumber).FirstOrDefault()
                  //SalaryFromBank=Convert.ToDecimal(data)
             };
 
@@ -408,12 +415,47 @@ namespace HRPayrolApp.Controllers
                 TotalSalary = salaryViewModel.TotalSalary
             };
 
+
+            
             _dbContext.Salaries.Add(salary);
             _dbContext.SaveChanges();
+
+            SalaryViewModel salaryView = new SalaryViewModel
+            {
+                IDCardNumber = salaryModels.Where(x => x.IDCardNumber == salaryViewModel.IDCardNumber).Select(x => x.IDCardNumber).FirstOrDefault(),
+                TotalSalary = salaryViewModel.TotalSalary
+            };
+
+            using (HttpClient httpClient = new HttpClient())
+            {
+                string jsonString = JsonConvert.SerializeObject(salaryView);
+                var requestUrl = new Uri("http://localhost:53756/api/salary/" + salaryView.IDCardNumber.ToString());
+                using (HttpContent httpContent = new StringContent(jsonString))
+                {
+                    httpContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+                    HttpResponseMessage response = httpClient.PutAsync(requestUrl, httpContent).Result;
+                }
+
+            }
 
             return View(salaryViewModel);
         }
 
+        [HttpPost, ValidateAntiForgeryToken]
+        public async Task<IActionResult> CalculateSalary(string id, SalaryViewModel salaryViewModel)
+        {
+            using (HttpClient httpClient = new HttpClient())
+            {
+                string jsonString = JsonConvert.SerializeObject(salaryViewModel);
+                var requestUrl = new Uri("http://localhost:53756/api/salary/" + salaryViewModel.IDCardNumber);
+                using (HttpContent httpContent = new StringContent(jsonString))
+                {
+                    httpContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+                    HttpResponseMessage response = httpClient.PutAsync(requestUrl, httpContent).Result;
+                }
+                return RedirectToAction(nameof(WorkerList));
+            }
+        }
         public async Task<IActionResult> WorkerSalary()
         {
             var item = await _dbContext.Users.ToListAsync();
@@ -425,6 +467,7 @@ namespace HRPayrolApp.Controllers
                 Email = x.Email,
                 ID = x.Id,
                 Name = _dbContext.Employees.Where(y => y.Worker.Id == x.Id).Select(y => y.Name).FirstOrDefault(),
+                 IDCardNumber= _dbContext.Employees.Where(y => y.Worker.Id == x.Id).Select(y => y.PersonalityCardNumber).FirstOrDefault(),
                 Surname = _dbContext.Employees.Where(y => y.Worker.Id == x.Id).Select(y => y.Surname).FirstOrDefault(),
                 Position = _dbContext.Positions.Where(y => y.ID == x.PositionId).Select(y => y.Name).FirstOrDefault(),
                 IsChecked = false,
@@ -470,22 +513,48 @@ namespace HRPayrolApp.Controllers
         public async Task<IActionResult> WorkerSalary(WorkerView workerView, SalaryModel salaryModel)
         {
             List<Salary> salary = new List<Salary>();
-            
-            
+            List<SalaryForApi> salaryForApis = new List<SalaryForApi>();
+
+            List<WorkersViewModel> workersViewModels = new List<WorkersViewModel>();
+
             foreach (var item in workerView.AvialableWorkers)
             {
              
                 if (item.IsChecked == true && item.OldCalculate.Year != DateTime.Now.Year && item.OldCalculate.Month != DateTime.Now.Month)
                 {   
-                     salary.Add(new Salary() { EmployeeId = item.EmployeeId, TotalSalary = item.TotalSalary, CalculatedDate = DateTime.Now });   
+                     salary.Add(new Salary() { EmployeeId = item.EmployeeId, TotalSalary = item.TotalSalary, CalculatedDate = DateTime.Now });
+                    salaryForApis.Add(new SalaryForApi() { IDCardNumber = item.IDCardNumber, Balance = item.TotalSalary});
                 }
-              
+                //else if (item.IsChecked == true && item.OldCalculate.Year == DateTime.Now.Year && item.OldCalculate.Month == DateTime.Now.Month)
+                //{
+                //    workersViewModels.Add(new WorkersViewModel() { EmployeeId = item.EmployeeId, TotalSalary = item.TotalSalary, CalculatedDate = item.OldCalculate });
+                //}
             }
+       
+            using (HttpClient httpClient = new HttpClient())
+            {
+                string jsonString = JsonConvert.SerializeObject(salaryForApis);
+                var requestUrl = new Uri("http://localhost:53756/api/salary?salary=" + jsonString);
+                
+                using (HttpContent httpContent = new StringContent(jsonString))
+                {
+                    httpContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+                    HttpResponseMessage response = httpClient.PutAsync(requestUrl, httpContent).Result;
+                   // Assert.AreEqual(HttpStatusCode.NoContent, response.StatusCode);
+                }
 
+            }
+            
             _dbContext.Salaries.AddRange(salary);
 
             await _dbContext.SaveChangesAsync();
+
+            //if (workersViewModels == null)
+            //{
+            //    return RedirectToAction(nameof(WorkerSalary));
+            //}
             return RedirectToAction(nameof(WorkerSalary));
+
         }
     }
 }

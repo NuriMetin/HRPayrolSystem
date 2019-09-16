@@ -26,7 +26,7 @@ namespace HRPayrolApp.Models.ViewModels
 
         public int AbsensCount { get; set; }
         public decimal TotalSalary { get; set; }
-
+        public string IDCardNumber { get; set; }
         public DateTime OldCalculate { get; set; }
 
         public bool IsChecked { get; set; }

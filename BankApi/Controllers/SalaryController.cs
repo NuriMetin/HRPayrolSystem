@@ -8,6 +8,7 @@ using BankApi.Models.ViewModel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 
 namespace BankApi.Controllers
 {
@@ -20,7 +21,7 @@ namespace BankApi.Controllers
         {
             _dbContext = dbContext;
         }
-        // GET: api/Salary
+        
         [HttpGet]
         public async Task<IEnumerable<SalaryModel>> Get()
         {
@@ -28,14 +29,7 @@ namespace BankApi.Controllers
                  IDCardNumber=x.User.IDCardNumber,
                   Balance=x.Balans
             }).ToListAsync();
-           // var user = await _dbContext.Users.ToListAsync();
-            //SalaryModel model = new SalaryModel
-            //{
-            //    Balance = card.Balans,
-            //    CardNumber = card.CardNumber,
-            //    IDCardNumber =_dbContext.Users.Where(x=>x.ID==card.UserId).Select(x=>x.IDCardNumber).FirstOrDefault()
 
-            //};
             return card;
         }
 
@@ -51,7 +45,7 @@ namespace BankApi.Controllers
                 Balance = card.Balans,
                 CardNumber = card.CardNumber,
                 IDCardNumber = user.IDCardNumber
-               
+
             };
 
             return model;
@@ -63,36 +57,59 @@ namespace BankApi.Controllers
         {
         }
 
+        #region MultiplePutt
         // PUT: api/Salary/5
-        [HttpPut("{id}")]
-        public async Task<ActionResult> Put(string id, [FromBody] SalaryModel salary)
+        [HttpPut]
+       // [ActionName("putname")]
+        public async Task<ActionResult> Put(string salary)
         {
-            var card =await _dbContext.Cards.Where(x => x.User.IDCardNumber == id).FirstOrDefaultAsync();
+            List<SalaryModel> salaryList = JsonConvert.DeserializeObject<List<SalaryModel>>(salary);
 
-            if (!_dbContext.Cards.Any(p => p.User.IDCardNumber == id))
+           
+           // List<Card> card = new List<Card>();
+            var Cards = _dbContext.Cards.ToList();
+            foreach (var item in salaryList)
             {
-                return NotFound();
+                _dbContext.Cards.Where(m => m.User.IDCardNumber == item.IDCardNumber).FirstOrDefault().Balans += item.Balance;
+                await _dbContext.SaveChangesAsync();
             }
 
-            if (id != salary.IDCardNumber)
-            {
-                return BadRequest();
-            }
-
-            decimal oldBalans = _dbContext.Cards.Where(x=>x.User.IDCardNumber==id).Select(x => x.Balans).FirstOrDefault();
-
-            card.Balans = oldBalans + salary.Balance;
-
-            _dbContext.Cards.Add(card);
-            await _dbContext.SaveChangesAsync();
+            
+           
 
             return NoContent();
         }
+        #endregion
+        // PUT: api/Salary/5
 
+        #region SinglePutt
+        //[HttpPut]
+        //public async Task<ActionResult> Put(string IdCard, [FromBody] SalaryModel salary)
+        //{
+        //    if (!_dbContext.Cards.Any(p => p.User.IDCardNumber == IdCard))
+        //    {
+        //        return NotFound();
+        //    }
+
+        //    var existingSalary = await _dbContext.Cards.FindAsync(IdCard);
+        //    if (existingSalary != null)
+        //    {
+        //        existingSalary.Balans = _dbContext.Cards.Where(x => x.User.IDCardNumber == IdCard).Select(x => x.Balans).FirstOrDefault()
+        //       + salary.Balance;
+        //        await _dbContext.SaveChangesAsync();
+        //    }
+        //    else
+        //    {
+        //        return NotFound();
+        //    }
+        //    return Ok();
+        //}
+        #endregion
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+
         }
     }
 }
