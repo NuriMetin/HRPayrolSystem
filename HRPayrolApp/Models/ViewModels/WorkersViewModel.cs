@@ -24,8 +24,8 @@ namespace HRPayrolApp.Models.ViewModels
         public int SelectedPosition { get; set; }
 
         public DateTime BeginDate { get; set; }
-        public IEnumerable<Department> Departments { get; set; }
 
+        public IEnumerable<Department> Departments { get; set; }
         public int SelectedDepartment { get; set; }
 
         [DataType(DataType.EmailAddress)]
@@ -37,8 +37,5 @@ namespace HRPayrolApp.Models.ViewModels
         public DateTime ChangedPositionDate { get; set; }
 
         public List<AvialableWorker> AvialableWorkers { get; set; }
-        //[DataType(DataType.Password)]
-        //[Compare(nameof(Password))]
-        //public string ConfirmPassword { get; set; }
     }
 }

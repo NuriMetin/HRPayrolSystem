@@ -66,7 +66,7 @@ using HRPayrolApp.Models.ViewModels;
             WriteLiteral("<div class=\"col-md-12\">\r\n    <div style=\"margin-top:10px;\">\r\n        ");
             EndContext();
             BeginContext(166, 3100, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "ee1c5b9c3e2441c5841be77dddd9b6be", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "46af7708c6a543d297a8be0d00c5c84e", async() => {
                 BeginContext(198, 1034, true);
                 WriteLiteral(@"
             <table class=""table"">

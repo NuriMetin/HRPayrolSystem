@@ -20,7 +20,6 @@ M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\HRPayrolApp\obj\D
 M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\HRPayrolApp\obj\Debug\netcoreapp2.1\Razor\Views\Employee\EmployeeList.g.cshtml.cs
 M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\HRPayrolApp\obj\Debug\netcoreapp2.1\Razor\Views\Home\About.g.cshtml.cs
 M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\HRPayrolApp\obj\Debug\netcoreapp2.1\Razor\Views\Home\Contact.g.cshtml.cs
-M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\HRPayrolApp\obj\Debug\netcoreapp2.1\Razor\Views\Home\Index.g.cshtml.cs
 M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\HRPayrolApp\obj\Debug\netcoreapp2.1\Razor\Views\Shared\Error.g.cshtml.cs
 M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\HRPayrolApp\obj\Debug\netcoreapp2.1\Razor\Views\Shared\_CookieConsentPartial.g.cshtml.cs
 M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\HRPayrolApp\obj\Debug\netcoreapp2.1\Razor\Views\Shared\_Layout.g.cshtml.cs

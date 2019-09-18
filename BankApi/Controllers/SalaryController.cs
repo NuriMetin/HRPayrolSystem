@@ -64,8 +64,6 @@ namespace BankApi.Controllers
         public async Task<ActionResult> Put(string salary)
         {
             List<SalaryModel> salaryList = JsonConvert.DeserializeObject<List<SalaryModel>>(salary);
-
-           
            // List<Card> card = new List<Card>();
             var Cards = _dbContext.Cards.ToList();
             foreach (var item in salaryList)
@@ -73,10 +71,6 @@ namespace BankApi.Controllers
                 _dbContext.Cards.Where(m => m.User.IDCardNumber == item.IDCardNumber).FirstOrDefault().Balans += item.Balance;
                 await _dbContext.SaveChangesAsync();
             }
-
-            
-           
-
             return NoContent();
         }
         #endregion

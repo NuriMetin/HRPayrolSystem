@@ -417,7 +417,7 @@ namespace HRPayrolApp.Controllers
 
 
             
-            _dbContext.Salaries.Add(salary);
+          //  _dbContext.Salaries.Add(salary);
             _dbContext.SaveChanges();
 
             SalaryViewModel salaryView = new SalaryViewModel
@@ -426,36 +426,12 @@ namespace HRPayrolApp.Controllers
                 TotalSalary = salaryViewModel.TotalSalary
             };
 
-            using (HttpClient httpClient = new HttpClient())
-            {
-                string jsonString = JsonConvert.SerializeObject(salaryView);
-                var requestUrl = new Uri("http://localhost:53756/api/salary/" + salaryView.IDCardNumber.ToString());
-                using (HttpContent httpContent = new StringContent(jsonString))
-                {
-                    httpContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-                    HttpResponseMessage response = httpClient.PutAsync(requestUrl, httpContent).Result;
-                }
-
-            }
+           
 
             return View(salaryViewModel);
         }
 
-        [HttpPost, ValidateAntiForgeryToken]
-        public async Task<IActionResult> CalculateSalary(string id, SalaryViewModel salaryViewModel)
-        {
-            using (HttpClient httpClient = new HttpClient())
-            {
-                string jsonString = JsonConvert.SerializeObject(salaryViewModel);
-                var requestUrl = new Uri("http://localhost:53756/api/salary/" + salaryViewModel.IDCardNumber);
-                using (HttpContent httpContent = new StringContent(jsonString))
-                {
-                    httpContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
-                    HttpResponseMessage response = httpClient.PutAsync(requestUrl, httpContent).Result;
-                }
-                return RedirectToAction(nameof(WorkerList));
-            }
-        }
+   
         public async Task<IActionResult> WorkerSalary()
         {
             var item = await _dbContext.Users.ToListAsync();

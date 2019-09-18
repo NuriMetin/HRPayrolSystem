@@ -21,12 +21,14 @@ namespace HRPayrolApp.Controllers
    // [Authorize(Roles = SD.HR)]
     public class EmployeeController : Controller
     {
+        private readonly UserManager<Worker> _userManager;
         private readonly HRPayrollDbContext _dbContext;
         private readonly IHostingEnvironment _env;
-        public EmployeeController(HRPayrollDbContext dbContext, IHostingEnvironment env)
+        public EmployeeController(HRPayrollDbContext dbContext, IHostingEnvironment env, UserManager<Worker> userManager)
         {
             _dbContext = dbContext;
             _env = env;
+            _userManager = userManager;
         } 
 
 
@@ -217,12 +219,21 @@ namespace HRPayrolApp.Controllers
         public async  Task<IActionResult> Delete(int? id)
         {
             var employee=await _dbContext.Employees.FindAsync(id);
-
+            var workerId = _dbContext.Users.Where(x=>employee.ID==id).Select(x=>x.Id);
             if (employee != null)
             {
                 RemoveImage(_env.WebRootPath, employee.Image);
+                var workerBonus = _dbContext.WorkerBonus.Where(x => x.WorkerId == workerId.ToString()).ToList();
+                var workerAbsens = _dbContext.WorkerAbsens.Where(x => x.WorkerId == workerId.ToString()).ToList();
+                var companyWorkPlaceBonus = _dbContext.CompanyWorkPlaceBonus.Where(x => x.CompanyWorkPlace.EmployeeId == employee.ID).ToList();
+                var companyWorkPlaceAbsens = _dbContext.CompanyWorkPlaceAbsens.Where(x => x.CompanyWorkPlace.EmployeeId == employee.ID).ToList();
+                var companyWorkPlace = _dbContext.CompanyWorkPlaces.Where(x => x.EmployeeId == employee.ID).ToList();
+
+                _dbContext.WorkerBonus.RemoveRange(workerBonus);
+                _dbContext.WorkerAbsens.RemoveRange(workerAbsens);
+                _dbContext.CompanyWorkPlaces.RemoveRange(companyWorkPlace);
                 _dbContext.Employees.Remove(employee);
-                await _dbContext.SaveChangesAsync();
+                _dbContext.SaveChanges();
                 return RedirectToAction(nameof(EmployeeList));
             }
             return BadRequest();

@@ -34,11 +34,6 @@ namespace HRPayrolApp.Controllers
 
         public IActionResult LoadAbsens(int? absensId)
         {
-            
-
-          
-            
-
             return NotFound();
         }
     }

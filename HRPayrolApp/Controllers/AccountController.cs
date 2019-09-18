@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using HRPayrolApp.Models;
 using HRPayrolApp.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -28,6 +29,7 @@ namespace HRPayrolApp.Controllers
             return Content("Boom!!!!");
         }
 
+        
         public IActionResult Login()
         {
             return View();
@@ -57,14 +59,14 @@ namespace HRPayrolApp.Controllers
                 return View(login);
             }
 
-            return Redirect("/Home/Index");
+            return Redirect("/Home/Contact");
 
         }
 
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
-            return Redirect("/Home/Index");
+            return Redirect("/Account/Login");
         }
 
     }

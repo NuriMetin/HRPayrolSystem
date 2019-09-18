@@ -171,7 +171,7 @@ using HRPayrolApp.Models.ViewModels;
             WriteLiteral("                                ");
             EndContext();
             BeginContext(1113, 94, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "2ac85a344d1a48f8a3a21eccc71b112a", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "215a78e15d03475aaf483784bc286b67", async() => {
                 BeginContext(1192, 11, true);
                 WriteLiteral("Add Bonus |");
                 EndContext();
@@ -208,7 +208,7 @@ using HRPayrolApp.Models.ViewModels;
             WriteLiteral("\r\n                                ");
             EndContext();
             BeginContext(1241, 96, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "2a2b089c199049ed8d4192d39fca7503", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "a66bd6b78d0545e2a161a0cb3c310eef", async() => {
                 BeginContext(1321, 12, true);
                 WriteLiteral("Add Absens |");
                 EndContext();
@@ -245,7 +245,7 @@ using HRPayrolApp.Models.ViewModels;
             WriteLiteral("\r\n                                ");
             EndContext();
             BeginContext(1371, 99, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "be418b6348bc46dfa2f48bbda470856c", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "e722d87c3c9543efaa0635ac1c4ecd29", async() => {
                 BeginContext(1457, 9, true);
                 WriteLiteral("Calculate");
                 EndContext();
@@ -300,7 +300,7 @@ using HRPayrolApp.Models.ViewModels;
             WriteLiteral("                                ");
             EndContext();
             BeginContext(1651, 348, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "87adef876029419085409ada921f6357", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "6ea73c203a4c411a93e792601dde10b5", async() => {
                 BeginContext(1766, 68, true);
                 WriteLiteral("\r\n                                    <input type=\"hidden\" name=\"ID\"");
                 EndContext();
@@ -352,7 +352,7 @@ WriteAttributeValue("", 1842, item.WorkerId, 1842, 14, false);
             WriteLiteral("\r\n                                ");
             EndContext();
             BeginContext(2033, 328, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "d24e2cd1b2b14e9f95f664862b145444", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "6e008eace2fd412bb3ad3491cda14737", async() => {
                 BeginContext(2127, 68, true);
                 WriteLiteral("\r\n                                    <input type=\"hidden\" name=\"ID\"");
                 EndContext();
