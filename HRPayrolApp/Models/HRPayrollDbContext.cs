@@ -15,11 +15,8 @@ namespace HRPayrolApp.Models
         public DbSet<Salary> Salaries { get; set; }
         public DbSet<Company> Companies { get; set; }
         public DbSet<Department> Departments { get; set; }
-        public DbSet<WorkerDismiss> WorkerDismisses { get; set; }
-        public DbSet<Dismiss> Dismisses { get; set; }
         public DbSet<Education> Educations { get; set; }
         public DbSet<Employee> Employees { get; set; }
-        public DbSet<Escape> Escapes { get; set; }
         public DbSet<Gender> Genders { get; set; }
         public DbSet<MaritalStatus> MaritalStatuses { get; set; }
         public DbSet<Position> Positions { get; set; }
@@ -34,11 +31,12 @@ namespace HRPayrolApp.Models
 
         public DbSet<CompanyWorkPlace> CompanyWorkPlaces { get; set; }
         public DbSet<Absens> Absens { get; set; }
-      
+
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
+
             builder.Entity<Education>().HasData(
                 new Education { EducationId = 1, EducationName = "Bakalavr" },
                 new Education { EducationId = 2, EducationName = "Magistr" }
@@ -64,6 +62,11 @@ namespace HRPayrolApp.Models
                 new Department { ID = 2, CompanyId = 1, Name = "Programmer" }
                 );
 
+            builder.Entity<Absens>().HasData(
+                new Absens { ID = 1, Name = "Excusable Absens" },
+                new Absens { ID = 2, Name = "UnExcusable Absens" }
+                );
+
             builder.Entity<Position>().HasData(
                 new Position { ID = 1, DepartmentId = 2, Name = "Junior Programmer", Salary = 1000 },
                 new Position { ID = 2, DepartmentId = 2, Name = "Middle Programmer", Salary = 1500 },
@@ -71,7 +74,6 @@ namespace HRPayrolApp.Models
                 );
         }
       
-
         public DbSet<HRPayrolApp.Models.ViewModels.WorkPlaceViewModel> WorkPlaceViewModel { get; set; }
 
 

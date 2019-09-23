@@ -75,8 +75,7 @@ namespace HRPayrolApp.Controllers
                 Account =_dbContext.Employees.Where(x=>x.ID==create.SelectedEmployee).Select(x=>x.Name).FirstOrDefault() +" "+ _dbContext.Employees.Where(x => x.ID == create.SelectedEmployee).Select(x => x.Surname).FirstOrDefault(),
                 PassText=create.Password,
                 BeginDate=create.BeginDate
-            };
-            
+            }; 
             IdentityResult result = await _userManager.CreateAsync(worker, create.Password);
             if (!result.Succeeded)
             {
@@ -89,6 +88,7 @@ namespace HRPayrolApp.Controllers
                 return View(create);
             }
             await _userManager.AddToRoleAsync(worker, Roles.Worker.ToString());
+
            // await _signInManager.SignInAsync(worker, false);
 
             System.Net.Mail.SmtpClient client = new System.Net.Mail.SmtpClient("smtp.gmail.com",587);
@@ -112,8 +112,6 @@ namespace HRPayrolApp.Controllers
      //   [Authorize(Roles = "PayrollSpecalist,HR")]
         public async Task<IActionResult> WorkerList()
         {
-            //var abCount = await _dbContext.ExcusableAbsens.Where(m=>m.ID==).CountAsync();
-
             var data = await (from work in _userManager.Users
                               join emp in _dbContext.Employees
                               on work.EmployeeId equals emp.ID
@@ -133,15 +131,6 @@ namespace HRPayrolApp.Controllers
                               }).ToListAsync();
 
             return View(data);
-
-
-            //var data = await _userManager.Users.Select(m => new WorkersViewModel
-            //{
-            //    EmployeName = m.Employee.Name,
-            //    EmployeSurname = m.Employee.Surname,
-            //    Dismiss = m.WorkerDismisses.Select(x => x.Dismiss).ToList()
-            //}).ToListAsync();
-            //return View();
         }
 
       //  [Authorize(Roles = SD.PayrollSpecalist)]
@@ -169,10 +158,9 @@ namespace HRPayrolApp.Controllers
         {
             var workers = await _userManager.FindByIdAsync(id);
 
-            var wb = await _dbContext.WorkerBonus.Where(w => w.WorkerId == id).ToListAsync();
-            var wa = await _dbContext.WorkerAbsens.Where(w => w.WorkerId == id).ToListAsync();
-
-            var workerBonus = await _dbContext.WorkerBonus.Where(w => w.WorkerId == id).FirstOrDefaultAsync();
+            string companyWorkPlaceId = $"{Path.GetRandomFileName()}_{DateTime.Now.ToString("dd_MM_yyyy_hh_mm")}";
+            string companyWorkPlaceBonusId = $"{Path.GetRandomFileName().ToLower()}_{DateTime.Now.ToString("dd_MM_yyyy_hh_mm")}";
+            string companyWorkPlaceAbsensId = $"{Path.GetRandomFileName().ToUpper()}_{DateTime.Now.ToString("dd_MM_yyyy_hh_mm")}";
 
             workersView.Departments = _dbContext.Departments.ToList();
             workersView.Employees = _dbContext.Employees.ToList();
@@ -183,54 +171,42 @@ namespace HRPayrolApp.Controllers
             workersView.Department = _dbContext.Positions.Include(m => m.Department).Where(x => x.ID == workers.PositionId).Select(m => m.Department.Name).FirstOrDefault();
             workersView.Password = workers.PassText;
 
-           var positionId = await _dbContext.Positions.Where(x => x.ID == workers.PositionId).Select(x => x.ID).FirstOrDefaultAsync();
-
-            //var WorkerBonusId = await _dbContext.WorkerBonus.Where(x => x.WorkerId == workers.Id).Select(x => x.ID).FirstOrDefaultAsync();
-            //var workerBonus = await _dbContext.WorkerBonus.FindAsync(WorkerBonusId);
-
-            string companyWorkPlaceId = $"{Path.GetRandomFileName()}_{DateTime.Now.ToString("dd_MM_yyyy_hh_mm")}";
-            string companyWorkPlaceBonusId= $"{Path.GetRandomFileName().ToLower()}_{DateTime.Now.ToString("dd_MM_yyyy_hh_mm")}";
             if (!ModelState.IsValid)
             {
                 return View(workersView);
             }
 
-            if(workersView.SelectedPosition == positionId)
+            if (workersView.SelectedPosition == workers.PositionId)
             {
                 return View(workersView);
             }
 
             CompanyWorkPlace companyWorkPlace = new CompanyWorkPlace
             {
-                ID = companyWorkPlaceId,
+                ID= companyWorkPlaceId,
                 EmployeeId = workers.EmployeeId,
                 ChangedDate = DateTime.Now,
-                PositionId = positionId
-            };
-
-            CompanyWorkPlaceBonus companyWorkPlaceBonus = new CompanyWorkPlaceBonus
-            {
-                ID = companyWorkPlaceBonusId,
-                CompanyWorkPlaceId = companyWorkPlaceId,
-                BonusSalary =await _dbContext.WorkerBonus.Where(x=>x.WorkerId==workers.Id).Select(x=>x.BonusSalary).SumAsync(),
-            };
-            CompanyWorkPlaceAbsens companyWorkPlaceAbsens = new CompanyWorkPlaceAbsens
-            {
-                CompanyWorkPlaceId = companyWorkPlaceId,
-                Date = DateTime.Now,
-                ExcusableAbsens = await _dbContext.WorkerAbsens.Where(x => x.WorkerId == workers.Id && x.AbsensId == 1).CountAsync(),
-                UnExcusableAbsens = await _dbContext.WorkerAbsens.Where(x => x.WorkerId == workers.Id && x.AbsensId == 2).CountAsync()
+                PositionId = workersView.SelectedPosition
             };
 
             _dbContext.CompanyWorkPlaces.Add(companyWorkPlace);
 
+            CompanyWorkPlaceBonus companyWorkPlaceBonus = new CompanyWorkPlaceBonus
+            {
+                ID= companyWorkPlaceBonusId,
+                CompanyWorkPlaceId = companyWorkPlaceId,
+                BonusSalary = _dbContext.WorkerBonus.Where(x => x.WorkerId == workers.Id).Select(x => x.BonusSalary).Sum()
+            };
             _dbContext.CompanyWorkPlaceBonus.Add(companyWorkPlaceBonus);
 
+            CompanyWorkPlaceAbsens companyWorkPlaceAbsens = new CompanyWorkPlaceAbsens
+            {
+                ID= companyWorkPlaceAbsensId,
+                CompanyWorkPlaceId = companyWorkPlaceId,
+                ExcusableAbsens = _dbContext.WorkerAbsens.Where(x => x.WorkerId == workers.Id && x.AbsensId == 1).Count(),
+                UnExcusableAbsens = _dbContext.WorkerAbsens.Where(x => x.WorkerId == workers.Id && x.AbsensId == 2).Count()
+            };
             _dbContext.CompanyWorkPlaceAbsens.Add(companyWorkPlaceAbsens);
-
-            _dbContext.WorkerBonus.RemoveRange(wb);
-            _dbContext.WorkerAbsens.RemoveRange(wa);
-            await _dbContext.SaveChangesAsync();
 
             Worker worker = new Worker
             {
@@ -242,23 +218,26 @@ namespace HRPayrolApp.Controllers
                 UserName = workers.UserName,
                 PositionId = workersView.SelectedPosition
             };
-         
+
+            _dbContext.WorkerBonus.RemoveRange(_dbContext.WorkerBonus.Where(x => x.WorkerId == workers.Id).ToList());
+            _dbContext.WorkerAbsens.RemoveRange(_dbContext.WorkerAbsens.Where(x => x.WorkerId == workers.Id).ToList());
+
             await _userManager.DeleteAsync(workers);
-            
-            IdentityResult result = await _userManager.CreateAsync(worker, workersView.Password);
+
+            IdentityResult result = await _userManager.CreateAsync(worker, workers.PassText);
 
             if (!result.Succeeded)
             {
-                foreach (var error in result.Errors)
+                foreach(var error in result.Errors)
                 {
                     ModelState.AddModelError("", error.Description);
                 }
             }
 
-           await _userManager.AddToRoleAsync(worker, Roles.Worker.ToString());
+            await _userManager.AddToRoleAsync(worker, Roles.Worker.ToString());
+            await _dbContext.SaveChangesAsync();
 
-           return RedirectToAction(nameof(WorkerList));
-
+            return RedirectToAction(nameof(WorkerList));
         }
 
        // [Authorize(Roles = SD.HR)]
@@ -271,12 +250,8 @@ namespace HRPayrolApp.Controllers
                 WorkerAccount = workers.Account,
                 WorkerID = workers.Id
             };
-
-
             return View(addBonus);
         }
-
-      
 
         //[Authorize(Roles = SD.HR)]
         [HttpPost, ValidateAntiForgeryToken]
@@ -300,8 +275,6 @@ namespace HRPayrolApp.Controllers
                 Reason = addBonus.Reason
             };
 
-
-            
             _dbContext.WorkerBonus.Add(bonus);
             
             _dbContext.SaveChanges();
@@ -315,11 +288,9 @@ namespace HRPayrolApp.Controllers
 
             AddAbsens addAbsens = new AddAbsens
             {
-               
-                 WorkerAccount=workers.Account,
-                  WorkerId=workers.Id,
-                   Absens=_dbContext.Absens.ToList()
-                  
+                WorkerAccount = workers.Account,
+                WorkerId = workers.Id,
+                Absens = _dbContext.Absens.ToList()
             };
 
             return View(addAbsens);
@@ -330,8 +301,6 @@ namespace HRPayrolApp.Controllers
         {
             var workers =await _userManager.FindByIdAsync(id);
 
-
-           
             addAbsens.WorkerAccount = workers.Account;
             addAbsens.WorkerId = workers.Id;
             addAbsens.Absens = _dbContext.Absens.ToList();
@@ -348,7 +317,6 @@ namespace HRPayrolApp.Controllers
                 Reason = addAbsens.Reason
             };
 
-
             await _dbContext.WorkerAbsens.AddAsync(workerAbsens);
             await _dbContext.SaveChangesAsync();
 
@@ -360,7 +328,7 @@ namespace HRPayrolApp.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(string id)
         {
-            //var user = await _userManager.Users.FindAsync(id)
+          
             var worker = await _userManager.FindByIdAsync(id);
             if (worker != null)
             {
@@ -371,84 +339,27 @@ namespace HRPayrolApp.Controllers
             return BadRequest();
         }
 
-        [HttpGet]
-        public async Task<IActionResult> CalculateSalary(string id)
-        {
-            var workers = await _userManager.FindByIdAsync(id);
-            var calcDate = await _dbContext.Salaries.Where(x=>x.EmployeeId==workers.EmployeeId).Select(x=>x.CalculatedDate).FirstOrDefaultAsync();
-
-            decimal bonus = _dbContext.WorkerBonus.Where(x => x.WorkerId == workers.Id).Sum(x => x.BonusSalary)
-                 + _dbContext.CompanyWorkPlaceBonus.Include(m => m.CompanyWorkPlace).Where(x => x.CompanyWorkPlace.EmployeeId == workers.EmployeeId).Select(x => x.BonusSalary).FirstOrDefault();
-            int excusableAbsens = _dbContext.WorkerAbsens.Where(y => y.AbsensId == 1 && y.WorkerId==workers.Id).Count() + _dbContext.CompanyWorkPlaceAbsens.Where(y => y.CompanyWorkPlace.EmployeeId == workers.EmployeeId).Select(y => y.ExcusableAbsens).FirstOrDefault();
-            int unExcusableAbsens = _dbContext.WorkerAbsens.Where(y => y.AbsensId == 2  && y.WorkerId == workers.Id).Count() + _dbContext.CompanyWorkPlaceAbsens.Where(y => y.CompanyWorkPlace.EmployeeId == workers.EmployeeId).Select(y => y.UnExcusableAbsens).FirstOrDefault();
-            decimal monthlySalary = _dbContext.Positions.Where(y => y.ID == workers.PositionId).Select(y => y.Salary).FirstOrDefault();
-
-            List<SalaryModel> salaryModels = new List<SalaryModel>();
-            HttpClient client = _api.Initial();
-            HttpResponseMessage res = await client.GetAsync("api/Salary");
-            if (res.IsSuccessStatusCode)
-            {
-                var result = res.Content.ReadAsStringAsync().Result;
-                salaryModels = JsonConvert.DeserializeObject<List<SalaryModel>>(result);
-            }
-
-
-            SalaryViewModel salaryViewModel = new SalaryViewModel
-            {
-                WorkerId = workers.Id,
-                WorkerAccount = workers.Account,
-                 Position=_dbContext.Positions.Where(x=>x.ID==workers.PositionId).Select(x=>x.Name).FirstOrDefault(), 
-                MonthlySalary = monthlySalary,
-                Bonus = bonus,
-                ExcusableAbsens= excusableAbsens,
-                UnExcusableAbsens= unExcusableAbsens,
-                AbsensCount=excusableAbsens+unExcusableAbsens,
-                 TotalSalary = monthlySalary - monthlySalary / 30 * Convert.ToDecimal(unExcusableAbsens)+bonus,
-                  IDCardNumber=_dbContext.Employees.Where(x=>x.ID==workers.EmployeeId).Select(x=>x.PersonalityCardNumber).FirstOrDefault()
-                 //SalaryFromBank=Convert.ToDecimal(data)
-            };
-
-            Salary salary = new Salary
-            {
-                EmployeeId = workers.EmployeeId,
-                CalculatedDate = DateTime.Now,
-                TotalSalary = salaryViewModel.TotalSalary
-            };
-
-
-            
-          //  _dbContext.Salaries.Add(salary);
-            _dbContext.SaveChanges();
-
-            SalaryViewModel salaryView = new SalaryViewModel
-            {
-                IDCardNumber = salaryModels.Where(x => x.IDCardNumber == salaryViewModel.IDCardNumber).Select(x => x.IDCardNumber).FirstOrDefault(),
-                TotalSalary = salaryViewModel.TotalSalary
-            };
-
-           
-
-            return View(salaryViewModel);
-        }
-
-   
         public async Task<IActionResult> WorkerSalary()
         {
-            var item = await _dbContext.Users.ToListAsync();
-            WorkerView m1 = new WorkerView();
-            m1.AvialableWorkers = item.Select(x => new AvialableWorker
+            var workers = await _dbContext.Users.ToListAsync();
+            WorkerView workerView = new WorkerView();
+            workerView.AvialableWorkers = workers.Select(x => new AvialableWorker
             {
                 Begindate = x.BeginDate,
                 Department = _dbContext.Positions.Where(y => y.ID == x.PositionId).Select(y => y.Department.Name).FirstOrDefault(),
                 Email = x.Email,
                 ID = x.Id,
                 Name = _dbContext.Employees.Where(y => y.Worker.Id == x.Id).Select(y => y.Name).FirstOrDefault(),
-                 IDCardNumber= _dbContext.Employees.Where(y => y.Worker.Id == x.Id).Select(y => y.PersonalityCardNumber).FirstOrDefault(),
+                IDCardNumber = _dbContext.Employees.Where(y => y.Worker.Id == x.Id)
+                    .Select(y => y.PersonalityCardNumber).FirstOrDefault(),
+
                 Surname = _dbContext.Employees.Where(y => y.Worker.Id == x.Id).Select(y => y.Surname).FirstOrDefault(),
                 Position = _dbContext.Positions.Where(y => y.ID == x.PositionId).Select(y => y.Name).FirstOrDefault(),
                 IsChecked = false,
-                EmployeeId=x.EmployeeId,
+                EmployeeId =x.EmployeeId,
+
                 OldCalculate=_dbContext.Salaries.Where(y=>y.EmployeeId==x.EmployeeId).Select(y=>y.CalculatedDate).FirstOrDefault(),
+
                 Bonus = _dbContext.WorkerBonus.Where(y => y.WorkerId == x.Id).Sum(y => y.BonusSalary)
                  + _dbContext.CompanyWorkPlaceBonus.Include(m => m.CompanyWorkPlace)
                     .Where(y => y.CompanyWorkPlace.EmployeeId == x.EmployeeId).Select(y => y.BonusSalary).FirstOrDefault(),
@@ -475,13 +386,13 @@ namespace HRPayrolApp.Controllers
                         .FirstOrDefault()/30*Convert.ToDecimal(_dbContext.WorkerAbsens.Where(y => y.AbsensId == 1).Count() 
                             + _dbContext.CompanyWorkPlaceAbsens.Where(y => y.CompanyWorkPlace.EmployeeId == x.EmployeeId)
                                 .Select(y => y.UnExcusableAbsens).FirstOrDefault())) 
-                                     + _dbContext.WorkerBonus.Where(y => y.WorkerId == x.Id).Sum(y => y.BonusSalary)
+                                     + _dbContext.WorkerBonus.Where(y => y.WorkerId == x.Id).Sum(y => y.BonusSalary))
                                          + _dbContext.CompanyWorkPlaceBonus.Include(m => m.CompanyWorkPlace)
-                                            .Where(y => y.CompanyWorkPlace.EmployeeId == x.EmployeeId).Select(y => y.BonusSalary).FirstOrDefault())
+                                            .Where(y => y.CompanyWorkPlace.EmployeeId == x.EmployeeId).Select(y => y.BonusSalary).FirstOrDefault()
 
             }).ToList();
 
-            return View(m1);
+            return View(workerView);
         }
 
 
@@ -495,16 +406,11 @@ namespace HRPayrolApp.Controllers
 
             foreach (var item in workerView.AvialableWorkers)
             {
-             
                 if (item.IsChecked == true && item.OldCalculate.Year != DateTime.Now.Year && item.OldCalculate.Month != DateTime.Now.Month)
                 {   
                      salary.Add(new Salary() { EmployeeId = item.EmployeeId, TotalSalary = item.TotalSalary, CalculatedDate = DateTime.Now });
-                    salaryForApis.Add(new SalaryForApi() { IDCardNumber = item.IDCardNumber, Balance = item.TotalSalary});
+                     salaryForApis.Add(new SalaryForApi() { IDCardNumber = item.IDCardNumber, Balance = item.TotalSalary});
                 }
-                //else if (item.IsChecked == true && item.OldCalculate.Year == DateTime.Now.Year && item.OldCalculate.Month == DateTime.Now.Month)
-                //{
-                //    workersViewModels.Add(new WorkersViewModel() { EmployeeId = item.EmployeeId, TotalSalary = item.TotalSalary, CalculatedDate = item.OldCalculate });
-                //}
             }
        
             using (HttpClient httpClient = new HttpClient())
@@ -516,21 +422,12 @@ namespace HRPayrolApp.Controllers
                 {
                     httpContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
                     HttpResponseMessage response = httpClient.PutAsync(requestUrl, httpContent).Result;
-                   // Assert.AreEqual(HttpStatusCode.NoContent, response.StatusCode);
                 }
-
             }
-            
             _dbContext.Salaries.AddRange(salary);
-
             await _dbContext.SaveChangesAsync();
 
-            //if (workersViewModels == null)
-            //{
-            //    return RedirectToAction(nameof(WorkerSalary));
-            //}
             return RedirectToAction(nameof(WorkerSalary));
-
         }
     }
 }

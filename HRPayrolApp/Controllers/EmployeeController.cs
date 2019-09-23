@@ -31,7 +31,6 @@ namespace HRPayrolApp.Controllers
             _userManager = userManager;
         } 
 
-
         public async Task<IActionResult> Create()
         {
             var createEmployee = new EmployeeViewModel
@@ -212,27 +211,33 @@ namespace HRPayrolApp.Controllers
 
         }
 
-      
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async  Task<IActionResult> Delete(int? id)
         {
             var employee=await _dbContext.Employees.FindAsync(id);
-            var workerId = _dbContext.Users.Where(x=>employee.ID==id).Select(x=>x.Id);
+            var workerId =await _dbContext.Users.Where(x=>x.EmployeeId==id).Select(x => x.Id).FirstOrDefaultAsync();
+
+            var companyWorkPlaceAbsens = _dbContext.CompanyWorkPlaceAbsens.Where(x => x.CompanyWorkPlace.EmployeeId == employee.ID).ToList();
+            var companyWorkPlaceBonus = _dbContext.CompanyWorkPlaceBonus.Where(x => x.CompanyWorkPlace.EmployeeId == employee.ID).ToList();
+            var companyWorkPlace = _dbContext.CompanyWorkPlaces.Where(x => x.EmployeeId == employee.ID).ToList();
+            var workerBonus = _dbContext.WorkerBonus.Where(x => x.WorkerId == workerId).ToList();
+            var workerAbsens = _dbContext.WorkerAbsens.Where(x => x.WorkerId == workerId).ToList();
+            var worker =await _userManager.FindByIdAsync(workerId);
+
             if (employee != null)
             {
-                RemoveImage(_env.WebRootPath, employee.Image);
-                var workerBonus = _dbContext.WorkerBonus.Where(x => x.WorkerId == workerId.ToString()).ToList();
-                var workerAbsens = _dbContext.WorkerAbsens.Where(x => x.WorkerId == workerId.ToString()).ToList();
-                var companyWorkPlaceBonus = _dbContext.CompanyWorkPlaceBonus.Where(x => x.CompanyWorkPlace.EmployeeId == employee.ID).ToList();
-                var companyWorkPlaceAbsens = _dbContext.CompanyWorkPlaceAbsens.Where(x => x.CompanyWorkPlace.EmployeeId == employee.ID).ToList();
-                var companyWorkPlace = _dbContext.CompanyWorkPlaces.Where(x => x.EmployeeId == employee.ID).ToList();
-
+                _dbContext.CompanyWorkPlaceAbsens.RemoveRange(companyWorkPlaceAbsens);
+                _dbContext.CompanyWorkPlaceBonus.RemoveRange(companyWorkPlaceBonus);
+                _dbContext.CompanyWorkPlaces.RemoveRange(companyWorkPlace);
                 _dbContext.WorkerBonus.RemoveRange(workerBonus);
                 _dbContext.WorkerAbsens.RemoveRange(workerAbsens);
-                _dbContext.CompanyWorkPlaces.RemoveRange(companyWorkPlace);
+
+                RemoveImage(_env.WebRootPath, employee.Image);
+
+                await _userManager.DeleteAsync(worker);
                 _dbContext.Employees.Remove(employee);
+
                 _dbContext.SaveChanges();
                 return RedirectToAction(nameof(EmployeeList));
             }

@@ -19,9 +19,6 @@ namespace HRPayrolApp.Models
 
         public virtual ICollection<CompanyWorkPlaceAbsens> CompanyWorkPlaceAbsens { get; set; }
 
-        public virtual ICollection<WorkerDismiss> WorkerDismisses { get; set; }
-
-
         public int PositionId { get; set; }
         public virtual Position Position { get; set; }
 

@@ -7,13 +7,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - HR Payroll System</title>
 
-
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.2/css/all.min.css">
-    <!-- Bootstrap core CSS-->
-    <!-- Custom fonts for this template-->
     <link href="~/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-    <!-- Custom styles for this template-->
     <link href="~/css/sb-admin.css" rel="stylesheet">
 </head>
 <body class="fixed-nav sticky-footer bg-dark" id="page-top">
@@ -21,7 +17,6 @@
     <div>
         @if (User.Identity.IsAuthenticated)
         {
-
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
                 <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -36,29 +31,16 @@
                                 </h5>
                             }
                         </li>
-                        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
-                            <a class="nav-link" href="charts.html">
-                                <i class="fa fa-fw fa-area-chart"></i>
-                                <span class="nav-link-text">Charts</span>
-                            </a>
-                        </li>
-                        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
-                            <a class="nav-link" href="tables.html">
-                                <i class="fa fa-fw fa-table"></i>
-                                <span class="nav-link-text">Tables</span>
-                            </a>
-                        </li>
-
                         @if (User.IsInRole(SD.HR.ToString()))
                         {
-                            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Example Pages">
-                                <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseExamplePages" data-parent="#exampleAccordion">
+                            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Employees">
+                                <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#HrEmployePages" data-parent="#exampleAccordion">
                                     <i class="fa fa-fw fa-file"></i>
                                     <span class="nav-link-text">Employees</span>
                                 </a>
-                                <ul class="sidenav-second-level collapse" id="collapseExamplePages">
+                                <ul class="sidenav-second-level collapse" id="HrEmployePages">
 
-                                    <li>
+                                    <li title="Add empoyee">
                                         <a asp-controller="Employee" asp-action="Create">Add employee</a>
                                     </li>
                                     <li>
@@ -66,12 +48,12 @@
                                     </li>
                                 </ul>
                             </li>
-                            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
-                                <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents" data-parent="#exampleAccordion">
+                            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Workers">
+                                <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#HrWorkerPages" data-parent="#exampleAccordion">
                                     <i class="fa fa-fw fa-wrench"></i>
                                     <span class="nav-link-text">Workers</span>
                                 </a>
-                                <ul class="sidenav-second-level collapse" id="collapseComponents">
+                                <ul class="sidenav-second-level collapse" id="HrWorkerPages">
                                     <li>
                                         <a asp-controller="Worker" asp-action="WorkerList">Look all workers</a>
                                     </li>
@@ -83,14 +65,14 @@
                         }
                         @if (User.IsInRole(SD.PayrollSpecalist.ToString()))
                         {
-                            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Example Pages">
-                                <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseExamplePages" data-parent="#exampleAccordion">
+                            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Workers">
+                                <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#PsWorkerPages" data-parent="#exampleAccordion">
                                     <i class="fa fa-fw fa-file"></i>
                                     <span class="nav-link-text">Worker</span>
                                 </a>
-                                <ul class="sidenav-second-level collapse" id="collapseExamplePages">
+                                <ul class="sidenav-second-level collapse" id="PsWorkerPages">
 
-                                    <li>
+                                    <li title="Add worker">
                                         <a asp-controller="Worker" asp-action="Create">Add worker</a>
                                     </li>
                                     <li>
@@ -98,28 +80,20 @@
                                     </li>
                                 </ul>
                             </li>
-                            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
-                                <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents" data-parent="#exampleAccordion">
+                            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Employees">
+                                <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#PsEmployeePages" data-parent="#exampleAccordion">
                                     <i class="fa fa-fw fa-wrench"></i>
                                     <span class="nav-link-text">Employee</span>
                                 </a>
-                                <ul class="sidenav-second-level collapse" id="collapseComponents">
+                                <ul class="sidenav-second-level collapse" id="PsEmployeePages">
                                     <li>
                                         <a asp-controller="Employee" asp-action="EmployeeList">Look all employees</a>
                                     </li>
                                 </ul>
                             </li>
                         }
-                        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Link">
-                            <a class="nav-link" href="#">
-                                <i class="fa fa-fw fa-link"></i>
-                                <span class="nav-link-text">Forgot Password?</span>
-                            </a>
-                        </li>
                     </ul>
                     <ul class="navbar-nav ml-auto">
-
-
                         <li class="nav-item">
                             <form class="form-inline my-2 my-lg-0 mr-lg-2">
                                 <div class="input-group">
@@ -132,7 +106,6 @@
                                 </div>
                             </form>
                         </li>
-
                         <li class="nav-item">
                             <a class="nav-link" data-toggle="modal" data-target="#exampleModal">
                                 <i class="fa fa-fw fa-sign-out"></i>Logout
@@ -144,16 +117,10 @@
             <div class="content-wrapper">
                 <div class="container-fluid">
                     <hr>
-                    <!--Page Name end-->
-                    <!-- Icon Cards-->
                     <div class="row">
                         @RenderBody();
-                        <!--___________________________________-->
-
                     </div>
                 </div>
-                <!-- /.container-fluid-->
-                <!-- /.content-wrapper-->
                 <footer class="sticky-footer">
                     <div class="container">
                         <div class="text-center">
@@ -161,7 +128,6 @@
                         </div>
                     </div>
                 </footer>
-                <!-- Scroll to Top Button-->
                 <a class="scroll-to-top rounded" href="#page-top">
                     <i class="fa fa-angle-up"></i>
                 </a>
@@ -183,15 +149,12 @@
                         </div>
                     </div>
                 </div>
-
             </div>
         }
         @if (!User.Identity.IsAuthenticated)
         {
             <div class="row">
                 @RenderBody();
-                <!--___________________________________-->
-
             </div>
         }
     </div>
@@ -199,9 +162,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.3.1/js/bootstrap.bundle.min.js"></script>
     <script src="~/lib/jquery/dist/jquery.js"></script>
     @RenderSection("Scripts", required: false)
-
-
-
 </body>
 </html>
 

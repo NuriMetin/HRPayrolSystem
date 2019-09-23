@@ -30,6 +30,11 @@ namespace HRPayrolApp.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("Absens");
+
+                    b.HasData(
+                        new { ID = 1, Name = "Excusable Absens" },
+                        new { ID = 2, Name = "UnExcusable Absens" }
+                    );
                 });
 
             modelBuilder.Entity("HRPayrolApp.Models.Company", b =>
@@ -71,13 +76,10 @@ namespace HRPayrolApp.Migrations
 
             modelBuilder.Entity("HRPayrolApp.Models.CompanyWorkPlaceAbsens", b =>
                 {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                    b.Property<string>("ID")
+                        .ValueGeneratedOnAdd();
 
                     b.Property<string>("CompanyWorkPlaceId");
-
-                    b.Property<DateTime>("Date");
 
                     b.Property<int>("ExcusableAbsens");
 
@@ -126,21 +128,6 @@ namespace HRPayrolApp.Migrations
                         new { ID = 1, CompanyId = 1, Name = "IT" },
                         new { ID = 2, CompanyId = 1, Name = "Programmer" }
                     );
-                });
-
-            modelBuilder.Entity("HRPayrolApp.Models.Dismiss", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("Date");
-
-                    b.Property<string>("Reason");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("Dismisses");
                 });
 
             modelBuilder.Entity("HRPayrolApp.Models.Education", b =>
@@ -200,25 +187,6 @@ namespace HRPayrolApp.Migrations
                     b.HasIndex("MaritalStatusId");
 
                     b.ToTable("Employees");
-                });
-
-            modelBuilder.Entity("HRPayrolApp.Models.Escape", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("EscapeDate");
-
-                    b.Property<string>("EscapeReason");
-
-                    b.Property<string>("WorkerId");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("WorkerId");
-
-                    b.ToTable("Escapes");
                 });
 
             modelBuilder.Entity("HRPayrolApp.Models.Gender", b =>
@@ -453,29 +421,6 @@ namespace HRPayrolApp.Migrations
                     b.ToTable("WorkerBonus");
                 });
 
-            modelBuilder.Entity("HRPayrolApp.Models.WorkerDismiss", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("CompanyWorkPlaceID");
-
-                    b.Property<int>("DismissId");
-
-                    b.Property<string>("WorkerId");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("CompanyWorkPlaceID");
-
-                    b.HasIndex("DismissId");
-
-                    b.HasIndex("WorkerId");
-
-                    b.ToTable("WorkerDismisses");
-                });
-
             modelBuilder.Entity("HRPayrolApp.Models.WorkPlace", b =>
                 {
                     b.Property<int>("ID")
@@ -662,13 +607,6 @@ namespace HRPayrolApp.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("HRPayrolApp.Models.Escape", b =>
-                {
-                    b.HasOne("HRPayrolApp.Models.Worker", "Worker")
-                        .WithMany("Escapes")
-                        .HasForeignKey("WorkerId");
-                });
-
             modelBuilder.Entity("HRPayrolApp.Models.Position", b =>
                 {
                     b.HasOne("HRPayrolApp.Models.Department", "Department")
@@ -721,22 +659,6 @@ namespace HRPayrolApp.Migrations
                 {
                     b.HasOne("HRPayrolApp.Models.Worker", "Worker")
                         .WithMany("WorkerBonus")
-                        .HasForeignKey("WorkerId");
-                });
-
-            modelBuilder.Entity("HRPayrolApp.Models.WorkerDismiss", b =>
-                {
-                    b.HasOne("HRPayrolApp.Models.CompanyWorkPlace")
-                        .WithMany("WorkerDismisses")
-                        .HasForeignKey("CompanyWorkPlaceID");
-
-                    b.HasOne("HRPayrolApp.Models.Dismiss", "Dismiss")
-                        .WithMany("WorkerDismisses")
-                        .HasForeignKey("DismissId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("HRPayrolApp.Models.Worker", "Worker")
-                        .WithMany("WorkerDismisses")
                         .HasForeignKey("WorkerId");
                 });
 

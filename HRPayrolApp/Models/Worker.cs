@@ -12,19 +12,13 @@ namespace HRPayrolApp.Models
     {
         public int EmployeeId { get; set; }
         public virtual Employee Employee { get; set; }
-        //public virtual ICollection<WorkerCompanyWorkPlace> CompanyWorkPlaces { get; set; }
 
         public DateTime BeginDate { get; set; }
 
         public string PassText { get; set; }
         public string Account { get; set; }
 
-        public virtual ICollection<Escape> Escapes { get; set; }
-
         public virtual ICollection<WorkerAbsens> WorkerAbsens { get; set; }
-
-        public virtual ICollection<WorkerDismiss> WorkerDismisses { get; set; }
-
 
         public int PositionId { get; set; }
         public virtual Position Position { get; set; }

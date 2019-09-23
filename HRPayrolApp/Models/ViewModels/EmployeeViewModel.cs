@@ -30,7 +30,7 @@ namespace HRPayrolApp.Models.ViewModels
         public string DistrictRegistration { get; set; }
 
         [Required]
-        [RegularExpression(@"\d{7}",ErrorMessage ="Invalid type. Must be 7 character")]
+        [RegularExpression(@"\d{8}",ErrorMessage ="Invalid type. Must be 8 character")]
         public string PersonalityCardNumber { get; set; }
 
         
