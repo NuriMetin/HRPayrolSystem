@@ -345,9 +345,7 @@ namespace HRPayrolApp.Controllers
             WorkerView workerView = new WorkerView();
             workerView.AvialableWorkers = workers.Select(x => new AvialableWorker
             {
-                Begindate = x.BeginDate,
                 Department = _dbContext.Positions.Where(y => y.ID == x.PositionId).Select(y => y.Department.Name).FirstOrDefault(),
-                Email = x.Email,
                 ID = x.Id,
                 Name = _dbContext.Employees.Where(y => y.Worker.Id == x.Id).Select(y => y.Name).FirstOrDefault(),
                 IDCardNumber = _dbContext.Employees.Where(y => y.Worker.Id == x.Id)
@@ -397,7 +395,7 @@ namespace HRPayrolApp.Controllers
 
 
         [HttpPost,ValidateAntiForgeryToken]
-        public async Task<IActionResult> WorkerSalary(WorkerView workerView, SalaryModel salaryModel)
+        public async Task<IActionResult> WorkerSalary(WorkerView workerView, SalaryModel salaryModel,string selectedDate)
         {
             List<Salary> salary = new List<Salary>();
             List<SalaryForApi> salaryForApis = new List<SalaryForApi>();
@@ -406,9 +404,9 @@ namespace HRPayrolApp.Controllers
 
             foreach (var item in workerView.AvialableWorkers)
             {
-                if (item.IsChecked == true && item.OldCalculate.Year != DateTime.Now.Year && item.OldCalculate.Month != DateTime.Now.Month)
+                if (item.IsChecked == true && item.OldCalculate != Convert.ToDateTime(selectedDate))
                 {   
-                     salary.Add(new Salary() { EmployeeId = item.EmployeeId, TotalSalary = item.TotalSalary, CalculatedDate = DateTime.Now });
+                     salary.Add(new Salary() { EmployeeId = item.EmployeeId, TotalSalary = item.TotalSalary, CalculatedDate = Convert.ToDateTime(selectedDate) });
                      salaryForApis.Add(new SalaryForApi() { IDCardNumber = item.IDCardNumber, Balance = item.TotalSalary});
                 }
             }

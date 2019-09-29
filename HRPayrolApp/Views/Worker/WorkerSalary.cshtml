@@ -5,7 +5,27 @@
 <div class="col-md-12">
     <div style="margin-top:10px; overflow-x:auto; overflow-y:auto;">
         <form asp-action="WorkerSalary">
-            <table class="table">
+            <div class="d-flex">
+                <select class="form-control col-md-3" id="selectFor">
+                    <option>Select for</option>
+                    <option value=":nth-child(9)">Name</option>
+                    <option value=":nth-child(10)">Surname</option>
+                    <option value=":nth-child(11)">Position</option>
+                    <option value=":nth-child(12)">Department</option>
+                </select>
+                <div class="form-group col-md-3">
+                    <input type="text" class="form-control" id="txtSearch" placeholder="Write..." />
+                </div>
+                <div class="form-group col-md-3">
+                    <input type="text" value="Select date"
+                           class="datepicker-here form-control"
+                           data-language='en'
+                           data-min-view="months"
+                           data-view="months"
+                           data-date-format="MM yyyy" name="selectedDate" />
+                </div>
+            </div>
+            <table class="table table-striped">
                 <thead>
                     <tr>
                         <th style="padding:0;"></th>
@@ -18,7 +38,6 @@
                         <th>Select</th>
                         <th>Name</th>
                         <th>Surname</th>
-                        <th>Email</th>
                         <th>Position</th>
                         <th>Department</th>
                         <th>Bonus</th>
@@ -31,44 +50,37 @@
                 <tbody>
                     @for (int i = 0; i < Model.AvialableWorkers.Capacity; i++)
                     {
-                    <tr>
-                        <td style="padding:0;">@Html.HiddenFor(x => Model.AvialableWorkers[i].EmployeeId)</td>
-                        <td style="padding:0;">@Html.HiddenFor(x => Model.AvialableWorkers[i].IDCardNumber)</td>
-                        <td style="padding:0;">@Html.HiddenFor(x => Model.AvialableWorkers[i].TotalSalary)</td>
-                        <td style="padding:0;">@Html.HiddenFor(x => Model.AvialableWorkers[i].OldCalculate)</td>
-                        <td style="padding:0;">@Html.HiddenFor(x => Model.AvialableWorkers[i].Name)</td>
-                        <td style="padding:0;">@Html.HiddenFor(x => Model.AvialableWorkers[i].Surname)</td>
-                        <td style="padding:0;">@Html.HiddenFor(x => Model.AvialableWorkers[i].Position)</td>z
-                        <td>
-                            @Html.CheckBoxFor(it => Model.AvialableWorkers[i].IsChecked)
-                        </td>
-                        <td>@Model.AvialableWorkers[i].Name</td>
-                        <td>@Model.AvialableWorkers[i].Surname</td>
-                        <td>@Model.AvialableWorkers[i].Email</td>
-                        <td>@Model.AvialableWorkers[i].Position</td>
-                        <td>@Model.AvialableWorkers[i].Department</td>
-                        <td>@Model.AvialableWorkers[i].Bonus</td>
-                        <td>@Model.AvialableWorkers[i].MonthlySalary</td>
-                        <td>@Model.AvialableWorkers[i].ExcusableAbsens</td>
-                        <td>@Model.AvialableWorkers[i].UnExcusableAbsens</td>
-                        <td>@Model.AvialableWorkers[i].TotalSalary</td>
-                    </tr>
+                        <tr>
+                            <td style="padding:0;">@Html.HiddenFor(x => Model.AvialableWorkers[i].EmployeeId)</td>
+                            <td style="padding:0;">@Html.HiddenFor(x => Model.AvialableWorkers[i].IDCardNumber)</td>
+                            <td style="padding:0;">@Html.HiddenFor(x => Model.AvialableWorkers[i].TotalSalary)</td>
+                            <td style="padding:0;">@Html.HiddenFor(x => Model.AvialableWorkers[i].OldCalculate)</td>
+                            <td style="padding:0;">@Html.HiddenFor(x => Model.AvialableWorkers[i].Name)</td>
+                            <td style="padding:0;">@Html.HiddenFor(x => Model.AvialableWorkers[i].Surname)</td>
+                            <td style="padding:0;">@Html.HiddenFor(x => Model.AvialableWorkers[i].Position)</td>
+                            <td>
+                                @Html.CheckBoxFor(it => Model.AvialableWorkers[i].IsChecked)
+                            </td>
+                            <td>@Model.AvialableWorkers[i].Name</td>
+                            <td>@Model.AvialableWorkers[i].Surname</td>
+                            <td>@Model.AvialableWorkers[i].Position</td>
+                            <td>@Model.AvialableWorkers[i].Department</td>
+                            <td>@Model.AvialableWorkers[i].Bonus</td>
+                            <td>@Model.AvialableWorkers[i].MonthlySalary</td>
+                            <td>@Model.AvialableWorkers[i].ExcusableAbsens</td>
+                            <td>@Model.AvialableWorkers[i].UnExcusableAbsens</td>
+                            <td>@Model.AvialableWorkers[i].TotalSalary</td>
+                        </tr>
                     }
                 </tbody>
             </table>
             <div class="form-group">
                 <input type="submit" value="Calculate" class="btn btn-default calc" />
-            </div> 
+            </div>
         </form>
     </div>
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
-<script>
-    $(document).ready(function () {
-        $(".work").hide();
-        $(".calc").click(function () {
-            $(".work").show();
-        })
-    
-    }
-</script>
+<script src="~/js/index.js"></script>
+<script src="~/dist/js/datepicker.min.js"></script>
