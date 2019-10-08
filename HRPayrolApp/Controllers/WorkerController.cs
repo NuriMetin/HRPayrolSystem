@@ -341,9 +341,21 @@ namespace HRPayrolApp.Controllers
 
         public async Task<IActionResult> WorkerSalary()
         {
-            var workers = await _dbContext.Users.ToListAsync();
-            WorkerView workerView = new WorkerView();
-            workerView.AvialableWorkers = workers.Select(x => new AvialableWorker
+            var workers = _dbContext.Users.ToList();
+            string k = "";
+            var month = DateTime.Now.Month;
+            var year = DateTime.Now.Year;
+            int daysInMonth = DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month);
+            int currentDay = DateTime.Now.Day;
+
+            var empId = _dbContext.Salaries.Where(x => x.CalculatedDate.Year == year && x.CalculatedDate.Month == month).ToList();
+            foreach (var item in empId)
+            {
+                k+=("//"+item.EmployeeId+"//");
+            }
+           
+            SalaryModel salaryModel = new SalaryModel();
+            salaryModel.AvialableWorkers = workers.Where(x=>!k.Contains("/"+x.EmployeeId+"/")).Select(x => new AvialableWorker
             {
                 Department = _dbContext.Positions.Where(y => y.ID == x.PositionId).Select(y => y.Department.Name).FirstOrDefault(),
                 ID = x.Id,
@@ -354,55 +366,54 @@ namespace HRPayrolApp.Controllers
                 Surname = _dbContext.Employees.Where(y => y.Worker.Id == x.Id).Select(y => y.Surname).FirstOrDefault(),
                 Position = _dbContext.Positions.Where(y => y.ID == x.PositionId).Select(y => y.Name).FirstOrDefault(),
                 IsChecked = false,
-                EmployeeId =x.EmployeeId,
+                EmployeeId = x.EmployeeId,
 
-                OldCalculate=_dbContext.Salaries.Where(y=>y.EmployeeId==x.EmployeeId).Select(y=>y.CalculatedDate).FirstOrDefault(),
+                OldCalculate = Convert.ToDateTime(DateTime.Now.ToShortDateString()),
 
-                Bonus = _dbContext.WorkerBonus.Where(y => y.WorkerId == x.Id).Sum(y => y.BonusSalary)
+                Bonus = _dbContext.WorkerBonus.Where(y => y.WorkerId == x.Id && y.BonusDate.Year == year && y.BonusDate.Month == month).Sum(y => y.BonusSalary)
                  + _dbContext.CompanyWorkPlaceBonus.Include(m => m.CompanyWorkPlace)
-                    .Where(y => y.CompanyWorkPlace.EmployeeId == x.EmployeeId).Select(y => y.BonusSalary).FirstOrDefault(),
+                    .Where(y => y.CompanyWorkPlace.EmployeeId == x.EmployeeId && y.CompanyWorkPlace.ChangedDate.Year == year && y.CompanyWorkPlace.ChangedDate.Month == month).Select(y => y.BonusSalary).FirstOrDefault(),
 
-                MonthlySalary = _dbContext.Positions.Where(y => y.ID == x.PositionId).Select(y => y.Salary).FirstOrDefault(),
+                MonthlySalary = _dbContext.Positions.Where(y => y.ID == x.PositionId).Select(y => y.Salary).FirstOrDefault()/daysInMonth*currentDay,
 
-                ExcusableAbsens = _dbContext.WorkerAbsens.Where(y => y.AbsensId == 1 && y.WorkerId==x.Id).Count() 
-                    + _dbContext.CompanyWorkPlaceAbsens.Where(y => y.CompanyWorkPlace.EmployeeId == x.EmployeeId)
+                ExcusableAbsens = _dbContext.WorkerAbsens.Where(y => y.AbsensId == 1 && y.WorkerId == x.Id && y.Date.Year == year && y.Date.Month == month).Count()
+                    + _dbContext.CompanyWorkPlaceAbsens.Where(y => y.CompanyWorkPlace.EmployeeId == x.EmployeeId && y.CompanyWorkPlace.ChangedDate.Year == year && y.CompanyWorkPlace.ChangedDate.Month == month)
                         .Select(y => y.ExcusableAbsens).FirstOrDefault(),
 
-                UnExcusableAbsens = _dbContext.WorkerAbsens.Where(y => y.AbsensId == 2 && y.WorkerId==x.Id).Count() 
-                    + _dbContext.CompanyWorkPlaceAbsens.Where(y => y.CompanyWorkPlace.EmployeeId == x.EmployeeId)
+                UnExcusableAbsens = _dbContext.WorkerAbsens.Where(y => y.AbsensId == 2 && y.WorkerId == x.Id && y.Date.Year == year && y.Date.Month == month).Count()
+                    + _dbContext.CompanyWorkPlaceAbsens.Where(y => y.CompanyWorkPlace.EmployeeId == x.EmployeeId && y.CompanyWorkPlace.ChangedDate.Year == year && y.CompanyWorkPlace.ChangedDate.Month == month)
                         .Select(y => y.UnExcusableAbsens).FirstOrDefault(),
 
                 AbsensCount = _dbContext.WorkerAbsens.Where(y => y.AbsensId == 1 && y.WorkerId == x.Id).Count()
                     + _dbContext.CompanyWorkPlaceAbsens.Where(y => y.CompanyWorkPlace.EmployeeId == x.EmployeeId)
-                        .Select(y => y.ExcusableAbsens).FirstOrDefault() 
+                        .Select(y => y.ExcusableAbsens).FirstOrDefault()
                             + _dbContext.WorkerAbsens.Where(y => y.AbsensId == 2 && y.WorkerId == x.Id).Count()
                                  + _dbContext.CompanyWorkPlaceAbsens.Where(y => y.CompanyWorkPlace.EmployeeId == x.EmployeeId)
                                     .Select(y => y.UnExcusableAbsens).FirstOrDefault(),
 
-                TotalSalary =Convert.ToDecimal(_dbContext.Positions.Where(y => y.ID == x.PositionId).Select(y => y.Salary)
-                    .FirstOrDefault()-(_dbContext.Positions.Where(y => y.ID == x.PositionId).Select(y => y.Salary)
-                        .FirstOrDefault()/30*Convert.ToDecimal(_dbContext.WorkerAbsens.Where(y => y.AbsensId == 1).Count() 
-                            + _dbContext.CompanyWorkPlaceAbsens.Where(y => y.CompanyWorkPlace.EmployeeId == x.EmployeeId)
-                                .Select(y => y.UnExcusableAbsens).FirstOrDefault())) 
-                                     + _dbContext.WorkerBonus.Where(y => y.WorkerId == x.Id).Sum(y => y.BonusSalary))
-                                         + _dbContext.CompanyWorkPlaceBonus.Include(m => m.CompanyWorkPlace)
-                                            .Where(y => y.CompanyWorkPlace.EmployeeId == x.EmployeeId).Select(y => y.BonusSalary).FirstOrDefault()
+                TotalSalary = (_dbContext.Positions.Where(y => y.ID == x.PositionId).Select(y => y.Salary).FirstOrDefault()/daysInMonth*currentDay - _dbContext.Positions.Where(y => y.ID == x.PositionId).Select(y => y.Salary).FirstOrDefault() / daysInMonth
+                         * _dbContext.WorkerAbsens.Where(y => y.AbsensId == 2 && y.WorkerId == x.Id && y.Date.Year == year && y.Date.Month == month).Count()
+                            + _dbContext.CompanyWorkPlaceAbsens.Where(y => y.CompanyWorkPlace.EmployeeId == x.EmployeeId && y.CompanyWorkPlace.ChangedDate.Year == year && y.CompanyWorkPlace.ChangedDate.Month == month)
+                                .Select(y => y.UnExcusableAbsens).FirstOrDefault())
+                                    + _dbContext.WorkerBonus.Where(y => y.WorkerId == x.Id && y.BonusDate.Year == year && y.BonusDate.Month == month).Sum(y => y.BonusSalary)
+                 + _dbContext.CompanyWorkPlaceBonus.Include(m => m.CompanyWorkPlace)
+                    .Where(y => y.CompanyWorkPlace.EmployeeId == x.EmployeeId && y.CompanyWorkPlace.ChangedDate.Year == year && y.CompanyWorkPlace.ChangedDate.Month == month).Select(y => y.BonusSalary).FirstOrDefault()
 
             }).ToList();
 
-            return View(workerView);
+            return View(salaryModel);
         }
 
 
         [HttpPost,ValidateAntiForgeryToken]
-        public async Task<IActionResult> WorkerSalary(WorkerView workerView, SalaryModel salaryModel,string selectedDate)
+        public async Task<IActionResult> WorkerSalary(SalaryModel salaryModel,string selectedDate)
         {
             List<Salary> salary = new List<Salary>();
             List<SalaryForApi> salaryForApis = new List<SalaryForApi>();
 
             List<WorkersViewModel> workersViewModels = new List<WorkersViewModel>();
 
-            foreach (var item in workerView.AvialableWorkers)
+            foreach (var item in salaryModel.AvialableWorkers)
             {
                 if (item.IsChecked == true && item.OldCalculate != Convert.ToDateTime(selectedDate))
                 {   
@@ -416,6 +427,104 @@ namespace HRPayrolApp.Controllers
                 string jsonString = JsonConvert.SerializeObject(salaryForApis);
                 var requestUrl = new Uri("http://localhost:53756/api/salary?salary=" + jsonString);
                 
+                using (HttpContent httpContent = new StringContent(jsonString))
+                {
+                    httpContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");
+                    HttpResponseMessage response = httpClient.PutAsync(requestUrl, httpContent).Result;
+                }
+            }
+            _dbContext.Salaries.AddRange(salary);
+            await _dbContext.SaveChangesAsync();
+
+            return RedirectToAction(nameof(WorkerSalary));
+        }
+
+        [HttpGet]
+        public IActionResult CalculateSalary(string selectedDate)
+        {
+            var date = Convert.ToDateTime(selectedDate);
+            var workers = _dbContext.Users.ToList();
+            string k = "";
+            int daysInMonth = DateTime.DaysInMonth(date.Year, date.Month);
+            var empId = _dbContext.Salaries.Where(x => x.CalculatedDate.Year == date.Year && x.CalculatedDate.Month == date.Month).ToList();
+            foreach (var item in empId)
+            {
+                k+=("//"+item.EmployeeId+"//");
+            }
+           
+            SalaryModel salaryModel = new SalaryModel();
+            salaryModel.AvialableWorkers = workers.Where(x=>!k.Contains("/"+x.EmployeeId+"/")).Select(x => new AvialableWorker
+            {
+                Department = _dbContext.Positions.Where(y => y.ID == x.PositionId).Select(y => y.Department.Name).FirstOrDefault(),
+                ID = x.Id,
+                Name = _dbContext.Employees.Where(y => y.Worker.Id == x.Id).Select(y => y.Name).FirstOrDefault(),
+                IDCardNumber = _dbContext.Employees.Where(y => y.Worker.Id == x.Id)
+                    .Select(y => y.PersonalityCardNumber).FirstOrDefault(),
+
+                Surname = _dbContext.Employees.Where(y => y.Worker.Id == x.Id).Select(y => y.Surname).FirstOrDefault(),
+                Position = _dbContext.Positions.Where(y => y.ID == x.PositionId).Select(y => y.Name).FirstOrDefault(),
+                IsChecked = false,
+                EmployeeId = x.EmployeeId,
+
+                OldCalculate = date,
+
+                Bonus = _dbContext.WorkerBonus.Where(y => y.WorkerId == x.Id && y.BonusDate.Year == date.Year && y.BonusDate.Month == date.Month).Sum(y => y.BonusSalary)
+                 + _dbContext.CompanyWorkPlaceBonus.Include(m => m.CompanyWorkPlace)
+                    .Where(y => y.CompanyWorkPlace.EmployeeId == x.EmployeeId && y.CompanyWorkPlace.ChangedDate.Year == date.Year && y.CompanyWorkPlace.ChangedDate.Month == date.Month).Select(y => y.BonusSalary).FirstOrDefault(),
+
+                MonthlySalary = _dbContext.Positions.Where(y => y.ID == x.PositionId).Select(y => y.Salary).FirstOrDefault(),
+
+                ExcusableAbsens = _dbContext.WorkerAbsens.Where(y => y.AbsensId == 1 && y.WorkerId == x.Id && y.Date.Year == date.Year && y.Date.Month == date.Month).Count()
+                    + _dbContext.CompanyWorkPlaceAbsens.Where(y => y.CompanyWorkPlace.EmployeeId == x.EmployeeId && y.CompanyWorkPlace.ChangedDate.Year == date.Year && y.CompanyWorkPlace.ChangedDate.Month == date.Month)
+                        .Select(y => y.ExcusableAbsens).FirstOrDefault(),
+
+                UnExcusableAbsens = _dbContext.WorkerAbsens.Where(y => y.AbsensId == 2 && y.WorkerId == x.Id && y.Date.Year == date.Year && y.Date.Month == date.Month).Count()
+                    + _dbContext.CompanyWorkPlaceAbsens.Where(y => y.CompanyWorkPlace.EmployeeId == x.EmployeeId && y.CompanyWorkPlace.ChangedDate.Year == date.Year && y.CompanyWorkPlace.ChangedDate.Month == date.Month)
+                        .Select(y => y.UnExcusableAbsens).FirstOrDefault(),
+
+                AbsensCount = _dbContext.WorkerAbsens.Where(y => y.AbsensId == 1 && y.WorkerId == x.Id).Count()
+                    + _dbContext.CompanyWorkPlaceAbsens.Where(y => y.CompanyWorkPlace.EmployeeId == x.EmployeeId)
+                        .Select(y => y.ExcusableAbsens).FirstOrDefault()
+                            + _dbContext.WorkerAbsens.Where(y => y.AbsensId == 2 && y.WorkerId == x.Id).Count()
+                                 + _dbContext.CompanyWorkPlaceAbsens.Where(y => y.CompanyWorkPlace.EmployeeId == x.EmployeeId)
+                                    .Select(y => y.UnExcusableAbsens).FirstOrDefault(),
+
+                TotalSalary = (_dbContext.Positions.Where(y => y.ID == x.PositionId).Select(y => y.Salary).FirstOrDefault() - _dbContext.Positions.Where(y => y.ID == x.PositionId).Select(y => y.Salary).FirstOrDefault() / daysInMonth
+                         * _dbContext.WorkerAbsens.Where(y => y.AbsensId == 2 && y.WorkerId == x.Id && y.Date.Year == date.Year && y.Date.Month == date.Month).Count()
+                            + _dbContext.CompanyWorkPlaceAbsens.Where(y => y.CompanyWorkPlace.EmployeeId == x.EmployeeId && y.CompanyWorkPlace.ChangedDate.Year == date.Year && y.CompanyWorkPlace.ChangedDate.Month == date.Month)
+                                .Select(y => y.UnExcusableAbsens).FirstOrDefault())
+                                    + _dbContext.WorkerBonus.Where(y => y.WorkerId == x.Id && y.BonusDate.Year == date.Year && y.BonusDate.Month == date.Month).Sum(y => y.BonusSalary)
+                 + _dbContext.CompanyWorkPlaceBonus.Include(m => m.CompanyWorkPlace)
+                    .Where(y => y.CompanyWorkPlace.EmployeeId == x.EmployeeId && y.CompanyWorkPlace.ChangedDate.Year == date.Year && y.CompanyWorkPlace.ChangedDate.Month == date.Month).Select(y => y.BonusSalary).FirstOrDefault()
+
+            }).ToList();
+
+            return View(salaryModel);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CalculateSalary(SalaryModel salaryModel)
+        {
+            List<Salary> salary = new List<Salary>();
+            List<SalaryForApi> salaryForApis = new List<SalaryForApi>();
+
+            List<WorkersViewModel> workersViewModels = new List<WorkersViewModel>();
+
+            foreach (var item in salaryModel.AvialableWorkers)
+            {
+                if (item.IsChecked == true )
+                {
+                    salary.Add(new Salary() { EmployeeId = item.EmployeeId, TotalSalary = item.TotalSalary, CalculatedDate = item.OldCalculate });
+                    salaryForApis.Add(new SalaryForApi() { IDCardNumber = item.IDCardNumber, Balance = item.TotalSalary });
+                }
+            }
+
+            using (HttpClient httpClient = new HttpClient())
+            {
+                string jsonString = JsonConvert.SerializeObject(salaryForApis);
+                var requestUrl = new Uri("http://localhost:53756/api/salary?salary=" + jsonString);
+
                 using (HttpContent httpContent = new StringContent(jsonString))
                 {
                     httpContent.Headers.ContentType = new MediaTypeHeaderValue("application/json");

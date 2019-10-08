@@ -1,10 +1,21 @@
-﻿@model IEnumerable<EmployeList>
+﻿@model IEnumerable<EmployeeViewModel>
 @{
     ViewData["Title"] = "EmployeeList";
 }
 <div class="container">
     <div style="overflow-x:auto;">
-        <table class="table">
+        <div class="d-flex">
+            <select class="form-control col-md-3" id="selectFor">
+                <option>Select for</option>
+                <option value=":nth-child(2)">Name</option>
+                <option value=":nth-child(3)">Surname</option>
+                <option value=":nth-child(4)">Father Name</option>
+            </select>
+            <div class="form-group col-md-3">
+                <input type="text" class="form-control" id="txtSearch" placeholder="Employee name" />
+            </div>
+        </div>
+        <table class="table table-striped">
             <thead>
                 <tr>
                     <th>Image</th>
@@ -13,31 +24,31 @@
                     <th>Father Name</th>
                     <th>Born</th>
                     <th>Education</th>
-                    <th>Gender</th>
                     <th>Operations</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach (var item in Model)
                 {
-                <tr>
-                    <td><img src="~/images/@item.Image" style="width:50px; height:50px; border:.2px solid black; border-radius:15px; text-align:center; margin-top:10px;" alt="" /></td>
-                    <td>@item.Name</td>
-                    <td>@item.Surname</td>
-                    <td>@item.FatherName</td>
-                    <td>@item.Born.ToShortDateString()</td>
-                    <td>@item.Education</td>
-                    <td>@item.Gender</td>
-                    <td>
-                        <a asp-action="Edit" asp-controller="Employee" asp-route-id="@item.ID">Edit |</a>
-                        <form asp-action="Delete" asp-controller="Employee" method="post" asp-route-id="@item.ID">
-                            <input type="hidden" name="ID" value="@item.ID" />
-                            <input type="submit" value="Delete" class="btn btn-danger" />
-                        </form>
-                    </td>
-                </tr>
+                    <tr>
+                        <td><img src="~/images/@item.Image" style="width:50px; height:50px; border:.2px solid black; border-radius:15px; text-align:center; margin-top:10px;" alt="" /></td>
+                        <td>@item.Name</td>
+                        <td>@item.Surname</td>
+                        <td>@item.FatherName</td>
+                        <td>@item.Born.ToShortDateString()</td>
+                        <td>@item.EducationText</td>
+                        <td>
+                            <a asp-action="Edit" asp-controller="Employee" asp-route-id="@item.ID">Edit |</a>
+                            <form asp-action="Delete" asp-controller="Employee" method="post" asp-route-id="@item.ID">
+                                <input type="hidden" name="ID" value="@item.ID" />
+                                <input type="submit" value="Delete" class="btn btn-danger" />
+                            </form>
+                        </td>
+                    </tr>
                 }
             </tbody>
         </table>
     </div>
 </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="~/js/index.js"></script>

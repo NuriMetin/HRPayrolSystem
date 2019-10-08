@@ -107,15 +107,15 @@ namespace HRPayrolApp.Controllers
         [HttpGet]
         public async Task<IActionResult> EmployeeList()
         {
-            var data =await _dbContext.Employees.Select(x => new EmployeList
+            var data =await _dbContext.Employees.Select(x => new EmployeeViewModel
             {
                 ID = x.ID,
                 Born = x.Born,
                 DistrictRegistration = x.DistrictRegistration,
-                Education = _dbContext.Educations.Where(m => m.EducationId == x.EducationId).Select(m => m.EducationName).FirstOrDefault(),
+                EducationText = _dbContext.Educations.Where(m => m.EducationId == x.EducationId).Select(m => m.EducationName).FirstOrDefault(),
                 FatherName = x.FatherName,
-                Gender = _dbContext.Genders.Where(m => m.GenderId == x.GenderId).Select(m => m.GenderName).FirstOrDefault(),
-                MaritalStatus = _dbContext.MaritalStatuses.Where(m => m.MaritalStatusId == x.MaritalStatusId).Select(m => m.MaritalStatusName).FirstOrDefault(),
+                GenderText = _dbContext.Genders.Where(m => m.GenderId == x.GenderId).Select(m => m.GenderName).FirstOrDefault(),
+                MaritalStatusText = _dbContext.MaritalStatuses.Where(m => m.MaritalStatusId == x.MaritalStatusId).Select(m => m.MaritalStatusName).FirstOrDefault(),
                 Name = x.Name,
                // OldWorkPlaces = x.OldWorkPlaces,
                 PersonalityCardEndDate = x.PersonalityCardEndDate,

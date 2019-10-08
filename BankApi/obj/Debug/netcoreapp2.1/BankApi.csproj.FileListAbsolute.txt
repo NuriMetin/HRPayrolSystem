@@ -26,3 +26,17 @@ C:\Users\nurim\Pictures\HRPayrolSystem-master\HRPayrolSystem-master\BankApi\obj\
 C:\Users\nurim\Pictures\HRPayrolSystem-master\HRPayrolSystem-master\BankApi\obj\Debug\netcoreapp2.1\BankApi.dll
 C:\Users\nurim\Pictures\HRPayrolSystem-master\HRPayrolSystem-master\BankApi\obj\Debug\netcoreapp2.1\BankApi.pdb
 M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\BankApi\obj\Debug\netcoreapp2.1\BankApi.csprojAssemblyReference.cache
+M:\HRPayrolSystem-master\BankApi\bin\Debug\netcoreapp2.1\BankApi.deps.json
+M:\HRPayrolSystem-master\BankApi\bin\Debug\netcoreapp2.1\BankApi.runtimeconfig.json
+M:\HRPayrolSystem-master\BankApi\bin\Debug\netcoreapp2.1\BankApi.runtimeconfig.dev.json
+M:\HRPayrolSystem-master\BankApi\bin\Debug\netcoreapp2.1\BankApi.dll
+M:\HRPayrolSystem-master\BankApi\bin\Debug\netcoreapp2.1\BankApi.pdb
+M:\HRPayrolSystem-master\BankApi\obj\Debug\netcoreapp2.1\BankApi.csproj.CoreCompileInputs.cache
+M:\HRPayrolSystem-master\BankApi\obj\Debug\netcoreapp2.1\BankApi.RazorAssemblyInfo.cache
+M:\HRPayrolSystem-master\BankApi\obj\Debug\netcoreapp2.1\BankApi.RazorAssemblyInfo.cs
+M:\HRPayrolSystem-master\BankApi\obj\Debug\netcoreapp2.1\BankApi.AssemblyInfoInputs.cache
+M:\HRPayrolSystem-master\BankApi\obj\Debug\netcoreapp2.1\BankApi.AssemblyInfo.cs
+M:\HRPayrolSystem-master\BankApi\obj\Debug\netcoreapp2.1\BankApi.RazorTargetAssemblyInfo.cache
+M:\HRPayrolSystem-master\BankApi\obj\Debug\netcoreapp2.1\BankApi.dll
+M:\HRPayrolSystem-master\BankApi\obj\Debug\netcoreapp2.1\BankApi.pdb
+M:\HRPayrolSystem-master\BankApi\obj\Debug\netcoreapp2.1\BankApi.csprojAssemblyReference.cache
