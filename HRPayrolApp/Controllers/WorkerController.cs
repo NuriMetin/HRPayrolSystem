@@ -271,7 +271,7 @@ namespace HRPayrolApp.Controllers
             {
                 WorkerId=workers.Id,
                 BonusSalary = addBonus.BonusSalary,
-                BonusDate = addBonus.BonusDate,
+                BonusDate = DateTime.Now,
                 Reason = addBonus.Reason
             };
 
@@ -313,7 +313,7 @@ namespace HRPayrolApp.Controllers
             {
                 WorkerId = workers.Id,
                 AbsensId = addAbsens.SelectedAbsens,
-                Date = addAbsens.Date,
+                Date = DateTime.Now,
                 Reason = addAbsens.Reason
             };
 
