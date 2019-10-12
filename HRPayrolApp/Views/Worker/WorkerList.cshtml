@@ -1,12 +1,14 @@
-﻿@model IEnumerable<WorkersViewModel>
+﻿@using Microsoft.AspNetCore.Identity
+@model IEnumerable<WorkersViewModel>
 @{
     ViewData["Title"] = "WorkerList";
 }
+@inject UserManager<Worker> _userManager
 <div class="container">
     <div style="margin-top:10px; overflow-x:auto; overflow-y:auto;">
         <div class="d-flex">
             <select class="form-control col-md-3" id="selectFor">
-                <option >Select for</option>
+                <option>Select for</option>
                 <option value=":nth-child(1)">Name</option>
                 <option value=":nth-child(2)">Surname</option>
                 <option value=":nth-child(3)">Position</option>

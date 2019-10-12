@@ -1,0 +1,28 @@
+﻿@model  PositionViewModel
+@{
+    ViewData["Title"] = "AddPosition";
+}
+
+<h2>AddPosition</h2>
+
+<div class="container-fluid" style="margin-top:15px;">
+    <form method="post" asp-controller="Position" asp-action="AddPosition" enctype="multipart/form-data">
+        <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+        <div class="col-md-5">
+            <div class="form-group">
+                <select class="form-control" asp-for="SelectedDepartment" asp-items="@(new SelectList(Model.Departments,"ID","Name"))">
+                    <option value="">--Department--</option>
+                </select>
+                <span asp-validation-for="SelectedDepartment" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input class="form-control" asp-for="Name" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" class="btn btn-success" value="Add" />
+            </div>
+        </div>
+    </form>
+</div>

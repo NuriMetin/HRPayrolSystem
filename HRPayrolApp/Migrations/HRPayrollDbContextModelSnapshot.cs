@@ -43,7 +43,8 @@ namespace HRPayrolApp.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .IsRequired();
 
                     b.HasKey("ID");
 
@@ -278,13 +279,13 @@ namespace HRPayrolApp.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("CompanyID");
+                    b.Property<int>("CompanyId");
 
                     b.Property<string>("Name");
 
                     b.HasKey("ID");
 
-                    b.HasIndex("CompanyID");
+                    b.HasIndex("CompanyId");
 
                     b.ToTable("Stores");
                 });
@@ -610,7 +611,7 @@ namespace HRPayrolApp.Migrations
             modelBuilder.Entity("HRPayrolApp.Models.Position", b =>
                 {
                     b.HasOne("HRPayrolApp.Models.Department", "Department")
-                        .WithMany("Workers")
+                        .WithMany("Positions")
                         .HasForeignKey("DepartmentId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
@@ -627,7 +628,8 @@ namespace HRPayrolApp.Migrations
                 {
                     b.HasOne("HRPayrolApp.Models.Company", "Company")
                         .WithMany("Stores")
-                        .HasForeignKey("CompanyID");
+                        .HasForeignKey("CompanyId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("HRPayrolApp.Models.Worker", b =>

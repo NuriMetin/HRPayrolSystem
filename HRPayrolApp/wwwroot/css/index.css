@@ -1,3 +1,7 @@
 ﻿.d-flex{
     display:flex;
 }
+
+.btn-padding{
+    margin-left:50px;
+}

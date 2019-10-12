@@ -80,7 +80,6 @@ C:\Users\nurim\Pictures\HRPayrolSystem-master\HRPayrolSystem-master\HRPayrolApp\
 C:\Users\nurim\Pictures\HRPayrolSystem-master\HRPayrolSystem-master\HRPayrolApp\obj\Debug\netcoreapp2.1\HRPayrolApp.dll
 C:\Users\nurim\Pictures\HRPayrolSystem-master\HRPayrolSystem-master\HRPayrolApp\obj\Debug\netcoreapp2.1\HRPayrolApp.pdb
 C:\Users\nurim\Pictures\HRPayrolSystem-master\HRPayrolSystem-master\HRPayrolApp\obj\Debug\netcoreapp2.1\HRPayrolApp.csproj.CopyComplete
-M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\HRPayrolApp\obj\Debug\netcoreapp2.1\HRPayrolApp.csprojAssemblyReference.cache
 M:\HRPayrolSystem-master\HRPayrolApp\bin\Debug\netcoreapp2.1\HRPayrolApp.deps.json
 M:\HRPayrolSystem-master\HRPayrolApp\bin\Debug\netcoreapp2.1\HRPayrolApp.runtimeconfig.json
 M:\HRPayrolSystem-master\HRPayrolApp\bin\Debug\netcoreapp2.1\HRPayrolApp.runtimeconfig.dev.json
@@ -126,3 +125,15 @@ M:\HRPayrolSystem-master\HRPayrolApp\obj\Debug\netcoreapp2.1\Razor\Views\Worker\
 M:\HRPayrolSystem-master\HRPayrolApp\obj\Debug\netcoreapp2.1\HRPayrolApp.csprojAssemblyReference.cache
 M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\HRPayrolApp\obj\Debug\netcoreapp2.1\Razor\Views\Employee\Details.g.cshtml.cs
 M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\HRPayrolApp\obj\Debug\netcoreapp2.1\Razor\Views\Worker\CalculateSalary.g.cshtml.cs
+M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\HRPayrolApp\obj\Debug\netcoreapp2.1\Razor\Views\Store\AddStore.g.cshtml.cs
+M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\HRPayrolApp\obj\Debug\netcoreapp2.1\Razor\Views\Company\AddCompany.g.cshtml.cs
+M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\HRPayrolApp\obj\Debug\netcoreapp2.1\Razor\Views\Company\CompanyList.g.cshtml.cs
+M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\HRPayrolApp\obj\Debug\netcoreapp2.1\Razor\Views\Store\StoreList.g.cshtml.cs
+M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\HRPayrolApp\obj\Debug\netcoreapp2.1\Razor\Views\Store\Edit.g.cshtml.cs
+M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\HRPayrolApp\obj\Debug\netcoreapp2.1\Razor\Views\Company\Edit.g.cshtml.cs
+M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\HRPayrolApp\obj\Debug\netcoreapp2.1\Razor\Views\Department\AddDepartment.g.cshtml.cs
+M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\HRPayrolApp\obj\Debug\netcoreapp2.1\Razor\Views\Department\Edit.g.cshtml.cs
+M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\HRPayrolApp\obj\Debug\netcoreapp2.1\Razor\Views\Department\DepartmentList.g.cshtml.cs
+M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\HRPayrolApp\obj\Debug\netcoreapp2.1\Razor\Views\Position\AddPosition.g.cshtml.cs
+M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\HRPayrolApp\obj\Debug\netcoreapp2.1\Razor\Views\Position\PositionList.g.cshtml.cs
+M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\HRPayrolApp\obj\Debug\netcoreapp2.1\Razor\Views\Position\Edit.g.cshtml.cs
