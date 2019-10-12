@@ -48,6 +48,7 @@ namespace HRPayrolApp.Controllers
         {
             WorkersViewModel workerModel = new WorkersViewModel
             {
+                Stores = _dbContext.Stores.ToList(),
                 Departments = _dbContext.Departments.ToList(),
                 Employees = _dbContext.Employees.ToList(),
             };
@@ -60,22 +61,30 @@ namespace HRPayrolApp.Controllers
         {
             if (!ModelState.IsValid)
             {
+                create.Stores = _dbContext.Stores.ToList();
                 create.Employees = _dbContext.Employees.ToList();
                 create.Departments = _dbContext.Departments.ToList();
                 return View(create);
             }
+            Worker worker = new Worker();
+
+            if (create.SelectedStore == 0)
+            {
+                worker.StoreId = null;
+            }
+
+            worker.StoreId = create.SelectedStore;
             create.Password = $"{Path.GetRandomFileName().ToUpper()}_{Path.GetRandomFileName().ToLower()}_{DateTime.Now.ToString("dd_MM_yyyy_hh_mm")}";
 
-            Worker worker = new Worker
-            {
-                Email = create.Email,
-                EmployeeId = create.SelectedEmployee,
-                PositionId = create.SelectedPosition,
-                UserName=create.Email,
-                Account =_dbContext.Employees.Where(x=>x.ID==create.SelectedEmployee).Select(x=>x.Name).FirstOrDefault() +" "+ _dbContext.Employees.Where(x => x.ID == create.SelectedEmployee).Select(x => x.Surname).FirstOrDefault(),
-                PassText=create.Password,
-                BeginDate=create.BeginDate
-            }; 
+            worker.Email = create.Email;
+            worker.EmployeeId = create.SelectedEmployee;
+            worker.PositionId = create.SelectedPosition;
+            worker.UserName = create.Email;
+            worker.Account = _dbContext.Employees.Where(x => x.ID == create.SelectedEmployee).Select(x => x.Name).FirstOrDefault() + " " + _dbContext.Employees.Where(x => x.ID == create.SelectedEmployee).Select(x => x.Surname).FirstOrDefault();
+            worker.PassText = create.Password;
+            worker.BeginDate = create.BeginDate;
+            
+
             IdentityResult result = await _userManager.CreateAsync(worker, create.Password);
             if (!result.Succeeded)
             {
@@ -133,7 +142,34 @@ namespace HRPayrolApp.Controllers
             return View(data);
         }
 
-      //  [Authorize(Roles = SD.PayrollSpecalist)]
+        public async Task<IActionResult> WorkerBonus()
+        {
+
+            var user = await _dbContext.Users.Include(x => x.Position).SingleOrDefaultAsync(x => _userManager.FindByNameAsync(User.Identity.Name).GetAwaiter().GetResult().Id == x.Id);
+            var id = user.Position.DepartmentId;
+            var data = await (from work in _userManager.Users
+                              join emp in _dbContext.Employees
+                              on work.EmployeeId equals emp.ID
+                              join pos in _dbContext.Positions
+                              on work.PositionId equals pos.ID
+                              join dep in _dbContext.Departments
+                              on pos.DepartmentId equals dep.ID
+                              where dep.ID == id
+                              select new WorkersViewModel
+                              {
+                                  WorkerId = work.Id,
+                                  Email = work.Email,
+                                  Name = emp.Name,
+                                  Surname = emp.Surname,
+                                  Position = pos.Name,
+                                  Department = dep.Name,
+                                  BeginDate = work.BeginDate
+                              }).ToListAsync();
+
+            return View(data);
+        }
+
+        //  [Authorize(Roles = SD.PayrollSpecalist)]
         [HttpGet]
         public async Task<IActionResult> Edit(string id)
         {

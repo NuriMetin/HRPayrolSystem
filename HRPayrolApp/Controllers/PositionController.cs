@@ -37,6 +37,7 @@ namespace HRPayrolApp.Controllers
 
             position.DepartmentId = positionViewModel.SelectedDepartment;
             position.Name = positionViewModel.Name;
+            position.Salary = positionViewModel.Salary;
             _dbContext.Positions.Add(position);
             _dbContext.SaveChanges();
 
@@ -51,7 +52,8 @@ namespace HRPayrolApp.Controllers
             {
                 ID = x.ID,
                 Name = x.Name,
-                Department = x.Department
+                Department = x.Department,
+                Salary=x.Salary
 
             }).ToListAsync();
 
@@ -67,6 +69,7 @@ namespace HRPayrolApp.Controllers
             positionViewModel.Name = position.Name;
             positionViewModel.Departments = _dbContext.Departments.ToList();
             positionViewModel.DepartmentName = position.Department.Name;
+            positionViewModel.Salary = position.Salary;
             positionViewModel.ID = id;
 
             return View(positionViewModel);
@@ -81,11 +84,13 @@ namespace HRPayrolApp.Controllers
             {
                 positionViewModel.Departments = _dbContext.Departments.ToList();
                 positionViewModel.DepartmentName = position.Department.Name;
+                positionViewModel.Salary = position.Salary;
                 return View(positionViewModel);
             }
 
             position.Name = positionViewModel.Name;
             position.DepartmentId = positionViewModel.SelectedDepartment;
+            position.Salary = positionViewModel.Salary;
             _dbContext.SaveChanges();
             return RedirectToAction(nameof(PositionList));
         }

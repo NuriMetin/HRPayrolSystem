@@ -23,6 +23,9 @@ namespace HRPayrolApp.Models.ViewModels
         public IEnumerable<Position> Positions { get; set; }
         public int SelectedPosition { get; set; }
 
+        public IEnumerable<Store> Stores { get; set; }
+        public int? SelectedStore { get; set; }
+
         public DateTime BeginDate { get; set; }
 
         public IEnumerable<Department> Departments { get; set; }

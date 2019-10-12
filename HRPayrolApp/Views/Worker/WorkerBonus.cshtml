@@ -1,8 +1,10 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @model IEnumerable<WorkersViewModel>
 @{
-    ViewData["Title"] = "WorkerList";
+    ViewData["Title"] = "WorkerBonus";
 }
+
+<h2>WorkerBonus</h2>
 @inject UserManager<Worker> _userManager
 <div class="container">
     <div style="margin-top:10px; overflow-x:auto; overflow-y:auto;">
@@ -39,19 +41,7 @@
                         <td>@item.Department</td>
                         <td>@item.BeginDate.ToShortDateString()</td>
                         <td>
-                            @if (User.IsInRole(SD.HR.ToString()))
-                            {
-                                <a asp-action="AddAbsens" asp-controller="Worker" asp-route-id="@item.WorkerId">Add Absens</a>
-                            }
-
-                            @if (User.IsInRole(SD.PayrollSpecalist.ToString()))
-                            {
-                                <a asp-action="Edit" asp-controller="Worker" asp-route-id="@item.WorkerId">Edit |</a>
-                                <form asp-action="Delete" asp-controller="Worker" method="post" asp-route-id="@item.WorkerId">
-                                    <input type="hidden" name="ID" value="@item.WorkerId" />
-                                    <input type="submit" value="Delete" class="btn btn-danger" />
-                                </form>
-                            }
+                            <a asp-action="AddBonus" asp-controller="Worker" asp-route-id="@item.WorkerId">Add Bonus</a>
                         </td>
                     </tr>
                 }
@@ -61,3 +51,5 @@
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="~/js/index.js"></script>
+
+

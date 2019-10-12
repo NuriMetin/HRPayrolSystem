@@ -20,5 +20,8 @@ namespace HRPayrolApp.Models.ViewModels
         public string Name { get; set; }
 
         public string DepartmentName { get; set; }
+
+        [Required]
+        public decimal Salary { get; set; }
     }
 }

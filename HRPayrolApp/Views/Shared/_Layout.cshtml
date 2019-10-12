@@ -93,6 +93,20 @@
                                 </li>
                             </ul>
                         </li>
+                        @if (User.IsInRole(SD.DepartmentHead.ToString()))
+                        {
+                            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Workers">
+                                <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#HrWorkerPages" data-parent="#exampleAccordion">
+                                    <i class="fa fa-fw fa-wrench"></i>
+                                    <span class="nav-link-text">Workers</span>
+                                </a>
+                                <ul class="sidenav-second-level collapse" id="HrWorkerPages">
+                                    <li>
+                                        <a asp-controller="Worker" asp-action="WorkerBonus">Look all workers</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        }
                         @if (User.IsInRole(SD.HR.ToString()))
                         {
                             <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Employees">

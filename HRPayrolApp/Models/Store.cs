@@ -13,5 +13,7 @@ namespace HRPayrolApp.Models
 
         public virtual Company Company { get; set; }
         public int CompanyId { get; set; }
+
+        public virtual ICollection<Worker> Workers { get; set; }
     }
 }

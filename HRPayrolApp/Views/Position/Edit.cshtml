@@ -20,6 +20,11 @@
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="Salary" class="control-label"></label>
+                <input class="form-control" asp-for="Name" />
+                <span asp-validation-for="Salary" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <select class="form-control" asp-for="SelectedDepartment" asp-items="@(new SelectList(Model.Departments,"ID","Name"))">
                     <option value="">--Company--</option>
                 </select>

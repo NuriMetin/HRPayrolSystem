@@ -23,8 +23,9 @@ namespace HRPayrolApp.Models
         public int PositionId { get; set; }
         public virtual Position Position { get; set; }
 
-     
-
         public virtual ICollection<WorkerBonus> WorkerBonus { get; set; }
+
+        public virtual Store Store { get; set; }
+        public int? StoreId { get; set; }
     }
 }
