@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.EntityFrameworkCore;
 using static HRPayrolApp.Extensions.IFormFileExtensions;
 using static HRPayrolApp.Utilities.Utilities;
+using HRPayrolApp.DAL;
 
 namespace HRPayrolApp.Controllers
 {

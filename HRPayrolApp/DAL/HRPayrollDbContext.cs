@@ -5,8 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using HRPayrolApp.Models.ViewModels;
+using HRPayrolApp.Models;
 
-namespace HRPayrolApp.Models
+namespace HRPayrolApp.DAL
 {
     public class HRPayrollDbContext : IdentityDbContext<Worker>
     {

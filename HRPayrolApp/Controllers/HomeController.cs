@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using HRPayrolApp.Models;
 using Microsoft.AspNetCore.Identity;
 using static HRPayrolApp.Models.SD;
+using HRPayrolApp.DAL;
 
 namespace HRPayrolApp.Controllers
 {

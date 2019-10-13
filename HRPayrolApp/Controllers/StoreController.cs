@@ -6,6 +6,7 @@ using HRPayrolApp.Models;
 using HRPayrolApp.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using HRPayrolApp.DAL;
 
 namespace HRPayrolApp.Controllers
 {

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using HRPayrolApp.Models;
 using Microsoft.AspNetCore.Mvc;
+using HRPayrolApp.DAL;
 
 namespace HRPayrolApp.Controllers
 {

@@ -1,11 +1,12 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @model IEnumerable<WorkersViewModel>
+@inject UserManager<Worker> _userManager
 @{
-    ViewData["Title"] = "WorkerBonus";
+    ViewData["Title"] = "WorkerList";
 }
 
-<h2>WorkerBonus</h2>
-@inject UserManager<Worker> _userManager
+<h2>WorkerList</h2>
+
 <div class="container">
     <div style="margin-top:10px; overflow-x:auto; overflow-y:auto;">
         <div class="d-flex">
@@ -41,7 +42,7 @@
                         <td>@item.Department</td>
                         <td>@item.BeginDate.ToShortDateString()</td>
                         <td>
-                            <a asp-action="AddBonus" asp-controller="Worker" asp-route-id="@item.WorkerId">Add Bonus</a>
+                            <a asp-action="AddBonus" asp-controller="Bonus" asp-route-id="@item.WorkerId">Add Bonus</a>
                         </td>
                     </tr>
                 }
