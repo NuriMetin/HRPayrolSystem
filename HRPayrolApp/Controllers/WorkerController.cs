@@ -130,6 +130,10 @@ namespace HRPayrolApp.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(string id)
         {
+            if (id == null)
+            {
+                return NotFound();
+            }
             var worker = await _userManager.FindByIdAsync(id);
             WorkersViewModel workersView = new WorkersViewModel
             {
@@ -151,6 +155,7 @@ namespace HRPayrolApp.Controllers
         {
             var workers = await _userManager.FindByIdAsync(id);
 
+            
             string companyWorkPlaceId = $"{Path.GetRandomFileName()}_{DateTime.Now.ToString("dd_MM_yyyy_hh_mm")}";
             string companyWorkPlaceBonusId = $"{Path.GetRandomFileName().ToLower()}_{DateTime.Now.ToString("dd_MM_yyyy_hh_mm")}";
             string companyWorkPlaceAbsensId = $"{Path.GetRandomFileName().ToUpper()}_{DateTime.Now.ToString("dd_MM_yyyy_hh_mm")}";

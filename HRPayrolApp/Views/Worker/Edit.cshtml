@@ -27,8 +27,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-md-6 d-flex">
-                    <div class="col-md-4">
+                <div class="col-md-7 d-flex">
+                    <div class="col-md-5">
                         <div class="form-group ">
                             <label class="control-label" asp-for="Department"></label>
                             <input class="form-control" asp-for="Department" disabled />
@@ -38,25 +38,25 @@
                             <input class="form-control" asp-for="Position" disabled />
                         </div>
                     </div>
-                    <div class="col-md-8">
+                    <div class="col-md-6">
                         <div class="form-group col-md-12">
                             <label asp-for="Departments" class="control-label"></label>
                             <select asp-for="SelectedDepartment" class="form-control departments" asp-items="@(new SelectList(Model.Departments,"ID","Name"))">
                                 <option value="">--Select Department--</option>
                             </select>
                             @*@Html.DropDownListFor(model => model.SelectedGender, new SelectList(Model.Genders, "GenderID", "GenderName"), new { id = "normalDropDown" })*@
-                            <span asp-validation-for="Departments" class="text-danger"></span>
+                            <span asp-validation-for="SelectedDepartment" class="text-danger"></span>
                         </div>
                         <div class="form-group col-md-12">
                             <label asp-for="Position" class="control-label"></label>
                             <select asp-for="SelectedPosition" class="form-control">
                                 <option value="">Select Position...</option>
                             </select>
+                            <span asp-validation-for="SelectedPosition" class="text-danger"></span>
                         </div>
                         <div class="form-group">
                             <input style="margin:10px 0 0 -30px;" type="submit" value="Save" class="btn btn-warning" />
                         </div>
-
                     </div>
                 </div>
             </div>

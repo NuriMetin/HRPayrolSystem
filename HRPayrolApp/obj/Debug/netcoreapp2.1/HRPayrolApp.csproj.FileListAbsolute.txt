@@ -139,3 +139,4 @@ M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\HRPayrolApp\obj\D
 M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\HRPayrolApp\obj\Debug\netcoreapp2.1\HRPayrolApp.dll
 M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\HRPayrolApp\obj\Debug\netcoreapp2.1\HRPayrolApp.pdb
 M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\HRPayrolApp\obj\Debug\netcoreapp2.1\HRPayrolApp.csproj.CopyComplete
+M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\HRPayrolApp\obj\Debug\netcoreapp2.1\HRPayrolApp.csprojAssemblyReference.cache

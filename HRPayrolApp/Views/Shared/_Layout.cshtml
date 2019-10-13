@@ -33,66 +33,70 @@
                                 </h5>
                             }
                         </li>
-                        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Store">
-                            <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#CompanyPages" data-parent="#exampleAccordion">
-                                <i class="fa fa-fw fa-file"></i>
-                                <span class="nav-link-text">Company</span>
-                            </a>
-                            <ul class="sidenav-second-level collapse" id="CompanyPages">
+                        @if (User.IsInRole(SD.Admin.ToString()))
+                        {
+                            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Store">
+                                <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#CompanyPages" data-parent="#exampleAccordion">
+                                    <i class="fa fa-fw fa-file"></i>
+                                    <span class="nav-link-text">Company</span>
+                                </a>
+                                <ul class="sidenav-second-level collapse" id="CompanyPages">
 
-                                <li title="Add empoyee">
-                                    <a asp-controller="Company" asp-action="AddCompany">Add Company</a>
-                                </li>
-                                <li>
-                                    <a asp-controller="Company" asp-action="CompanyList">Look all companies</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Store">
-                            <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#StorePages" data-parent="#exampleAccordion">
-                                <i class="fa fa-fw fa-file"></i>
-                                <span class="nav-link-text">Store</span>
-                            </a>
-                            <ul class="sidenav-second-level collapse" id="StorePages">
+                                    <li title="Add empoyee">
+                                        <a asp-controller="Company" asp-action="AddCompany">Add Company</a>
+                                    </li>
+                                    <li>
+                                        <a asp-controller="Company" asp-action="CompanyList">Look all companies</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Store">
+                                <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#StorePages" data-parent="#exampleAccordion">
+                                    <i class="fa fa-fw fa-file"></i>
+                                    <span class="nav-link-text">Store</span>
+                                </a>
+                                <ul class="sidenav-second-level collapse" id="StorePages">
 
-                                <li title="Add empoyee">
-                                    <a asp-controller="Store" asp-action="AddStore">Add Store</a>
-                                </li>
-                                <li>
-                                    <a asp-controller="Store" asp-action="StoreList">Look all stores</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Department">
-                            <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#DepartmentPages" data-parent="#exampleAccordion">
-                                <i class="fa fa-fw fa-file"></i>
-                                <span class="nav-link-text">Department</span>
-                            </a>
-                            <ul class="sidenav-second-level collapse" id="DepartmentPages">
+                                    <li title="Add empoyee">
+                                        <a asp-controller="Store" asp-action="AddStore">Add Store</a>
+                                    </li>
+                                    <li>
+                                        <a asp-controller="Store" asp-action="StoreList">Look all stores</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Department">
+                                <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#DepartmentPages" data-parent="#exampleAccordion">
+                                    <i class="fa fa-fw fa-file"></i>
+                                    <span class="nav-link-text">Department</span>
+                                </a>
+                                <ul class="sidenav-second-level collapse" id="DepartmentPages">
 
-                                <li title="Add empoyee">
-                                    <a asp-controller="Department" asp-action="AddDepartment">Add Department</a>
-                                </li>
-                                <li>
-                                    <a asp-controller="Department" asp-action="DepartmentList">Look all department</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Position">
-                            <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#PositionPages" data-parent="#exampleAccordion">
-                                <i class="fa fa-fw fa-file"></i>
-                                <span class="nav-link-text">Position</span>
-                            </a>
-                            <ul class="sidenav-second-level collapse" id="PositionPages">
+                                    <li title="Add empoyee">
+                                        <a asp-controller="Department" asp-action="AddDepartment">Add Department</a>
+                                    </li>
+                                    <li>
+                                        <a asp-controller="Department" asp-action="DepartmentList">Look all department</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Position">
+                                <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#PositionPages" data-parent="#exampleAccordion">
+                                    <i class="fa fa-fw fa-file"></i>
+                                    <span class="nav-link-text">Position</span>
+                                </a>
+                                <ul class="sidenav-second-level collapse" id="PositionPages">
 
-                                <li title="Add position">
-                                    <a asp-controller="Position" asp-action="AddPosition">Add Position</a>
-                                </li>
-                                <li>
-                                    <a asp-controller="Position" asp-action="PositionList">Look all position</a>
-                                </li>
-                            </ul>
-                        </li>
+                                    <li title="Add position">
+                                        <a asp-controller="Position" asp-action="AddPosition">Add Position</a>
+                                    </li>
+                                    <li>
+                                        <a asp-controller="Position" asp-action="PositionList">Look all position</a>
+                                    </li>
+                                </ul>
+                            </li>
+                        }
+
                         @if (User.IsInRole(SD.DepartmentHead.ToString()))
                         {
                             <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Workers">

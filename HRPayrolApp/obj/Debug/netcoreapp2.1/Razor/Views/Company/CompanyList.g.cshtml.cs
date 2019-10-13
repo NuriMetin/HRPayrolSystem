@@ -90,7 +90,7 @@ using HRPayrolApp.Models.ViewModels;
             WriteLiteral("</td>\r\n                <td>\r\n                    <div class=\"d-flex\">\r\n                        ");
             EndContext();
             BeginContext(454, 309, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "c3cfedd6d2a14a0093d9578eaea42027", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "8361f4a4f730458b8801010f99fb7844", async() => {
                 BeginContext(560, 60, true);
                 WriteLiteral("\r\n                            <input type=\"hidden\" name=\"ID\"");
                 EndContext();
@@ -142,7 +142,7 @@ WriteAttributeValue("", 628, item.ID, 628, 8, false);
             WriteLiteral("\r\n                        ");
             EndContext();
             BeginContext(789, 325, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "ebcb7f8022ff42bd8318281b19430c66", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "d6340c7456db4850a3ed3dcc7a3b71a3", async() => {
                 BeginContext(898, 60, true);
                 WriteLiteral("\r\n                            <input type=\"hidden\" name=\"ID\"");
                 EndContext();
