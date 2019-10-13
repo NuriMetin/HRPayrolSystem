@@ -9,6 +9,8 @@ namespace HRPayrolApp.Models.ViewModels
     public class WorkersViewModel
     {
         public string WorkerId { get; set; }
+
+        [Required]
         public int EmployeeId { get; set; }
         public string Name { get; set; }
         public string Surname { get; set; }
@@ -20,17 +22,22 @@ namespace HRPayrolApp.Models.ViewModels
         public IEnumerable<Employee> Employees{ get; set; }
         public int SelectedEmployee { get; set; }
 
-        public IEnumerable<Position> Positions { get; set; }
+        [Required]
         public int SelectedPosition { get; set; }
+        public IEnumerable<Position> Positions { get; set; }
+        
 
         public IEnumerable<Store> Stores { get; set; }
         public int? SelectedStore { get; set; }
 
+        [Required]
         public DateTime BeginDate { get; set; }
 
-        public IEnumerable<Department> Departments { get; set; }
+        [Required]
         public int SelectedDepartment { get; set; }
+        public IEnumerable<Department> Departments { get; set; }
 
+        [Required]
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 

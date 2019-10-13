@@ -6,23 +6,18 @@ using System.Threading.Tasks;
 
 namespace HRPayrolApp.Models.ViewModels
 {
-    public class AddAbsens
+    public class VacationViewModel
     {
+
         [Required]
         public string WorkerId { get; set; }
 
         public string WorkerAccount { get; set; }
 
         [Required]
-        public DateTime Date { get; set; }
+        public DateTime StartDate { get; set; }
 
         [Required]
-        public string Reason { get; set; }
-
-        [Required]
-        public int SelectedAbsens { get; set; }
-        public IEnumerable<Absens> Absens { get; set; }
-
-        public int AbsensId { get; set; }
+        public DateTime EndDate { get; set; }
     }
 }

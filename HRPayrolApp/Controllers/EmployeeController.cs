@@ -236,7 +236,9 @@ namespace HRPayrolApp.Controllers
 
                 RemoveImage(_env.WebRootPath, employee.Image);
 
+                if (worker != null)
                 await _userManager.DeleteAsync(worker);
+
                 _dbContext.Employees.Remove(employee);
 
                 _dbContext.SaveChanges();

@@ -12,22 +12,30 @@ namespace HRPayrolApp.Models
     {
         public int ID { get; set; }
 
+        [Required]
         public string Name { get; set; }
 
+        [Required]
         public string Surname { get; set; }
 
+        [Required]
         public string FatherName { get; set; }
 
         public virtual ICollection<CompanyWorkPlace> CompanyWorkPlaces { get; set; }
 
+        [Required]
         public DateTime Born { get; set; }
 
+        [Required]
         public string Residence { get; set; }
 
+        [Required]
         public string DistrictRegistration { get; set; }
 
+        [Required]
         public string PersonalityCardNumber { get; set; }
 
+        [Required]
         public DateTime PersonalityCardEndDate { get; set; }
 
         public virtual Worker Worker { get; set; } //Clasa cixart

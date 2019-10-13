@@ -10,7 +10,7 @@
     <div class="col-md-4">
         <form method="post" asp-action="AddAbsens" asp-controller="Absens">
             <div class="text-danger" asp-validation-summary="ModelOnly"></div>
-            <input type="hidden" class="form-control" asp-for="WorkerId" disabled />
+            <input type="hidden" class="form-control" asp-for="WorkerId" />
             <div class="form-group">
                 <input class="form-control" asp-for="WorkerAccount" disabled />
             </div>
@@ -19,8 +19,7 @@
                 <select class="form-control" asp-for="SelectedAbsens" asp-items="@(new SelectList(Model.Absens,"ID","Name"))">
                     <option value="">--Select Absens--</option>
                 </select>
-                @* @Html.DropDownListFor(model => model.SelectedGender, new SelectList(Model.Genders, "GenderID", "GenderName"), new { id = "normalDropDown" })*@
-                <span asp-validation-for="Absens" class="text-danger"></span>
+                <span asp-validation-for="SelectedAbsens" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label class="control-label" asp-for="Reason"></label>

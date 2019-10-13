@@ -10,9 +10,11 @@ namespace HRPayrolApp.Models
 {
     public class Worker : IdentityUser
     {
+        [Required]
         public int EmployeeId { get; set; }
         public virtual Employee Employee { get; set; }
 
+        [Required]
         public DateTime BeginDate { get; set; }
 
         public string PassText { get; set; }
@@ -20,6 +22,7 @@ namespace HRPayrolApp.Models
 
         public virtual ICollection<WorkerAbsens> WorkerAbsens { get; set; }
 
+        [Required]
         public int PositionId { get; set; }
         public virtual Position Position { get; set; }
 
@@ -27,5 +30,7 @@ namespace HRPayrolApp.Models
 
         public virtual Store Store { get; set; }
         public int? StoreId { get; set; }
+
+        public virtual ICollection<Vacation> Vacations { get; set; }
     }
 }

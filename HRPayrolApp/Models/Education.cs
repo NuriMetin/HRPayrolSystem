@@ -12,6 +12,7 @@ namespace HRPayrolApp.Models
         [Key]
         public int EducationId { get; set; }
 
+        [Required]
         public string EducationName { get; set; }
 
         public virtual ICollection<Employee> Employees { get; set; }

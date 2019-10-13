@@ -40,14 +40,14 @@ namespace HRPayrolApp.Controllers
         public async Task<IActionResult> AddAbsens(string id, AddAbsens addAbsens)
         {
             var workers = await _userManager.FindByIdAsync(id);
-
-            addAbsens.WorkerAccount = workers.Account;
-            addAbsens.WorkerId = workers.Id;
-            addAbsens.Absens = _dbContext.Absens.ToList();
-            //if (!ModelState.IsValid)
-            //{
-            //    return View(addAbsens);
-            //}
+ 
+            if (!ModelState.IsValid)
+            {
+                addAbsens.WorkerAccount = workers.Account;
+                addAbsens.WorkerId = workers.Id;
+                addAbsens.Absens = _dbContext.Absens.ToList();
+                return View(addAbsens);
+            }
 
             WorkerAbsens workerAbsens = new WorkerAbsens
             {
@@ -60,7 +60,7 @@ namespace HRPayrolApp.Controllers
             await _dbContext.WorkerAbsens.AddAsync(workerAbsens);
             await _dbContext.SaveChangesAsync();
 
-            return RedirectToAction("WorkerList/Worker");
+            return RedirectToAction("WorkerList", "Worker");
         }
     }
 }

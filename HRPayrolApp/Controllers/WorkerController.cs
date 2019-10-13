@@ -35,7 +35,7 @@ namespace HRPayrolApp.Controllers
             {
                 Stores = _dbContext.Stores.ToList(),
                 Departments = _dbContext.Departments.ToList(),
-                Employees = _dbContext.Employees.ToList(),
+                Employees = _dbContext.Employees.Where(x => x.Worker == null).ToList(),
             };
             return View(workerModel);
         }
@@ -47,7 +47,7 @@ namespace HRPayrolApp.Controllers
             if (!ModelState.IsValid)
             {
                 create.Stores = _dbContext.Stores.ToList();
-                create.Employees = _dbContext.Employees.ToList();
+                create.Employees = _dbContext.Employees.Where(x=>x.Worker==null).ToList();
                 create.Departments = _dbContext.Departments.ToList();
                 return View(create);
             }
@@ -84,7 +84,7 @@ namespace HRPayrolApp.Controllers
             }
             await _userManager.AddToRoleAsync(worker, Roles.Worker.ToString());
 
-            System.Net.Mail.SmtpClient client = new System.Net.Mail.SmtpClient("smtp.gmail.com",587);
+            SmtpClient client = new SmtpClient("smtp.gmail.com",587);
             client.EnableSsl = true;
             client.DeliveryMethod = SmtpDeliveryMethod.Network;
             client.UseDefaultCredentials = false;

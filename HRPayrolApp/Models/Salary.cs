@@ -10,11 +10,14 @@ namespace HRPayrolApp.Models
     {
         public int ID { get; set; }
 
+        [Required]
         public int EmployeeId { get; set; }
         public virtual Employee Employee { get; set; }
 
+        [Required]
         public DateTime CalculatedDate { get; set; }
 
+        [Required]
         public decimal TotalSalary { get; set; }
     }
 }

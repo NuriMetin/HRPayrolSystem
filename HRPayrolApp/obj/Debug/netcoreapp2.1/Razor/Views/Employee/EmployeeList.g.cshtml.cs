@@ -78,7 +78,7 @@ using HRPayrolApp.Models.ViewModels;
             WriteLiteral("<div class=\"container\">\r\n    <div style=\"overflow-x:auto;\">\r\n        <div class=\"d-flex\">\r\n            <select class=\"form-control col-md-3\" id=\"selectFor\">\r\n                ");
             EndContext();
             BeginContext(261, 27, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "a2886290a2eb4cd298f99187a65e533b", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "985865fec746490f93328e38eb4c2910", async() => {
                 BeginContext(269, 10, true);
                 WriteLiteral("Select for");
                 EndContext();
@@ -98,7 +98,7 @@ using HRPayrolApp.Models.ViewModels;
             WriteLiteral("\r\n                ");
             EndContext();
             BeginContext(306, 43, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "4e64a6b65fd54e2fbd7805f6224ad158", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "ffdcc7b895ba43d3bea88738700c1394", async() => {
                 BeginContext(336, 4, true);
                 WriteLiteral("Name");
                 EndContext();
@@ -120,7 +120,7 @@ using HRPayrolApp.Models.ViewModels;
             WriteLiteral("\r\n                ");
             EndContext();
             BeginContext(367, 46, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "92ba080e251449c88e87b61d147b48ca", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "a1708f520ab94de88ef726eacfcc88d3", async() => {
                 BeginContext(397, 7, true);
                 WriteLiteral("Surname");
                 EndContext();
@@ -142,7 +142,7 @@ using HRPayrolApp.Models.ViewModels;
             WriteLiteral("\r\n                ");
             EndContext();
             BeginContext(431, 50, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "cd3d8ee9551f436bbd6990ad4b197846", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "5589aed3f875486083fc5a3535196bd7", async() => {
                 BeginContext(461, 11, true);
                 WriteLiteral("Father Name");
                 EndContext();
@@ -192,7 +192,7 @@ using HRPayrolApp.Models.ViewModels;
             WriteLiteral("                    <tr>\r\n                        <td>");
             EndContext();
             BeginContext(1232, 155, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "4a73c6a745de406d80fe0c9fe495295b", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "b5b6deb22a814f1f8be9bd6880b4bb3d", async() => {
             }
             );
             __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();
@@ -269,7 +269,7 @@ AddHtmlAttributeValue("", 1251, item.Image, 1251, 11, false);
             WriteLiteral("</td>\r\n                        <td>\r\n                            ");
             EndContext();
             BeginContext(1715, 81, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "9d1ce3c3a9f1445f8cafe5b59386da88", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f5c5d98ce4c64f409eb48a8e65f0e067", async() => {
                 BeginContext(1786, 6, true);
                 WriteLiteral("Edit |");
                 EndContext();
@@ -306,7 +306,7 @@ AddHtmlAttributeValue("", 1251, item.Image, 1251, 11, false);
             WriteLiteral("\r\n                            ");
             EndContext();
             BeginContext(1826, 306, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "1955caaf5d7642869808935f5ea0da89", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "af35b7d55e414c919b04253e18ad6425", async() => {
                 BeginContext(1916, 64, true);
                 WriteLiteral("\r\n                                <input type=\"hidden\" name=\"ID\"");
                 EndContext();
@@ -365,7 +365,7 @@ WriteAttributeValue("", 1988, item.ID, 1988, 8, false);
             WriteLiteral("            </tbody>\r\n        </table>\r\n    </div>\r\n</div>\r\n<script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js\"></script>\r\n");
             EndContext();
             BeginContext(2361, 37, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("script", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "915d58e1c656405085b21f7dbb4ee15b", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("script", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f2eb34a57b9b4ffebe95f9e934a63fed", async() => {
             }
             );
             __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();

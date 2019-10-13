@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HRPayrolApp.Models
 {
-    public class WorkerBonus
+    public class Vacation
     {
         public int ID { get; set; }
 
@@ -15,12 +15,9 @@ namespace HRPayrolApp.Models
         public virtual Worker Worker { get; set; }
 
         [Required]
-        public string Reason { get; set; }
+        public DateTime StartDate { get; set; }
 
         [Required]
-        public DateTime BonusDate { get; set; }
-
-        [Required]
-        public decimal BonusSalary { get; set; }
+        public DateTime EndDate { get; set; }
     }
 }

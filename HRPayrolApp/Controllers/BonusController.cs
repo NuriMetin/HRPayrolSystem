@@ -67,15 +67,13 @@ namespace HRPayrolApp.Controllers
         [HttpPost, ValidateAntiForgeryToken]
         public async Task<IActionResult> AddBonus(string id, AddBonus addBonus)
         {
-
             var workers = await _userManager.FindByIdAsync(id);
-
-            string bonusId = $"{Path.GetRandomFileName()}_{DateTime.Now.ToString("dd_MM_yyyy_hh_mm")}";
-
-            //if (!ModelState.IsValid)
-            //{
-            //    return BadRequest();
-            //}
+            if (!ModelState.IsValid)
+            {
+                addBonus.WorkerID = workers.Id;
+                addBonus.WorkerAccount = workers.Account;
+                return View(addBonus);
+            }
 
             WorkerBonus bonus = new WorkerBonus
             {
