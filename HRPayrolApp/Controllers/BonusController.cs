@@ -25,7 +25,7 @@ namespace HRPayrolApp.Controllers
 
         public async Task<IActionResult> WorkerList()
         {
-
+            
             var user = await _dbContext.Users.Include(x => x.Position).SingleOrDefaultAsync(x => _userManager.FindByNameAsync(User.Identity.Name).GetAwaiter().GetResult().Id == x.Id);
             var id = user.Position.DepartmentId;
             var data = await (from work in _userManager.Users
@@ -87,6 +87,66 @@ namespace HRPayrolApp.Controllers
 
             _dbContext.SaveChanges();
             return RedirectToAction(nameof(WorkerList));
+        }
+
+        public IActionResult StoreBonus( string selectedDate)
+        {
+
+
+            DateTime date = Convert.ToDateTime(selectedDate);
+            SaleViewModel saleViewModel = new SaleViewModel();
+
+            saleViewModel.AvialableStores = _dbContext.Stores.Select(y => new AvialableStores
+            {
+                SaleSalary = _dbContext.Sales.Where(x => x.Date.Year == date.Year && x.Date.Month == date.Month && x.StoreId == y.ID).Sum(x => x.SaleSalary),
+                StoreName = y.Name,
+                SelectedDate = date,
+                 StoreId=y.ID
+            }).ToList();
+
+
+            return View(saleViewModel);
+        }
+
+        [HttpPost,ValidateAntiForgeryToken]
+        public IActionResult StoreBonus(decimal requiredSalary,decimal bonus, SaleViewModel saleView, int bonusform)
+        {
+            
+            List<WorkerBonus> addBonus = new List<WorkerBonus>();
+            List<Store> stores = new List<Store>();
+            List<Worker> workers = new List<Worker>();
+
+            foreach (var item in saleView.AvialableStores)
+            {
+                if (item.SaleSalary >= requiredSalary)
+                {
+                    var store = _dbContext.Stores.Where(x => x.ID == item.StoreId).ToList();
+                    stores.AddRange(store);
+                }
+            }
+
+            foreach (var store in stores)
+            {
+                var work = _dbContext.Users.Include(x=>x.Position).Where(x => x.StoreId == store.ID).ToList();
+                workers.AddRange(work);
+            }
+
+            foreach (var work in workers)
+            {
+                if (bonusform == 1)
+                {
+                    addBonus.Add(new WorkerBonus { BonusDate = DateTime.Now, BonusSalary = bonus, Reason = "Good Sale", WorkerId = work.Id });
+                }
+                else
+                    if (bonusform == 0)
+                {
+                    addBonus.Add(new WorkerBonus { BonusDate = DateTime.Now, BonusSalary = (work.Position.Salary)/100*bonus, Reason = "Good Sale", WorkerId = work.Id });
+                }
+            }
+
+            _dbContext.WorkerBonus.AddRange(addBonus);
+            _dbContext.SaveChanges();
+           return RedirectToAction(nameof(WorkerList));
         }
     }
 }

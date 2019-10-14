@@ -21,5 +21,15 @@ namespace HRPayrolApp.Models
         public const string PayrollSpecalist = "PayrollSpecalist";
         public const string DepartmentHead = "DepartmentHead";
         public const string Worker = "Worker";
+
+
+
+        public enum BonusForm
+        {
+            Percent,
+            Amount
+        }
+        public const string Percent = "Percent";
+        public const string Amount = "Amount";
     }
 }

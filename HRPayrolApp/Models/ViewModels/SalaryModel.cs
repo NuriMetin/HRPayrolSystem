@@ -15,5 +15,6 @@ namespace HRPayrolApp.Models.ViewModels
         public string CardNumber { get; set; }
         public int CVC { get; set; }
         public decimal Balance { get; set; }
-        public List<AvialableWorker> AvialableWorkers { get; set; }    }
+        public List<AvialableWorker> AvialableWorkers { get; set; }
+    }
 }

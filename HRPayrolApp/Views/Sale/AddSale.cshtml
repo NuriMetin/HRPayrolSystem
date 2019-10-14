@@ -1,0 +1,33 @@
+﻿@model  AvialableStores
+@{
+    ViewData["Title"] = "AddSale";
+}
+
+<h2>AddSale</h2>
+
+<div class="container-fluid" style="margin-top:15px;">
+    <form method="post" asp-controller="Sale" asp-action="AddSale" enctype="multipart/form-data">
+        <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+        <div class="col-md-5">
+            <div class="form-group">
+                <select class="form-control" asp-for="StoreId" asp-items="@(new SelectList(Model.Stores,"ID","Name"))">
+                    <option value="">--Store--</option>
+                </select>
+                <span asp-validation-for="StoreId" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SaleSalary" class="control-label"></label>
+                <input class="form-control" asp-for="SaleSalary" />
+                <span asp-validation-for="SaleSalary" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Date" class="control-label"></label>
+                <input class="form-control" asp-for="Date" type="date"/>
+                <span asp-validation-for="Date" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" class="btn btn-success" value="Add" />
+            </div>
+        </div>
+    </form>
+</div>

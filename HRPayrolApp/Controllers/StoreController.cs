@@ -105,5 +105,7 @@ namespace HRPayrolApp.Controllers
             _dbContext.SaveChanges();
             return RedirectToAction(nameof(StoreList));
         }
+
+        
     }
 }

@@ -1,0 +1,18 @@
+﻿@model HRPayrolApp.Models.ViewModels.SalaryModel
+@{
+    Layout = null;
+}
+@for (int i = 0; i < Model.AvialableWorkers.Count; i++)
+{
+    <tr>
+        <td>@Model.AvialableWorkers[i].Name</td>
+        <td>@Model.AvialableWorkers[i].Surname</td>
+        <td>@Model.AvialableWorkers[i].Position</td>
+        <td>@Model.AvialableWorkers[i].Department</td>
+        <td>@Model.AvialableWorkers[i].Bonus</td>
+        <td>@Model.AvialableWorkers[i].MonthlySalary</td>
+        <td>@Model.AvialableWorkers[i].ExcusableAbsens</td>
+        <td>@Model.AvialableWorkers[i].UnExcusableAbsens</td>
+        <td>@Model.AvialableWorkers[i].TotalSalary</td>
+    </tr>
+}

@@ -27,6 +27,8 @@ namespace HRPayrolApp.Controllers
 
         public async Task<IActionResult> WorkerSalary()
         {
+            ViewBag.TotalCount = _dbContext.Users.Count();
+            ViewBag.SkipCount = 5;
             var workers =await _dbContext.Users.ToListAsync();
             string k = "";
             var month = DateTime.Now.Month;
@@ -85,7 +87,7 @@ namespace HRPayrolApp.Controllers
                        + _dbContext.CompanyWorkPlaceBonus.Include(m => m.CompanyWorkPlace)
                           .Where(y => y.CompanyWorkPlace.EmployeeId == x.EmployeeId && y.CompanyWorkPlace.ChangedDate.Year == year && y.CompanyWorkPlace.ChangedDate.Month == month).Select(y => y.BonusSalary).FirstOrDefault()
 
-            }).ToList();
+            }).Take(5).ToList();
 
             return View(salaryModel);
         }

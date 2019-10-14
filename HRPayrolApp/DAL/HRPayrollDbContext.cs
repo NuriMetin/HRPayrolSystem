@@ -33,7 +33,7 @@ namespace HRPayrolApp.DAL
         public DbSet<CompanyWorkPlace> CompanyWorkPlaces { get; set; }
         public DbSet<Absens> Absens { get; set; }
         public DbSet<Vacation> Vacations { get; set; }
-
+        public DbSet<Sale> Sales { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);

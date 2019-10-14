@@ -283,6 +283,25 @@ namespace HRPayrolApp.Migrations
                     b.ToTable("Salaries");
                 });
 
+            modelBuilder.Entity("HRPayrolApp.Models.Sale", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("Date");
+
+                    b.Property<decimal>("SaleSalary");
+
+                    b.Property<int>("StoreId");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("StoreId");
+
+                    b.ToTable("Sales");
+                });
+
             modelBuilder.Entity("HRPayrolApp.Models.Store", b =>
                 {
                     b.Property<int>("ID")
@@ -659,6 +678,14 @@ namespace HRPayrolApp.Migrations
                     b.HasOne("HRPayrolApp.Models.Employee", "Employee")
                         .WithMany()
                         .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("HRPayrolApp.Models.Sale", b =>
+                {
+                    b.HasOne("HRPayrolApp.Models.Store", "Store")
+                        .WithMany("Sales")
+                        .HasForeignKey("StoreId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

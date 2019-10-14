@@ -106,29 +106,25 @@ namespace HRPayrolApp.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> EmployeeList()
+        public IActionResult EmployeeList()
         {
-            var data =await _dbContext.Employees.Select(x => new EmployeeViewModel
+            ViewBag.TotalCount = _dbContext.Employees.Count();
+            ViewBag.SkipCount = 4;
+            var data = _dbContext.Employees.Select(x => new EmployeeViewModel
             {
                 ID = x.ID,
-                Born = x.Born,
-                DistrictRegistration = x.DistrictRegistration,
                 EducationText = _dbContext.Educations.Where(m => m.EducationId == x.EducationId).Select(m => m.EducationName).FirstOrDefault(),
                 FatherName = x.FatherName,
-                GenderText = _dbContext.Genders.Where(m => m.GenderId == x.GenderId).Select(m => m.GenderName).FirstOrDefault(),
-                MaritalStatusText = _dbContext.MaritalStatuses.Where(m => m.MaritalStatusId == x.MaritalStatusId).Select(m => m.MaritalStatusName).FirstOrDefault(),
                 Name = x.Name,
                // OldWorkPlaces = x.OldWorkPlaces,
-                PersonalityCardEndDate = x.PersonalityCardEndDate,
-                PersonalityCardNumber = x.PersonalityCardNumber,
-                Residence = x.Residence,
                 Surname = x.Surname,
                 Image=x.Image
-            }).ToListAsync();
+            }).Take(4).ToList();
 
             return View(data);
         }
 
+        
 
         [HttpGet]
         public async Task<IActionResult> Edit(int id)

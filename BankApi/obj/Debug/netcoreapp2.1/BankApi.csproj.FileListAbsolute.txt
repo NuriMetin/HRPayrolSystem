@@ -39,4 +39,3 @@ M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\BankApi\obj\Debug
 M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\BankApi\obj\Debug\netcoreapp2.1\BankApi.RazorTargetAssemblyInfo.cache
 M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\BankApi\obj\Debug\netcoreapp2.1\BankApi.dll
 M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\BankApi\obj\Debug\netcoreapp2.1\BankApi.pdb
-M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\BankApi\obj\Debug\netcoreapp2.1\BankApi.csprojAssemblyReference.cache
