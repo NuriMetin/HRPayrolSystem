@@ -28,7 +28,6 @@ namespace HRPayrolApp.Controllers
         [HttpPost, ValidateAntiForgeryToken]
         public IActionResult AddPosition(PositionViewModel positionViewModel)
         {
-
             if (!ModelState.IsValid || positionViewModel.SelectedDepartment == 0)
             {
                 positionViewModel.Departments = _dbContext.Departments.ToList();
@@ -64,6 +63,10 @@ namespace HRPayrolApp.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
+            if (id == 0)
+            {
+                return NotFound();
+            }
             var position = _dbContext.Positions.Find(id);
 
             PositionViewModel positionViewModel = new PositionViewModel();

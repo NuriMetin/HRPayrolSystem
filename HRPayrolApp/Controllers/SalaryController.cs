@@ -49,7 +49,7 @@ namespace HRPayrolApp.Controllers
                 ID = x.Id,
                 Name = _dbContext.Employees.Where(y => y.Worker.Id == x.Id).Select(y => y.Name).FirstOrDefault(),
                 IDCardNumber = _dbContext.Employees.Where(y => y.Worker.Id == x.Id)
-                          .Select(y => y.PersonalityCardNumber).FirstOrDefault(),
+                          .Select(y => y.IDCardNumber).FirstOrDefault(),
 
                 Surname = _dbContext.Employees.Where(y => y.Worker.Id == x.Id).Select(y => y.Surname).FirstOrDefault(),
                 Position = _dbContext.Positions.Where(y => y.ID == x.PositionId).Select(y => y.Name).FirstOrDefault(),
@@ -86,7 +86,7 @@ namespace HRPayrolApp.Controllers
                                           + _dbContext.WorkerBonus.Where(y => y.WorkerId == x.Id && y.BonusDate.Year == year && y.BonusDate.Month == month).Sum(y => y.BonusSalary)
                        + _dbContext.CompanyWorkPlaceBonus.Include(m => m.CompanyWorkPlace)
                           .Where(y => y.CompanyWorkPlace.EmployeeId == x.EmployeeId && y.CompanyWorkPlace.ChangedDate.Year == year && y.CompanyWorkPlace.ChangedDate.Month == month).Select(y => y.BonusSalary).FirstOrDefault()
-
+                          
             }).Take(5).ToList();
 
             return View(salaryModel);
@@ -118,7 +118,7 @@ namespace HRPayrolApp.Controllers
                 ID = x.Id,
                 Name = _dbContext.Employees.Where(y => y.Worker.Id == x.Id).Select(y => y.Name).FirstOrDefault(),
                 IDCardNumber = _dbContext.Employees.Where(y => y.Worker.Id == x.Id)
-                          .Select(y => y.PersonalityCardNumber).FirstOrDefault(),
+                          .Select(y => y.IDCardNumber).FirstOrDefault(),
 
                 Surname = _dbContext.Employees.Where(y => y.Worker.Id == x.Id).Select(y => y.Surname).FirstOrDefault(),
                 Position = _dbContext.Positions.Where(y => y.ID == x.PositionId).Select(y => y.Name).FirstOrDefault(),
@@ -155,7 +155,7 @@ namespace HRPayrolApp.Controllers
                                           + _dbContext.WorkerBonus.Where(y => y.WorkerId == x.Id && y.BonusDate.Year == date.Year && y.BonusDate.Month == date.Month).Sum(y => y.BonusSalary)
                        + _dbContext.CompanyWorkPlaceBonus.Include(m => m.CompanyWorkPlace)
                           .Where(y => y.CompanyWorkPlace.EmployeeId == x.EmployeeId && y.CompanyWorkPlace.ChangedDate.Year == date.Year && y.CompanyWorkPlace.ChangedDate.Month == date.Month).Select(y => y.BonusSalary).FirstOrDefault()
-
+                           
             }).ToList();
 
             return View(salaryModel);

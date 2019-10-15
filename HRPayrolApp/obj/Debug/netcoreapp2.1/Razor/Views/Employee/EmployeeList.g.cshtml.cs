@@ -79,7 +79,7 @@ using HRPayrolApp.Models.ViewModels;
             WriteLiteral("    <div class=\"container\">\r\n        <div style=\"overflow-x:auto;\">\r\n            <div class=\"d-flex\">\r\n                <select class=\"form-control col-md-3\" id=\"selectFor\">\r\n                    ");
             EndContext();
             BeginContext(281, 27, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "dd27367c9954468380280e721e25e080", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "92197e73aba44f568b01a54d739881c6", async() => {
                 BeginContext(289, 10, true);
                 WriteLiteral("Select for");
                 EndContext();
@@ -99,7 +99,7 @@ using HRPayrolApp.Models.ViewModels;
             WriteLiteral("\r\n                    ");
             EndContext();
             BeginContext(330, 43, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "001b7cffec6b4d0290df3e93f1031ce5", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "5666c34fe4d641e6ae8d17b1fc716f75", async() => {
                 BeginContext(360, 4, true);
                 WriteLiteral("Name");
                 EndContext();
@@ -121,7 +121,7 @@ using HRPayrolApp.Models.ViewModels;
             WriteLiteral("\r\n                    ");
             EndContext();
             BeginContext(395, 46, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "24b0f28138494db1a6da4307e87e56e9", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "75eaf7f7dcb44442ab1064a4fc754a5c", async() => {
                 BeginContext(425, 7, true);
                 WriteLiteral("Surname");
                 EndContext();
@@ -143,7 +143,7 @@ using HRPayrolApp.Models.ViewModels;
             WriteLiteral("\r\n                    ");
             EndContext();
             BeginContext(463, 50, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "ea80d224f92c44d6ae59265ea31760cb", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "6695d83f23da4c6bb8a09b11580431a4", async() => {
                 BeginContext(493, 11, true);
                 WriteLiteral("Father Name");
                 EndContext();
@@ -194,7 +194,7 @@ using HRPayrolApp.Models.ViewModels;
             WriteLiteral("                            <tr>\r\n                                <td>");
             EndContext();
             BeginContext(1434, 155, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "b70244ba808e47d5a879e5e03e9fc1e3", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "3e6b195adaac45ae9ce97f34a8eb471f", async() => {
             }
             );
             __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();
@@ -271,7 +271,7 @@ AddHtmlAttributeValue("", 1453, item.Image, 1453, 11, false);
             WriteLiteral("</td>\r\n                                <td>\r\n                                    ");
             EndContext();
             BeginContext(1973, 81, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "17a5e2e55e7045b799944be889564b01", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "e6555d7015774964badca789aee7ebdb", async() => {
                 BeginContext(2044, 6, true);
                 WriteLiteral("Edit |");
                 EndContext();
@@ -308,7 +308,7 @@ AddHtmlAttributeValue("", 1453, item.Image, 1453, 11, false);
             WriteLiteral("\r\n                                    ");
             EndContext();
             BeginContext(2092, 330, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "8c21bbef26ea4e41b0ed58390f576591", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "34169a60b3bc48ae812df1641de57e55", async() => {
                 BeginContext(2182, 72, true);
                 WriteLiteral("\r\n                                        <input type=\"hidden\" name=\"ID\"");
                 EndContext();
@@ -377,7 +377,7 @@ WriteAttributeValue("", 2645, ViewBag.SkipCount, 2645, 18, false);
             WriteLiteral(" />\r\n    </div>\r\n<script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js\"></script>\r\n");
             EndContext();
             BeginContext(2771, 42, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("script", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "5084a02594a44d8bb6462b3696735b17", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("script", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "e8568e9f8f774494bbf8eccd01631e2f", async() => {
             }
             );
             __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();
@@ -395,7 +395,7 @@ WriteAttributeValue("", 2645, ViewBag.SkipCount, 2645, 18, false);
             WriteLiteral("\r\n\r\n");
             EndContext();
             BeginContext(2817, 37, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("script", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f46564ec446b4bc8a2fe556bc2d7ff15", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("script", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "b79cd7c877654388b7d860dcd71ab30e", async() => {
             }
             );
             __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();

@@ -144,4 +144,5 @@ M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\HRPayrolApp\bin\D
 M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\HRPayrolApp\obj\Debug\netcoreapp2.1\HRPayrolApp.Views.pdb
 M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\HRPayrolApp\obj\Debug\netcoreapp2.1\HRPayrolApp.csproj.CopyComplete
 M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\HRPayrolApp\obj\Debug\netcoreapp2.1\Razor\Views\Bonus\StoreBonus.g.cshtml.cs
+M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\HRPayrolApp\obj\Debug\netcoreapp2.1\Razor\Views\BankAccount\WorkerList.g.cshtml.cs
 M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\HRPayrolApp\obj\Debug\netcoreapp2.1\HRPayrolApp.csprojAssemblyReference.cache

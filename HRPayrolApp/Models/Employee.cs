@@ -24,6 +24,7 @@ namespace HRPayrolApp.Models
         public virtual ICollection<CompanyWorkPlace> CompanyWorkPlaces { get; set; }
 
         [Required]
+        [Column(TypeName = "date")]
         public DateTime Born { get; set; }
 
         [Required]
@@ -33,10 +34,13 @@ namespace HRPayrolApp.Models
         public string DistrictRegistration { get; set; }
 
         [Required]
-        public string PersonalityCardNumber { get; set; }
+        public string IDCardNumber { get; set; }
 
         [Required]
-        public DateTime PersonalityCardEndDate { get; set; }
+        public string IDCardFinCode { get; set; }
+
+        [Required]
+        public string Number { get; set; }
 
         public virtual Worker Worker { get; set; } //Clasa cixart
 

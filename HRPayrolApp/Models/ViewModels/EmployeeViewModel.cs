@@ -20,7 +20,7 @@ namespace HRPayrolApp.Models.ViewModels
         [Required]
         public string FatherName { get; set; }
 
-       
+        [Column(TypeName ="date")]
         public DateTime Born { get; set; }
 
         [Required]
@@ -31,10 +31,13 @@ namespace HRPayrolApp.Models.ViewModels
 
         [Required]
         [RegularExpression(@"\d{8}",ErrorMessage ="Invalid type. Must be 8 character")]
-        public string PersonalityCardNumber { get; set; }
+        public string IDCardNumber { get; set; }
 
-        
-        public DateTime PersonalityCardEndDate { get; set; }
+        [Required]
+        public string IDCardFinCode { get; set; }
+
+        [Required]
+        public string Number { get; set; }
 
         [Required]
         public string OldWorkPlaces { get; set; }

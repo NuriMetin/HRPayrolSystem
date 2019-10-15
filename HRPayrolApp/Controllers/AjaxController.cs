@@ -53,9 +53,8 @@ namespace HRPayrolApp.Controllers
                 GenderText = _dbContext.Genders.Where(m => m.GenderId == x.GenderId).Select(m => m.GenderName).FirstOrDefault(),
                 MaritalStatusText = _dbContext.MaritalStatuses.Where(m => m.MaritalStatusId == x.MaritalStatusId).Select(m => m.MaritalStatusName).FirstOrDefault(),
                 Name = x.Name,
-                // OldWorkPlaces = x.OldWorkPlaces,
-                PersonalityCardEndDate = x.PersonalityCardEndDate,
-                PersonalityCardNumber = x.PersonalityCardNumber,
+                IDCardNumber = x.IDCardNumber,
+                IDCardFinCode=x.IDCardFinCode,
                 Residence = x.Residence,
                 Surname = x.Surname,
                 Image = x.Image
@@ -86,7 +85,7 @@ namespace HRPayrolApp.Controllers
                 ID = x.Id,
                 Name = _dbContext.Employees.Where(y => y.Worker.Id == x.Id).Select(y => y.Name).FirstOrDefault(),
                 IDCardNumber = _dbContext.Employees.Where(y => y.Worker.Id == x.Id)
-                          .Select(y => y.PersonalityCardNumber).FirstOrDefault(),
+                          .Select(y => y.IDCardNumber).FirstOrDefault(),
 
                 Surname = _dbContext.Employees.Where(y => y.Worker.Id == x.Id).Select(y => y.Surname).FirstOrDefault(),
                 Position = _dbContext.Positions.Where(y => y.ID == x.PositionId).Select(y => y.Name).FirstOrDefault(),

@@ -32,7 +32,7 @@ namespace HRPayrolApp.Controllers
             _userManager = userManager;
         } 
 
-        public async Task<IActionResult> Create()
+        public IActionResult Create()
         {
             var createEmployee = new EmployeeViewModel
             {
@@ -77,15 +77,14 @@ namespace HRPayrolApp.Controllers
             employee.FatherName = create.FatherName;
             employee.Born = create.Born;
             employee.Residence = create.Residence;
-            employee.PersonalityCardNumber = create.PersonalityCardNumber;
-            employee.PersonalityCardEndDate = create.PersonalityCardEndDate;
+            employee.IDCardNumber = create.IDCardNumber;
+            employee.IDCardFinCode = create.IDCardFinCode;
             employee.DistrictRegistration = create.DistrictRegistration;
             employee.EducationId = create.SelectedEducation;
             employee.GenderId = create.SelectedGender;
             employee.MaritalStatusId = create.SelectedMarital;
+            employee.Number = create.Number;
           
-
-           
             await _dbContext.Employees.AddAsync(employee);
             await _dbContext.SaveChangesAsync();
             return RedirectToAction(nameof(EmployeeList));
@@ -99,7 +98,7 @@ namespace HRPayrolApp.Controllers
         }
 
         [HttpPost,ValidateAntiForgeryToken]
-        public async Task<IActionResult> AddWorkPlace(Employee employee)
+        public IActionResult AddWorkPlace(Employee employee)
         {
 
             return View();
@@ -116,7 +115,6 @@ namespace HRPayrolApp.Controllers
                 EducationText = _dbContext.Educations.Where(m => m.EducationId == x.EducationId).Select(m => m.EducationName).FirstOrDefault(),
                 FatherName = x.FatherName,
                 Name = x.Name,
-               // OldWorkPlaces = x.OldWorkPlaces,
                 Surname = x.Surname,
                 Image=x.Image
             }).Take(4).ToList();
@@ -124,11 +122,14 @@ namespace HRPayrolApp.Controllers
             return View(data);
         }
 
-        
 
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
+            if (id == 0)
+            {
+                return NotFound();
+            }
             var emp = await _dbContext.Employees.FindAsync(id);
 
             EmployeeViewModel employee = new EmployeeViewModel
@@ -142,14 +143,14 @@ namespace HRPayrolApp.Controllers
                 GenderText = _dbContext.Genders.Where(k => k.GenderId == emp.GenderId).Select(k => k.GenderName).FirstOrDefault(),
                 EducationText = _dbContext.Educations.Where(k => k.EducationId == emp.EducationId).Select(k => k.EducationName).FirstOrDefault(),
                 MaritalStatusText = _dbContext.MaritalStatuses.Where(k => k.MaritalStatusId == emp.MaritalStatusId).Select(k => k.MaritalStatusName).FirstOrDefault(),
-               // OldWorkPlaces = emp.OldWorkPlaces,
-                PersonalityCardEndDate = emp.PersonalityCardEndDate,
-                PersonalityCardNumber = emp.PersonalityCardNumber,
+                IDCardNumber = emp.IDCardNumber,
                 Residence = emp.Residence,
                 Educations = _dbContext.Educations.ToList(),
                 Genders = _dbContext.Genders.ToList(),
                 Maritals = _dbContext.MaritalStatuses.ToList(),
-                Image=emp.Image
+                Image=emp.Image,
+                IDCardFinCode=emp.IDCardFinCode,
+                Number=emp.Number
             };
 
             if (employee == null)
@@ -172,7 +173,6 @@ namespace HRPayrolApp.Controllers
             {
                 return View(empViewModel);
             }
-            //string imgName = $"{Path.GetRandomFileName().ToUpper()}_{Path.GetRandomFileName().ToLower()}_{DateTime.Now.ToString("dd_MM_yyyy_hh_mm")}.jpeg";
             var employee = await _dbContext.Employees.FindAsync(id);
 
             if (empViewModel.Photo != null)
@@ -181,10 +181,10 @@ namespace HRPayrolApp.Controllers
                 if (!empViewModel.Photo.IsImage())
                 {
                     ModelState.AddModelError("Photo", "File type must be image");
-                    //return View(empViewModel);
+                    return View(empViewModel);
                 }
 
-                //RemoveImage(_env.WebRootPath, employee.Image);
+                RemoveImage(_env.WebRootPath, employee.Image);
                 employee.Image = await empViewModel.Photo.SaveAsync(_env.WebRootPath);
                
             }
@@ -194,15 +194,13 @@ namespace HRPayrolApp.Controllers
             employee.FatherName = empViewModel.FatherName;
             employee.Residence = empViewModel.Residence;
             employee.DistrictRegistration = empViewModel.DistrictRegistration;
-            employee.PersonalityCardEndDate = empViewModel.PersonalityCardEndDate;
-            employee.PersonalityCardNumber = empViewModel.PersonalityCardNumber;
-            //employee.OldWorkPlaces = empViewModel.OldWorkPlaces;
+            employee.IDCardFinCode = empViewModel.IDCardFinCode;
+            employee.IDCardNumber = empViewModel.IDCardNumber;
             employee.EducationId = empViewModel.SelectedEducation;
             employee.GenderId = empViewModel.SelectedGender;
             employee.MaritalStatusId = empViewModel.SelectedMarital;
             employee.Born = empViewModel.Born;
-
-            //await _dbContext.Employees.AddAsync(employee);
+            employee.Number = empViewModel.Number;
             await _dbContext.SaveChangesAsync();
             return RedirectToAction(nameof(EmployeeList));
 

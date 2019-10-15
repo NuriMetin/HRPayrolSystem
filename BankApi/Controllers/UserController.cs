@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using BankApi.DAL;
 using BankApi.Models;
+using BankApi.Models.ViewModel;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 
 namespace BankApi.Controllers
 {
@@ -21,11 +24,16 @@ namespace BankApi.Controllers
         }
         // GET: api/Card
         [HttpGet]
-        public IEnumerable<User> Get()
+        public IEnumerable<UserModel> Get()
         {
             var users = _dbContext.Users.ToList();
-
-            return users;
+            var userModel = users.Select(x => new UserModel
+            {
+                IDCardNumber = x.IDCardNumber,
+                Name = x.Name,
+                Surname = x.Surname
+            }).ToList();
+            return userModel;
         }
 
         // GET: api/Card/5
@@ -48,20 +56,37 @@ namespace BankApi.Controllers
 
         // POST: api/Card
         [HttpPost]
-        public void Post([FromBody] string value)
+        public async Task<ActionResult> Post(string user)
         {
-        }
+            var userModel= JsonConvert.DeserializeObject<List<UserModel>>(user);
 
-        // PUT: api/Card/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
+            CardNumberGenerator numberGenerator = new CardNumberGenerator();
+            Int32 cvc = numberGenerator.RandomNumber(100, 999);
+            Int32 cardNumber = numberGenerator.RandomNumber(100000000, 999999999);
 
-        // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            foreach (var item in userModel)
+            {
+                User newUser = new User();
+                newUser.IDcardFincode = item.IDCardFinCode;
+                newUser.Email = item.Email;
+                newUser.Name = item.Name;
+                newUser.Surname = item.Surname;
+                newUser.Number = item.Number;
+                newUser.IDCardNumber = item.IDCardNumber;
+                _dbContext.Users.Add(newUser);
+
+                Card card = new Card();
+                card.UserId = newUser.ID;
+                card.CVC = cvc;
+                card.CardNumber = cardNumber.ToString();
+                card.CreatedDate = DateTime.Now;
+                card.Balans = 0;
+                card.ValidDate = DateTime.Now.AddYears(3);
+
+                _dbContext.Cards.Add(card);
+                await _dbContext.SaveChangesAsync();
+            }
+            return NoContent();
         }
     }
 }

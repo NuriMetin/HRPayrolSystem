@@ -14,7 +14,7 @@ namespace HRPayrolApp.Migrations
                 {
                     ID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: true)
+                    Name = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -41,7 +41,7 @@ namespace HRPayrolApp.Migrations
                 {
                     ID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: true)
+                    Name = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -54,7 +54,7 @@ namespace HRPayrolApp.Migrations
                 {
                     EducationId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    EducationName = table.Column<string>(nullable: true)
+                    EducationName = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -105,19 +105,6 @@ namespace HRPayrolApp.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Years",
-                columns: table => new
-                {
-                    ID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<DateTime>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Years", x => x.ID);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -144,7 +131,7 @@ namespace HRPayrolApp.Migrations
                 {
                     ID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(nullable: false),
                     CompanyId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -164,15 +151,15 @@ namespace HRPayrolApp.Migrations
                 {
                     ID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: true),
-                    CompanyID = table.Column<int>(nullable: true)
+                    Name = table.Column<string>(nullable: false),
+                    CompanyId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Stores", x => x.ID);
                     table.ForeignKey(
-                        name: "FK_Stores_Companies_CompanyID",
-                        column: x => x.CompanyID,
+                        name: "FK_Stores_Companies_CompanyId",
+                        column: x => x.CompanyId,
                         principalTable: "Companies",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
@@ -184,14 +171,15 @@ namespace HRPayrolApp.Migrations
                 {
                     ID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: true),
-                    Surname = table.Column<string>(nullable: true),
-                    FatherName = table.Column<string>(nullable: true),
-                    Born = table.Column<DateTime>(nullable: false),
-                    Residence = table.Column<string>(nullable: true),
-                    DistrictRegistration = table.Column<string>(nullable: true),
-                    PersonalityCardNumber = table.Column<string>(nullable: true),
-                    PersonalityCardEndDate = table.Column<DateTime>(nullable: false),
+                    Name = table.Column<string>(nullable: false),
+                    Surname = table.Column<string>(nullable: false),
+                    FatherName = table.Column<string>(nullable: false),
+                    Born = table.Column<DateTime>(type: "date", nullable: false),
+                    Residence = table.Column<string>(nullable: false),
+                    DistrictRegistration = table.Column<string>(nullable: false),
+                    IDCardNumber = table.Column<string>(nullable: false),
+                    IDCardFinCode = table.Column<string>(nullable: false),
+                    Number = table.Column<string>(nullable: false),
                     MaritalStatusId = table.Column<int>(nullable: false),
                     GenderId = table.Column<int>(nullable: false),
                     EducationId = table.Column<int>(nullable: false),
@@ -221,32 +209,12 @@ namespace HRPayrolApp.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Months",
-                columns: table => new
-                {
-                    ID = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<DateTime>(nullable: false),
-                    YearId = table.Column<int>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Months", x => x.ID);
-                    table.ForeignKey(
-                        name: "FK_Months_Years_YearId",
-                        column: x => x.YearId,
-                        principalTable: "Years",
-                        principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Positions",
                 columns: table => new
                 {
                     ID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(nullable: false),
                     Salary = table.Column<decimal>(nullable: false),
                     DepartmentId = table.Column<int>(nullable: false)
                 },
@@ -257,6 +225,27 @@ namespace HRPayrolApp.Migrations
                         name: "FK_Positions_Departments_DepartmentId",
                         column: x => x.DepartmentId,
                         principalTable: "Departments",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Sales",
+                columns: table => new
+                {
+                    ID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    SaleSalary = table.Column<decimal>(nullable: false),
+                    Date = table.Column<DateTime>(nullable: false),
+                    StoreId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Sales", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_Sales_Stores_StoreId",
+                        column: x => x.StoreId,
+                        principalTable: "Stores",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -328,7 +317,8 @@ namespace HRPayrolApp.Migrations
                     BeginDate = table.Column<DateTime>(nullable: false),
                     PassText = table.Column<string>(nullable: true),
                     Account = table.Column<string>(nullable: true),
-                    PositionId = table.Column<int>(nullable: false)
+                    PositionId = table.Column<int>(nullable: false),
+                    StoreId = table.Column<int>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -345,6 +335,12 @@ namespace HRPayrolApp.Migrations
                         principalTable: "Positions",
                         principalColumn: "ID",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_AspNetUsers_Stores_StoreId",
+                        column: x => x.StoreId,
+                        principalTable: "Stores",
+                        principalColumn: "ID",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -459,14 +455,35 @@ namespace HRPayrolApp.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Vacations",
+                columns: table => new
+                {
+                    ID = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    WorkerId = table.Column<string>(nullable: false),
+                    StartDate = table.Column<DateTime>(nullable: false),
+                    EndDate = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Vacations", x => x.ID);
+                    table.ForeignKey(
+                        name: "FK_Vacations_AspNetUsers_WorkerId",
+                        column: x => x.WorkerId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "WorkerAbsens",
                 columns: table => new
                 {
                     ID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    WorkerId = table.Column<string>(nullable: true),
+                    WorkerId = table.Column<string>(nullable: false),
                     Date = table.Column<DateTime>(nullable: false),
-                    Reason = table.Column<string>(nullable: true),
+                    Reason = table.Column<string>(nullable: false),
                     AbsensId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -492,7 +509,7 @@ namespace HRPayrolApp.Migrations
                 {
                     ID = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    WorkerId = table.Column<string>(nullable: true),
+                    WorkerId = table.Column<string>(nullable: false),
                     Reason = table.Column<string>(nullable: false),
                     BonusDate = table.Column<DateTime>(nullable: false),
                     BonusSalary = table.Column<decimal>(nullable: false)
@@ -525,7 +542,7 @@ namespace HRPayrolApp.Migrations
                         column: x => x.CompanyWorkPlaceId,
                         principalTable: "CompanyWorkPlaces",
                         principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -544,7 +561,7 @@ namespace HRPayrolApp.Migrations
                         column: x => x.CompanyWorkPlaceId,
                         principalTable: "CompanyWorkPlaces",
                         principalColumn: "ID",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.InsertData(
@@ -665,6 +682,11 @@ namespace HRPayrolApp.Migrations
                 column: "PositionId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_AspNetUsers_StoreId",
+                table: "AspNetUsers",
+                column: "StoreId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_CompanyWorkPlaceAbsens_CompanyWorkPlaceId",
                 table: "CompanyWorkPlaceAbsens",
                 column: "CompanyWorkPlaceId");
@@ -705,11 +727,6 @@ namespace HRPayrolApp.Migrations
                 column: "MaritalStatusId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Months_YearId",
-                table: "Months",
-                column: "YearId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Positions_DepartmentId",
                 table: "Positions",
                 column: "DepartmentId");
@@ -720,9 +737,19 @@ namespace HRPayrolApp.Migrations
                 column: "EmployeeId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Stores_CompanyID",
+                name: "IX_Sales_StoreId",
+                table: "Sales",
+                column: "StoreId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Stores_CompanyId",
                 table: "Stores",
-                column: "CompanyID");
+                column: "CompanyId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Vacations_WorkerId",
+                table: "Vacations",
+                column: "WorkerId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_WorkerAbsens_AbsensId",
@@ -769,13 +796,13 @@ namespace HRPayrolApp.Migrations
                 name: "CompanyWorkPlaceBonus");
 
             migrationBuilder.DropTable(
-                name: "Months");
-
-            migrationBuilder.DropTable(
                 name: "Salaries");
 
             migrationBuilder.DropTable(
-                name: "Stores");
+                name: "Sales");
+
+            migrationBuilder.DropTable(
+                name: "Vacations");
 
             migrationBuilder.DropTable(
                 name: "WorkerAbsens");
@@ -796,9 +823,6 @@ namespace HRPayrolApp.Migrations
                 name: "CompanyWorkPlaces");
 
             migrationBuilder.DropTable(
-                name: "Years");
-
-            migrationBuilder.DropTable(
                 name: "Absens");
 
             migrationBuilder.DropTable(
@@ -809,6 +833,9 @@ namespace HRPayrolApp.Migrations
 
             migrationBuilder.DropTable(
                 name: "Positions");
+
+            migrationBuilder.DropTable(
+                name: "Stores");
 
             migrationBuilder.DropTable(
                 name: "Educations");

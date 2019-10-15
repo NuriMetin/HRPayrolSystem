@@ -82,7 +82,7 @@ using HRPayrolApp.Models.ViewModels;
             WriteLiteral("        <tr>\r\n            <td>");
             EndContext();
             BeginContext(139, 155, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "2e29cf0236d94a4793c4ffb88da4e38b", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "a0983f87dc40409c96b5892aa33f95dc", async() => {
             }
             );
             __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();
@@ -159,7 +159,7 @@ AddHtmlAttributeValue("", 158, item.Image, 158, 11, false);
             WriteLiteral("</td>\r\n            <td>\r\n                ");
             EndContext();
             BeginContext(538, 81, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "7fb313e833814d4ea00930924f12acfd", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "5af97c5462fd44528bb88f0974328fcc", async() => {
                 BeginContext(609, 6, true);
                 WriteLiteral("Edit |");
                 EndContext();
@@ -196,7 +196,7 @@ AddHtmlAttributeValue("", 158, item.Image, 158, 11, false);
             WriteLiteral("\r\n                ");
             EndContext();
             BeginContext(637, 270, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "e06f7febbd7e4c44806fba2a5cf3b813", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "4b2e9e0ac8484d8ba8b164b1aa3d9f50", async() => {
                 BeginContext(727, 52, true);
                 WriteLiteral("\r\n                    <input type=\"hidden\" name=\"ID\"");
                 EndContext();

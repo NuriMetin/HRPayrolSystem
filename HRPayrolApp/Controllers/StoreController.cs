@@ -47,7 +47,6 @@ namespace HRPayrolApp.Controllers
         [HttpGet]
         public async Task<IActionResult> StoreList()
         {
-
             var stores =await _dbContext.Stores.Select(x => new StoreViewModel
             {
                 ID=x.ID,

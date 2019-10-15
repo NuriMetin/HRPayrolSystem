@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HRPayrolApp.Migrations
 {
     [DbContext(typeof(HRPayrollDbContext))]
-    [Migration("20191013072225_AddingVacation")]
-    partial class AddingVacation
+    [Migration("20191015120358_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -160,7 +160,8 @@ namespace HRPayrolApp.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("Born");
+                    b.Property<DateTime>("Born")
+                        .HasColumnType("date");
 
                     b.Property<string>("DistrictRegistration")
                         .IsRequired();
@@ -172,6 +173,12 @@ namespace HRPayrolApp.Migrations
 
                     b.Property<int>("GenderId");
 
+                    b.Property<string>("IDCardFinCode")
+                        .IsRequired();
+
+                    b.Property<string>("IDCardNumber")
+                        .IsRequired();
+
                     b.Property<string>("Image");
 
                     b.Property<int>("MaritalStatusId");
@@ -179,9 +186,7 @@ namespace HRPayrolApp.Migrations
                     b.Property<string>("Name")
                         .IsRequired();
 
-                    b.Property<DateTime>("PersonalityCardEndDate");
-
-                    b.Property<string>("PersonalityCardNumber")
+                    b.Property<string>("Number")
                         .IsRequired();
 
                     b.Property<string>("Residence")
@@ -283,6 +288,25 @@ namespace HRPayrolApp.Migrations
                     b.HasIndex("EmployeeId");
 
                     b.ToTable("Salaries");
+                });
+
+            modelBuilder.Entity("HRPayrolApp.Models.Sale", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("Date");
+
+                    b.Property<decimal>("SaleSalary");
+
+                    b.Property<int>("StoreId");
+
+                    b.HasKey("ID");
+
+                    b.HasIndex("StoreId");
+
+                    b.ToTable("Sales");
                 });
 
             modelBuilder.Entity("HRPayrolApp.Models.Store", b =>
@@ -661,6 +685,14 @@ namespace HRPayrolApp.Migrations
                     b.HasOne("HRPayrolApp.Models.Employee", "Employee")
                         .WithMany()
                         .HasForeignKey("EmployeeId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("HRPayrolApp.Models.Sale", b =>
+                {
+                    b.HasOne("HRPayrolApp.Models.Store", "Store")
+                        .WithMany("Sales")
+                        .HasForeignKey("StoreId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

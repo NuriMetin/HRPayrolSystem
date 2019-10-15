@@ -44,55 +44,29 @@ namespace BankApi.Migrations
                     b.ToTable("Cards");
                 });
 
-            modelBuilder.Entity("BankApi.Models.City", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("CountryId");
-
-                    b.Property<int?>("CoutryID");
-
-                    b.Property<string>("Name");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("CoutryID");
-
-                    b.ToTable("Cities");
-                });
-
-            modelBuilder.Entity("BankApi.Models.Coutry", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Name");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("Coutries");
-                });
-
             modelBuilder.Entity("BankApi.Models.User", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Email");
+                    b.Property<string>("Email")
+                        .IsRequired();
 
-                    b.Property<string>("IDCardNumber");
+                    b.Property<string>("IDCardNumber")
+                        .IsRequired();
 
-                    b.Property<string>("IDcardFincode");
+                    b.Property<string>("IDcardFincode")
+                        .IsRequired();
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .IsRequired();
 
-                    b.Property<string>("Number");
+                    b.Property<string>("Number")
+                        .IsRequired();
 
-                    b.Property<string>("Surname");
+                    b.Property<string>("Surname")
+                        .IsRequired();
 
                     b.HasKey("ID");
 
@@ -105,13 +79,6 @@ namespace BankApi.Migrations
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("BankApi.Models.City", b =>
-                {
-                    b.HasOne("BankApi.Models.Coutry", "Coutry")
-                        .WithMany("Cities")
-                        .HasForeignKey("CoutryID");
                 });
 #pragma warning restore 612, 618
         }

@@ -38,7 +38,6 @@ namespace HRPayrolApp.Controllers
             sale.SaleSalary = stores.SaleSalary;
             sale.Date = stores.Date;
             
-
             _dbContext.Sales.Add(sale);
             _dbContext.SaveChanges();
 
@@ -47,6 +46,10 @@ namespace HRPayrolApp.Controllers
 
         public IActionResult StoreSale(string selectedDate)
         {
+            if (selectedDate == null)
+            {
+                return NotFound();
+            }
             DateTime date = Convert.ToDateTime(selectedDate);
 
             var storeSale = _dbContext.Sales.Where(x => x.Date.Year == date.Year && x.Date.Month == date.Month);

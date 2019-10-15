@@ -155,7 +155,6 @@ namespace HRPayrolApp.Controllers
         {
             var workers = await _userManager.FindByIdAsync(id);
 
-            
             string companyWorkPlaceId = $"{Path.GetRandomFileName()}_{DateTime.Now.ToString("dd_MM_yyyy_hh_mm")}";
             string companyWorkPlaceBonusId = $"{Path.GetRandomFileName().ToLower()}_{DateTime.Now.ToString("dd_MM_yyyy_hh_mm")}";
             string companyWorkPlaceAbsensId = $"{Path.GetRandomFileName().ToUpper()}_{DateTime.Now.ToString("dd_MM_yyyy_hh_mm")}";
@@ -249,9 +248,7 @@ namespace HRPayrolApp.Controllers
                 await _userManager.DeleteAsync(worker);
                 return RedirectToAction(nameof(WorkerList));
             }
-
             return BadRequest();
-        }
-       
+        }     
     }
 }

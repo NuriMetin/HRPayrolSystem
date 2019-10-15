@@ -71,7 +71,7 @@ using HRPayrolApp.Models.ViewModels;
             WriteLiteral("\r\n<h2>StoreSale</h2>\r\n\r\n<div class=\"container\">\r\n    <div style=\"overflow-x:auto;\">\r\n        <div class=\"d-flex\">\r\n            <select class=\"form-control col-md-2\" id=\"selectFor\">\r\n                ");
             EndContext();
             BeginContext(280, 27, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "1b9cef10a5404b838d683b1584e7df4c", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "70b24a6ad62a4439b2ab775e7015f49d", async() => {
                 BeginContext(288, 10, true);
                 WriteLiteral("Select for");
                 EndContext();
@@ -91,7 +91,7 @@ using HRPayrolApp.Models.ViewModels;
             WriteLiteral("\r\n                ");
             EndContext();
             BeginContext(325, 43, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "e4a299f9d08640b1a728b66299694619", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "f7cbcad810a44d54bb63e9d22b19a9fb", async() => {
                 BeginContext(355, 4, true);
                 WriteLiteral("Name");
                 EndContext();
@@ -113,7 +113,7 @@ using HRPayrolApp.Models.ViewModels;
             WriteLiteral("\r\n            </select>\r\n            <div class=\"form-group col-md-3\">\r\n                <input type=\"search\" class=\"form-control\" id=\"txtSearch\" placeholder=\"Store name\" />\r\n            </div>\r\n            <div class=\"col-md-7\">\r\n                ");
             EndContext();
             BeginContext(614, 538, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "678cf7aa1fee477a8f7d7b92f9c2d8e8", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "d54424fc6322487b9c294e81588364cc", async() => {
                 BeginContext(667, 478, true);
                 WriteLiteral(@"
                     <div class=""d-flex"">
@@ -196,7 +196,7 @@ using HRPayrolApp.Models.ViewModels;
             WriteLiteral("            </tbody>\r\n        </table>\r\n    </div>\r\n</div>\r\n<script src=\"https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js\"></script>\r\n");
             EndContext();
             BeginContext(1788, 37, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("script", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "9c49b3a607f64049ad172edc5992b1eb", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("script", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "cc18ff9ac45e4ce290bb4658569995cd", async() => {
             }
             );
             __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();

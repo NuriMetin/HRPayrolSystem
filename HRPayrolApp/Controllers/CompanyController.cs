@@ -37,8 +37,7 @@ namespace HRPayrolApp.Controllers
         }
 
         public async Task<IActionResult> CompanyList()
-        {
-            
+        { 
             var companies =await _dbContext.Companies.ToListAsync();
 
             if (companies == null)
@@ -50,6 +49,10 @@ namespace HRPayrolApp.Controllers
 
         public IActionResult Edit(int id)
         {
+            if (id == 0)
+            {
+                return NotFound();
+            }
             var company = _dbContext.Companies.Find(id);
             if (id == 0)
             {
@@ -62,6 +65,7 @@ namespace HRPayrolApp.Controllers
         public IActionResult Edit(int id, Company companyModel)
         {
             var company = _dbContext.Companies.Find(id);
+
             if (!ModelState.IsValid)
             {
                 return View(companyModel);

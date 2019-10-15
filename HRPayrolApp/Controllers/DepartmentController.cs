@@ -62,6 +62,10 @@ namespace HRPayrolApp.Controllers
         [HttpGet]
         public IActionResult Edit(int id)
         {
+            if (id == 0)
+            {
+                return NotFound();
+            }
             var department = _dbContext.Departments.Find(id);
 
             DepartmentViewModel departmentViewModel = new DepartmentViewModel();

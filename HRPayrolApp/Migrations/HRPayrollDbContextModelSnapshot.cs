@@ -158,7 +158,8 @@ namespace HRPayrolApp.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("Born");
+                    b.Property<DateTime>("Born")
+                        .HasColumnType("date");
 
                     b.Property<string>("DistrictRegistration")
                         .IsRequired();
@@ -170,6 +171,12 @@ namespace HRPayrolApp.Migrations
 
                     b.Property<int>("GenderId");
 
+                    b.Property<string>("IDCardFinCode")
+                        .IsRequired();
+
+                    b.Property<string>("IDCardNumber")
+                        .IsRequired();
+
                     b.Property<string>("Image");
 
                     b.Property<int>("MaritalStatusId");
@@ -177,9 +184,7 @@ namespace HRPayrolApp.Migrations
                     b.Property<string>("Name")
                         .IsRequired();
 
-                    b.Property<DateTime>("PersonalityCardEndDate");
-
-                    b.Property<string>("PersonalityCardNumber")
+                    b.Property<string>("Number")
                         .IsRequired();
 
                     b.Property<string>("Residence")

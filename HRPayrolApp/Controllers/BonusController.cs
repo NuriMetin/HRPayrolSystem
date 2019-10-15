@@ -54,6 +54,10 @@ namespace HRPayrolApp.Controllers
         [HttpGet]
         public async Task<IActionResult> AddBonus(string id)
         {
+            if (id == null)
+            {
+                return NotFound();
+            }
             var workers = await _userManager.FindByIdAsync(id);
             AddBonus addBonus = new AddBonus
             {
@@ -91,8 +95,6 @@ namespace HRPayrolApp.Controllers
 
         public IActionResult StoreBonus( string selectedDate)
         {
-
-
             DateTime date = Convert.ToDateTime(selectedDate);
             SaleViewModel saleViewModel = new SaleViewModel();
 
@@ -104,14 +106,16 @@ namespace HRPayrolApp.Controllers
                  StoreId=y.ID
             }).ToList();
 
-
             return View(saleViewModel);
         }
 
         [HttpPost,ValidateAntiForgeryToken]
         public IActionResult StoreBonus(decimal requiredSalary,decimal bonus, SaleViewModel saleView, int bonusform)
         {
-            
+            if (!ModelState.IsValid || requiredSalary==0 || bonusform!=1 || bonusform!=0)
+            {
+                return View(saleView);
+            }
             List<WorkerBonus> addBonus = new List<WorkerBonus>();
             List<Store> stores = new List<Store>();
             List<Worker> workers = new List<Worker>();

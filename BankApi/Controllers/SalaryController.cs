@@ -29,11 +29,9 @@ namespace BankApi.Controllers
                  IDCardNumber=x.User.IDCardNumber,
                   Balance=x.Balans
             }).ToListAsync();
-
             return card;
         }
 
-        // GET: api/Salary/5
         [HttpGet("{id}", Name = "Get")]
         public async Task<ActionResult<SalaryModel>> Get(string id)
         {
@@ -45,26 +43,14 @@ namespace BankApi.Controllers
                 Balance = card.Balans,
                 CardNumber = card.CardNumber,
                 IDCardNumber = user.IDCardNumber
-
             };
-
             return model;
         }
 
-        // POST: api/Salary
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
-
-        #region MultiplePutt
-        // PUT: api/Salary/5
         [HttpPut]
-       // [ActionName("putname")]
         public async Task<ActionResult> Put(string salary)
         {
             List<SalaryModel> salaryList = JsonConvert.DeserializeObject<List<SalaryModel>>(salary);
-           // List<Card> card = new List<Card>();
             var Cards = _dbContext.Cards.ToList();
             foreach (var item in salaryList)
             {
@@ -72,38 +58,6 @@ namespace BankApi.Controllers
                 await _dbContext.SaveChangesAsync();
             }
             return NoContent();
-        }
-        #endregion
-        // PUT: api/Salary/5
-
-        #region SinglePutt
-        //[HttpPut]
-        //public async Task<ActionResult> Put(string IdCard, [FromBody] SalaryModel salary)
-        //{
-        //    if (!_dbContext.Cards.Any(p => p.User.IDCardNumber == IdCard))
-        //    {
-        //        return NotFound();
-        //    }
-
-        //    var existingSalary = await _dbContext.Cards.FindAsync(IdCard);
-        //    if (existingSalary != null)
-        //    {
-        //        existingSalary.Balans = _dbContext.Cards.Where(x => x.User.IDCardNumber == IdCard).Select(x => x.Balans).FirstOrDefault()
-        //       + salary.Balance;
-        //        await _dbContext.SaveChangesAsync();
-        //    }
-        //    else
-        //    {
-        //        return NotFound();
-        //    }
-        //    return Ok();
-        //}
-        #endregion
-        // DELETE: api/ApiWithActions/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
-
         }
     }
 }

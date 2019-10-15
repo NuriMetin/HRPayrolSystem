@@ -24,6 +24,10 @@ namespace HRPayrolApp.Controllers
         [HttpGet]
         public async Task<IActionResult> AddAbsens(string id)
         {
+            if (id == null)
+            {
+                return NotFound();
+            }
             var workers = await _userManager.FindByIdAsync(id);
 
             AddAbsens addAbsens = new AddAbsens

@@ -81,7 +81,7 @@ namespace HRPayrolApp.Controllers
                 ID = x.Id,
                 Name = _dbContext.Employees.Where(y => y.Worker.Id == x.Id).Select(y => y.Name).FirstOrDefault(),
                 IDCardNumber = _dbContext.Employees.Where(y => y.Worker.Id == x.Id)
-                          .Select(y => y.PersonalityCardNumber).FirstOrDefault(),
+                          .Select(y => y.IDCardNumber).FirstOrDefault(),
 
                 Surname = _dbContext.Employees.Where(y => y.Worker.Id == x.Id).Select(y => y.Surname).FirstOrDefault(),
                 Position = _dbContext.Positions.Where(y => y.ID == x.PositionId).Select(y => y.Name).FirstOrDefault(),
@@ -142,7 +142,7 @@ namespace HRPayrolApp.Controllers
                 ID = id,
                 Name = _dbContext.Employees.Where(y => y.Worker.Id == x.Id).Select(y => y.Name).FirstOrDefault(),
                 IDCardNumber = _dbContext.Employees.Where(y => y.Worker.Id == x.Id)
-                          .Select(y => y.PersonalityCardNumber).FirstOrDefault(),
+                          .Select(y => y.IDCardNumber).FirstOrDefault(),
 
                 Surname = _dbContext.Employees.Where(y => y.Worker.Id == x.Id).Select(y => y.Surname).FirstOrDefault(),
                 Position = _dbContext.Positions.Where(y => y.ID == x.PositionId).Select(y => y.Name).FirstOrDefault(),
