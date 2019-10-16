@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BankApi.DAL;
-using BankApi.Models;
-using BankApi.Models.ViewModel;
+using BankApi.Models.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -17,17 +16,18 @@ namespace BankApi.Controllers
     public class SalaryController : ControllerBase
     {
         private readonly BankApiDbContext _dbContext;
-        public SalaryController (BankApiDbContext dbContext)
+        public SalaryController(BankApiDbContext dbContext)
         {
             _dbContext = dbContext;
         }
-        
+
         [HttpGet]
         public async Task<IEnumerable<SalaryModel>> Get()
         {
-            var card = await _dbContext.Cards.Select(x=> new SalaryModel{
-                 IDCardNumber=x.User.IDCardNumber,
-                  Balance=x.Balans
+            var card = await _dbContext.Cards.Select(x => new SalaryModel
+            {
+                IDCardNumber = x.User.IDCardNumber,
+                Balance = x.Balans
             }).ToListAsync();
             return card;
         }

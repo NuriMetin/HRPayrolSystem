@@ -25,9 +25,8 @@ namespace BankApi.Models
         [Required]
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
-        
+
         [Required]
         public string Number { get; set; }
-
     }
 }

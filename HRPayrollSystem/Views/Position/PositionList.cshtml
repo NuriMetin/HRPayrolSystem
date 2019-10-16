@@ -1,0 +1,42 @@
+﻿@model IEnumerable<PositionViewModel>
+@{
+    ViewData["Title"] = "PositionList";
+}
+
+<h2>PositionList</h2>
+<div class="container">
+    <table class="table table-striped">
+        <thead style="font-weight:bold;">
+            <tr>
+                <td>Name</td>
+                <td>Salary</td>
+                <td>Department Name</td>
+                <td>Operations</td>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td>@item.Salary</td>
+                    <td>@item.Department.Name</td>
+                    <td>
+                        <div class="d-flex">
+                            <form asp-action="Edit" asp-controller="Position" method="get" asp-route-id="@item.ID" class="btn-padding">
+                                <input type="hidden" name="ID" value="@item.ID" />
+                                <input type="submit" value="Edit" class="btn btn-primary" />
+                            </form>
+                            <form asp-action="Delete" asp-controller="Position" method="post" asp-route-id="@item.ID" class="btn-padding">
+                                <input type="hidden" name="ID" value="@item.ID" />
+                                <input type="submit" value="Delete" class="btn btn-danger btn-padding" />
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+

@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "M:\\Dərslər\\Programmer\\BackEnd\\Projects\\FinalProject\\HRPayrol\\BankApi\\BankApi.csproj": {}
+    "C:\\Users\\nurim\\source\\repos\\HRPayrollSystem\\BankApi\\BankApi.csproj": {}
   },
   "projects": {
-    "M:\\Dərslər\\Programmer\\BackEnd\\Projects\\FinalProject\\HRPayrol\\BankApi\\BankApi.csproj": {
+    "C:\\Users\\nurim\\source\\repos\\HRPayrollSystem\\BankApi\\BankApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "M:\\Dərslər\\Programmer\\BackEnd\\Projects\\FinalProject\\HRPayrol\\BankApi\\BankApi.csproj",
+        "projectUniqueName": "C:\\Users\\nurim\\source\\repos\\HRPayrollSystem\\BankApi\\BankApi.csproj",
         "projectName": "BankApi",
-        "projectPath": "M:\\Dərslər\\Programmer\\BackEnd\\Projects\\FinalProject\\HRPayrol\\BankApi\\BankApi.csproj",
+        "projectPath": "C:\\Users\\nurim\\source\\repos\\HRPayrollSystem\\BankApi\\BankApi.csproj",
         "packagesPath": "C:\\Users\\nurim\\.nuget\\packages\\",
-        "outputPath": "M:\\Dərslər\\Programmer\\BackEnd\\Projects\\FinalProject\\HRPayrol\\BankApi\\obj\\",
+        "outputPath": "C:\\Users\\nurim\\source\\repos\\HRPayrollSystem\\BankApi\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -60,10 +60,6 @@
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
               "version": "[2.1.9, )"
-            },
-            "Swashbuckle.AspNetCore": {
-              "target": "Package",
-              "version": "[4.0.1, )"
             }
           },
           "imports": [

@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using BankApi.DAL;
 using BankApi.Models;
-using BankApi.Models.ViewModel;
+using BankApi.Models.ViewModels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -58,7 +57,7 @@ namespace BankApi.Controllers
         [HttpPost]
         public async Task<ActionResult> Post(string user)
         {
-            var userModel= JsonConvert.DeserializeObject<List<UserModel>>(user);
+            var userModel = JsonConvert.DeserializeObject<List<UserModel>>(user);
 
             CardNumberGenerator numberGenerator = new CardNumberGenerator();
             Int32 cvc = numberGenerator.RandomNumber(100, 999);

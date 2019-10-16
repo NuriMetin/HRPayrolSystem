@@ -1,0 +1,40 @@
+﻿@model IEnumerable<DepartmentViewModel>
+@{
+    ViewData["Title"] = "DepartmentList";
+}
+
+<h2>DepartmentList</h2>
+
+<div class="container">
+    <table class="table table-striped">
+        <thead style="font-weight:bold;">
+            <tr>
+                <td>Name</td>
+                <td>Company Name</td>
+                <td>Operations</td>
+            </tr>
+        </thead>
+        <tbody id="departmentListAppend">
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td>@item.Company.Name</td>
+                    <td>
+                        <div class="d-flex">
+                            <form asp-action="Edit" asp-controller="Department" method="get" asp-route-id="@item.ID" class="btn-padding">
+                                <input type="hidden" name="ID" value="@item.ID" />
+                                <input type="submit" value="Edit" class="btn btn-primary" />
+                            </form>
+                            <form asp-action="Delete" asp-controller="Department" method="post" asp-route-id="@item.ID" class="btn-padding">
+                                <input type="hidden" name="ID" value="@item.ID" />
+                                <input type="submit" value="Delete" class="btn btn-danger btn-padding" />
+                            </form>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <input type="hidden" class="departmentListskipcount" id="departmentListtotalCount" value="@ViewBag.SkipCount" />
+</div>

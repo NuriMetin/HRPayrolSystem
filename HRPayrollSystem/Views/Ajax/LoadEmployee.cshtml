@@ -1,0 +1,26 @@
+﻿@model IEnumerable<EmployeeViewModel>
+@{
+    Layout = null;
+}
+
+@foreach (var item in Model)
+{
+    <tr>
+        <td><img src="~/images/@item.Image" style="width:50px; height:50px; border:.2px solid black; border-radius:15px; text-align:center; margin-top:10px;" alt="" /></td>
+        <td>@item.Name</td>
+        <td>@item.Surname</td>
+        <td>@item.FatherName</td>
+        <td>@item.Born.ToShortDateString()</td>
+        <td>@item.EducationText</td>
+        <td>
+            <div class="d-flex">
+                <a asp-action="Edit" asp-controller="Employee" asp-route-id="@item.ID" class="btn btn-default text-primary">Edit </a>
+                <form asp-action="Delete" asp-controller="Employee" method="post" asp-route-id="@item.ID">
+                    <input type="hidden" name="ID" value="@item.ID" />
+                    <input type="submit" value="Delete" class="btn btn-default text-danger" />
+                </form>
+            </div>
+        </td>
+    </tr>
+}
+

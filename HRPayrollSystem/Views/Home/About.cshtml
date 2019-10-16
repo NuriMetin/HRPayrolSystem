@@ -1,0 +1,57 @@
+﻿@model HRPayrollSystem.Models.ViewModels.SalaryModel
+@{
+    ViewData["Title"] = "About";
+}
+
+<div class="col-md-12">
+    <div style="margin-top:10px; overflow-x:auto; overflow-y:auto;">
+        <form asp-action="About" asp-controller="Home" method="get">
+            <div class="d-flex">
+                <div class="form-group col-md-3">
+                    <input type="text" value="Select date"
+                           class="datepicker-here form-control"
+                           data-language='en'
+                           data-min-view="months"
+                           data-view="months"
+                           data-date-format="MM yyyy" name="selectedDate" />
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Calculate" class="btn btn-primary calc" />
+                </div>
+            </div>
+        </form>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Surname</th>
+                    <th>Position</th>
+                    <th>Department</th>
+                    <th>Bonus</th>
+                    <th>Monthly Salary</th>
+                    <th>Excusable Absens</th>
+                    <th>UnExcusable Absens</th>
+                    <th>Total Salary</th>
+                </tr>
+            </thead>
+            <tbody id="forappend">
+                @for (int i = 0; i < Model.AvialableWorkers.Count; i++)
+                {
+                    <tr>
+                        <td>@Model.AvialableWorkers[i].Name</td>
+                        <td>@Model.AvialableWorkers[i].Surname</td>
+                        <td>@Model.AvialableWorkers[i].Position</td>
+                        <td>@Model.AvialableWorkers[i].Department</td>
+                        <td>@Model.AvialableWorkers[i].Bonus</td>
+                        <td>@Model.AvialableWorkers[i].MonthlySalary</td>
+                        <td>@Model.AvialableWorkers[i].ExcusableAbsens</td>
+                        <td>@Model.AvialableWorkers[i].UnExcusableAbsens</td>
+                        <td>@Model.AvialableWorkers[i].TotalSalary</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+

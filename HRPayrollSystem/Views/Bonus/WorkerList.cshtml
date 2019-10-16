@@ -1,0 +1,56 @@
+﻿@using Microsoft.AspNetCore.Identity
+@model IEnumerable<WorkersViewModel>
+@inject UserManager<Worker> _userManager
+@{
+    ViewData["Title"] = "WorkerList";
+}
+
+<h2>WorkerList</h2>
+
+<div class="container">
+    <div style="margin-top:10px; overflow-x:auto; overflow-y:auto;">
+        <div class="d-flex">
+            <select class="form-control col-md-3" id="selectFor">
+                <option>Select for</option>
+                <option value=":nth-child(1)">Name</option>
+                <option value=":nth-child(2)">Surname</option>
+                <option value=":nth-child(3)">Position</option>
+                <option value=":nth-child(4)">Department</option>
+            </select>
+            <div class="form-group col-md-3">
+                <input type="text" class="form-control" id="txtSearch" placeholder="Employee name" />
+            </div>
+        </div>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Surname</th>
+                    <th>Position</th>
+                    <th>Department</th>
+                    <th>Beginnig Date</th>
+                    <th>Crud</th>
+                </tr>
+            </thead>
+            <tbody id="bonusWorkersAppend">
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Name</td>
+                        <td>@item.Surname</td>
+                        <td>@item.Position</td>
+                        <td>@item.Department</td>
+                        <td>@item.BeginDate.ToShortDateString()</td>
+                        <td>
+                            <a asp-action="AddBonus" asp-controller="Bonus" asp-route-id="@item.WorkerId">Add Bonus</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    <input type="hidden" class="bonusWorkersSkipCount" id="bonusWorkersTotalCount" value="@ViewBag.SkipCount" />
+</div>
+
+
+

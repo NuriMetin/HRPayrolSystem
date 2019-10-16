@@ -1,0 +1,11 @@
+﻿@model HRPayrollSystem.Models.ViewModels.SaleViewModel
+@for (int i = 0; i < Model.AvialableStores.Count; i++)
+{
+    <tr>
+        <td style="padding:0;">@Html.HiddenFor(x => Model.AvialableStores[i].SaleSalary)</td>
+        <td style="padding:0;">@Html.HiddenFor(x => Model.AvialableStores[i].StoreId)</td>
+        <td style="padding:0;">@Html.HiddenFor(x => Model.AvialableStores[i].StoreName)</td>
+        <td>@Model.AvialableStores[i].StoreName</td>
+        <td>@Model.AvialableStores[i].SaleSalary</td>
+    </tr>
+}
