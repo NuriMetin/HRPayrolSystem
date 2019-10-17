@@ -69,7 +69,7 @@ using HRPayrollSystem.Models.ViewModels;
             WriteLiteral("\r\n<h2>StoreSale</h2>\r\n\r\n<div class=\"container\">\r\n    <div style=\"overflow-x:auto;\">\r\n        <div class=\"d-flex\">\r\n            <select class=\"form-control col-md-2\" id=\"selectFor\">\r\n                ");
             EndContext();
             BeginContext(280, 27, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "4f405375e28e4745a5cd30af8872c5ed", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "acc54652acc24624a1c36e59d1acbc9a", async() => {
                 BeginContext(288, 10, true);
                 WriteLiteral("Select for");
                 EndContext();
@@ -89,7 +89,7 @@ using HRPayrollSystem.Models.ViewModels;
             WriteLiteral("\r\n                ");
             EndContext();
             BeginContext(325, 43, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "4742d2d85fab4c37acb0de300dd87f4b", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "fee2deea2b144eb7869b2fbfb2e8cee7", async() => {
                 BeginContext(355, 4, true);
                 WriteLiteral("Name");
                 EndContext();
@@ -111,7 +111,7 @@ using HRPayrollSystem.Models.ViewModels;
             WriteLiteral("\r\n            </select>\r\n            <div class=\"form-group col-md-3\">\r\n                <input type=\"search\" class=\"form-control\" id=\"txtSearch\" placeholder=\"Store name\" />\r\n            </div>\r\n            <div class=\"col-md-7\">\r\n                ");
             EndContext();
             BeginContext(614, 538, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "668f0de3700b4f35b6bf9afe5f6ac38e", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "c003c81727f7454aa6fff2637d53cdf3", async() => {
                 BeginContext(667, 478, true);
                 WriteLiteral(@"
                     <div class=""d-flex"">

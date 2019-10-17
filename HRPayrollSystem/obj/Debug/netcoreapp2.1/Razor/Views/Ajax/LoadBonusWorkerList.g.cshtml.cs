@@ -127,7 +127,7 @@ using Microsoft.AspNetCore.Identity;
             WriteLiteral("</td>\r\n        <td>\r\n            ");
             EndContext();
             BeginContext(355, 91, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "27a301ca9e124137b43bb764ce9b7e6b", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "0619c86edfa64288ade8b01a130ca618", async() => {
                 BeginContext(433, 9, true);
                 WriteLiteral("Add Bonus");
                 EndContext();

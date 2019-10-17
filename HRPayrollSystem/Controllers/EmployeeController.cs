@@ -17,7 +17,7 @@ using static HRPayrollSystem.Utilities.Utilities;
 
 namespace HRPayrollSystem.Controllers
 {
-    //[Authorize(Roles = "HR,Admin")]
+    [Authorize(Roles = SD.HR)]
     public class EmployeeController : Controller
     {
         private readonly UserManager<Worker> _userManager;
@@ -86,6 +86,40 @@ namespace HRPayrollSystem.Controllers
             await _dbContext.Employees.AddAsync(employee);
             await _dbContext.SaveChangesAsync();
             return RedirectToAction(nameof(EmployeeList));
+        }
+
+        public async Task<IActionResult> Details(int id)
+        {
+            if (id == 0)
+            {
+                return NotFound();
+            }
+            var emp = await _dbContext.Employees.FindAsync(id);
+
+            EmployeeViewModel employee = new EmployeeViewModel
+            {
+
+                Name = emp.Name,
+                Surname = emp.Surname,
+                FatherName = emp.FatherName,
+                Born = emp.Born,
+                DistrictRegistration = emp.DistrictRegistration,
+                GenderText = _dbContext.Genders.Where(k => k.GenderId == emp.GenderId).Select(k => k.GenderName).FirstOrDefault(),
+                EducationText = _dbContext.Educations.Where(k => k.EducationId == emp.EducationId).Select(k => k.EducationName).FirstOrDefault(),
+                MaritalStatusText = _dbContext.MaritalStatuses.Where(k => k.MaritalStatusId == emp.MaritalStatusId).Select(k => k.MaritalStatusName).FirstOrDefault(),
+                IDCardNumber = emp.IDCardNumber,
+                Residence = emp.Residence,
+                Image = emp.Image,
+                IDCardFinCode = emp.IDCardFinCode,
+                Number = emp.Number
+            };
+
+            if (employee == null)
+            {
+                return BadRequest();
+            }
+
+            return View(employee);
         }
 
         [HttpGet]

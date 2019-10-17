@@ -48,7 +48,7 @@ namespace HRPayrollSystem.Controllers
             string k = "";
             var month = DateTime.Now.Month;
             var year = DateTime.Now.Year;
-            int daysInMonth = DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month);
+            int daysInMonth = DateTime.DaysInMonth(year, month);
             int currentDay = DateTime.Now.Day;
 
             var empId = await _dbContext.Salaries.Where(x => x.CalculatedDate.Year == year && x.CalculatedDate.Month == month).ToListAsync();

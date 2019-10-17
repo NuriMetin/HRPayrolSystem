@@ -1,0 +1,92 @@
+﻿@model EmployeeViewModel
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div class="container-fluid">
+    <form method="post" asp-controller="Employee" asp-action="Edit" enctype="multipart/form-data">
+        <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+        <input type="hidden" asp-for="ID" />
+        <div class="d-flex">
+            <div class="col-md-3">
+                <div class="form-group col-md-11">
+                    <label asp-for="Name" class="control-label"></label>
+                    <input class="form-control" asp-for="Name" />
+                    <span class="text-danger" asp-validation-for="Name"></span>
+                </div>
+                <div class="col-md-11" style="margin-top:30px;">
+                    <label class="control-label" asp-for="Surname"></label>
+                    <input class="form-control" asp-for="Surname" />
+                    <span class="text-danger" asp-validation-for="Surname"></span>
+                </div>
+                <div class="col-md-11" style="margin-top:30px;">
+                    <label class="control-label" asp-for="FatherName"></label>
+                    <input class="form-control" asp-for="FatherName" />
+                    <span class="text-danger" asp-validation-for="FatherName"></span>
+                </div>
+                <div class="col-md-11" style="margin-top:30px;">
+                    <label class="control-label" asp-for="Born"></label>
+                    <input class="form-control" type="date" asp-for="Born" />
+                    <span class="text-danger" asp-validation-for="Born"></span>
+                </div>
+                <div class="col-md-11" style="margin-top:30px;">
+                    <label class="control-label" asp-for="Residence"></label>
+                    <input class="form-control" asp-for="Residence" />
+                    <span class="text-danger" asp-validation-for="Residence"></span>
+                </div>
+                <div class="col-md-11" style="margin-top:30px;">
+                    <label class="control-label">Old WorkPlaces</label>
+                    <input class="form-control" asp-for="OldWorkPlaces" />
+                    <span class="text-danger" asp-validation-for="OldWorkPlaces"></span>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="col-md-11">
+                    <label asp-for="Genders" class="control-label"></label>
+                    <input disabled class=" form-control" asp-for="GenderText" />
+                </div>
+                <div class="col-md-11" style="margin-top:30px;">
+                    <label asp-for="Educations"></label>
+                    <input class=" form-control" asp-for="EducationText" disabled />
+                </div>
+                <div class="col-md-11" style="margin-top:30px;">
+                    <label class="control-label">Marital Status</label>
+                    <input class="form-control" asp-for="MaritalStatusText" disabled />
+                </div>
+                <div class="col-md-11" style="margin-top:30px;">
+                    <label class="control-label">District Registration</label>
+                    <input class="form-control" asp-for="DistrictRegistration" />
+                    <span class="text-danger" asp-validation-for="DistrictRegistration"></span>
+                </div>
+                <div class="col-md-11" style="margin-top:30px;">
+                    <label class="control-label">ID Card Number</label>
+                    <input class="form-control" asp-for="IDCardNumber" />
+                    <span class="text-danger" asp-validation-for="IDCardNumber"></span>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="col-md-11">
+                    <label class="control-label">ID Card Fincode</label>
+                    <input class="form-control" type="text" asp-for="IDCardFinCode" />
+                    <span class="text-danger" asp-validation-for="IDCardFinCode"></span>
+                </div>
+                <div class="col-md-11" style="margin-top:30px;">
+                    <label class="control-label">Phone</label>
+                    <input class="form-control" asp-for="Number" />
+                    <span class="text-danger" asp-validation-for="Number"></span>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="col-md-12">
+                    <div id="imgPreview">
+                        <img src="~/images/@Model.Image" style="display:block; border:1px solid black; height:200px; width:100%;">
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+
+    </form>
+</div>
+
+

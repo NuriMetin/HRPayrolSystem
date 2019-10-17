@@ -40,6 +40,7 @@
                         <td>@item.EducationText</td>
                         <td>
                             <div class="d-flex">
+                                <a asp-action="Details" asp-controller="Employee" asp-route-id="@item.ID" class="btn btn-default text-success">Details </a>
                                 <a asp-action="Edit" asp-controller="Employee" asp-route-id="@item.ID" class="btn btn-default text-primary">Edit </a>
                                 <form asp-action="Delete" asp-controller="Employee" method="post" asp-route-id="@item.ID">
                                     <input type="hidden" name="ID" value="@item.ID" />

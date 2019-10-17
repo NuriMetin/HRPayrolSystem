@@ -31,7 +31,7 @@ namespace HRPayrollSystem.Controllers
             _roleManager = roleManagerr;
         }
 
-        //[Authorize(Roles = SD.HR)]
+        [Authorize(Roles = SD.HR)]
         public IActionResult Create()
         {
             WorkersViewModel workerModel = new WorkersViewModel
@@ -43,7 +43,7 @@ namespace HRPayrollSystem.Controllers
             return View(workerModel);
         }
 
-        //[Authorize(Roles = SD.HR)]
+        [Authorize(Roles = SD.HR)]
         [HttpPost, ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(WorkersViewModel create)
         {
@@ -147,7 +147,7 @@ namespace HRPayrollSystem.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        //[Authorize(Roles = SD.HR)]
+        [Authorize(Roles = SD.HR)]
         public async Task<IActionResult> Edit(string id, WorkersViewModel workersView)
         {
             var workers = await _userManager.FindByIdAsync(id);
@@ -210,7 +210,8 @@ namespace HRPayrollSystem.Controllers
                 EmployeeId = workers.EmployeeId,
                 PassText = workers.PassText,
                 UserName = workers.UserName,
-                PositionId = workersView.SelectedPosition
+                PositionId = workersView.SelectedPosition,
+                Working=true
             };
 
             _dbContext.WorkerBonus.RemoveRange(_dbContext.WorkerBonus.Where(x => x.WorkerId == workers.Id).ToList());
@@ -234,7 +235,7 @@ namespace HRPayrollSystem.Controllers
             return RedirectToAction(nameof(WorkerList));
         }
 
-        //[Authorize(Roles = SD.HR)]
+        [Authorize(Roles = SD.HR)]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(string id)
@@ -271,7 +272,7 @@ namespace HRPayrollSystem.Controllers
         }
 
         [HttpPost, ValidateAntiForgeryToken]
-        //[Authorize(Roles = "HR,Admin")]
+        [Authorize(Roles = "HR,Admin")]
         public IActionResult UndoWorker(string id)
         {
             if (id == null)
@@ -289,13 +290,11 @@ namespace HRPayrollSystem.Controllers
             return BadRequest();
         }
 
-        //[Authorize(Roles = SD.Admin)]
-        public async Task<IActionResult> ChangeRole()
+        [Authorize(Roles = SD.Admin)]
+        public async Task<IActionResult> ChangeRole(string id)
         {
-            var user = await _dbContext.Users.Include(x => x.Employee).Include(x=>x.Position).Include(x=>x.Position.Department).Where(x => x.Working == true)
-                .SingleOrDefaultAsync(x => _userManager.FindByNameAsync(User.Identity.Name)
-                     .GetAwaiter().GetResult().Id == x.Id);
-            var role = _dbContext.UserRoles.Where(x => x.UserId == user.Id).Select(x => x.RoleId).FirstOrDefault();
+            var user = await _dbContext.Users.Where(x=>x.Id==id).Include(x => x.Employee).Include(x => x.Position).Include(x => x.Position.Department).FirstOrDefaultAsync();
+            var role =await _dbContext.UserRoles.Where(x => x.UserId == user.Id).Select(x => x.RoleId).FirstOrDefaultAsync();
   
             var roleVM = new RoleVM {
                  Roles=_roleManager.Roles.ToList(),
@@ -309,7 +308,7 @@ namespace HRPayrollSystem.Controllers
             return View(roleVM);
         }
 
-        //[Authorize(Roles = SD.Admin)]
+        [Authorize(Roles = SD.Admin)]
         [HttpPost, ValidateAntiForgeryToken]
         public async Task<IActionResult> ChangeRole(RoleVM roleVM)
         {
@@ -318,10 +317,6 @@ namespace HRPayrollSystem.Controllers
             await _userManager.RemoveFromRolesAsync(worker, await _userManager.GetRolesAsync(worker));
 
             await _userManager.AddToRoleAsync(worker,(await _roleManager.FindByIdAsync(roleVM.SelectedRole)).Name);
-
-
-
-            var dat = roleVM.SelectedRole;
             
             return RedirectToAction(nameof(WorkerList));
         }

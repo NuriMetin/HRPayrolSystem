@@ -144,7 +144,7 @@ using Microsoft.AspNetCore.Identity;
             WriteLiteral("                    ");
             EndContext();
             BeginContext(461, 133, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "43059078a45746e5933daba4ac18b99f", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "05ae971f79f549ada110df403d6fb19a", async() => {
                 BeginContext(577, 13, true);
                 WriteLiteral("Add Absens   ");
                 EndContext();
@@ -182,7 +182,7 @@ using Microsoft.AspNetCore.Identity;
             WriteLiteral("\r\n                    ");
             EndContext();
             BeginContext(616, 137, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "33612044c0af402eb6b9cfe5791e6acd", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "686ddccc8ef84f0a903cf19d0749b811", async() => {
                 BeginContext(737, 12, true);
                 WriteLiteral("Add Vacation");
                 EndContext();
@@ -237,7 +237,7 @@ using Microsoft.AspNetCore.Identity;
             WriteLiteral("                    ");
             EndContext();
             BeginContext(884, 123, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "d23988ecacd14730b2346f6098c2ff36", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "bc5dea913caa41e5bb4efe92306bed43", async() => {
                 BeginContext(999, 4, true);
                 WriteLiteral("Edit");
                 EndContext();
@@ -275,7 +275,7 @@ using Microsoft.AspNetCore.Identity;
             WriteLiteral("\r\n                    ");
             EndContext();
             BeginContext(1029, 305, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "aa9dd20f88b44ae2b59fbb57bc2a7995", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "cee7d4c2cf0348bc8a923fac8d3d9a8f", async() => {
                 BeginContext(1123, 56, true);
                 WriteLiteral("\r\n                        <input type=\"hidden\" name=\"ID\"");
                 EndContext();

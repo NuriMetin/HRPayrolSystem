@@ -87,12 +87,34 @@
                                     <span class="nav-link-text">Position</span>
                                 </a>
                                 <ul class="sidenav-second-level collapse" id="PositionPages">
-
                                     <li title="Add position">
                                         <a asp-controller="Position" asp-action="AddPosition">Add Position</a>
                                     </li>
                                     <li>
                                         <a asp-controller="Position" asp-action="PositionList">Look all position</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Workers">
+                                <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#HrWorkerPages" data-parent="#exampleAccordion">
+                                    <i class="fa fa-fw fa-wrench"></i>
+                                    <span class="nav-link-text">Roles</span>
+                                </a>
+                                <ul class="sidenav-second-level collapse" id="HrWorkerPages">
+                                    <li>
+                                        <a asp-controller="Worker" asp-action="WorkerList">Look all workers</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="StoreSale">
+                                <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#StoreSale" data-parent="#exampleAccordion">
+                                    <i class="fa fa-fw fa-file"></i>
+                                    <span class="nav-link-text">Sales</span>
+                                </a>
+                                <ul class="sidenav-second-level collapse" id="StoreSale">
+
+                                    <li title="Add sales">
+                                        <a asp-controller="Sale" asp-action="AddSale">Add sales</a>
                                     </li>
                                 </ul>
                             </li>
@@ -138,8 +160,11 @@
                                     <li>
                                         <a asp-controller="Worker" asp-action="WorkerList">Look all workers</a>
                                     </li>
-                                    <li>
-                                        <a asp-controller="Salary" asp-action="WorkerSalary">Calculate salary</a>
+                                    <li title="Add worker">
+                                        <a asp-controller="Worker" asp-action="Create">Add worker</a>
+                                    </li>
+                                    <li title="Add bank account">
+                                        <a asp-controller="BankAccount" asp-action="WorkerList">Bank account</a>
                                     </li>
                                 </ul>
                             </li>
@@ -152,42 +177,33 @@
                                     <span class="nav-link-text">Worker</span>
                                 </a>
                                 <ul class="sidenav-second-level collapse" id="PsWorkerPages">
-
-                                    <li title="Add worker">
-                                        <a asp-controller="Worker" asp-action="Create">Add worker</a>
+                                    <li>
+                                        <a asp-controller="Salary" asp-action="WorkerSalary">Calculate salary</a>
                                     </li>
                                     <li>
                                         <a asp-controller="Worker" asp-action="WorkerList">Look all workers</a>
                                     </li>
                                 </ul>
                             </li>
-                            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Employees">
-                                <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#PsEmployeePages" data-parent="#exampleAccordion">
+                            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Bonus">
+                                <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#StoreSale" data-parent="#exampleAccordion">
                                     <i class="fa fa-fw fa-wrench"></i>
-                                    <span class="nav-link-text">Employee</span>
+                                    <span class="nav-link-text">Store sale salary</span>
                                 </a>
-                                <ul class="sidenav-second-level collapse" id="PsEmployeePages">
-                                    <li>
-                                        <a asp-controller="Employee" asp-action="EmployeeList">Look all employees</a>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Store">
-                                <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#StorePages" data-parent="#exampleAccordion">
-                                    <i class="fa fa-fw fa-file"></i>
-                                    <span class="nav-link-text">Store</span>
-                                </a>
-                                <ul class="sidenav-second-level collapse" id="StorePages">
-
-                                    <li title="Add empoyee">
-                                        <a asp-controller="Store" asp-action="AddStore">Add Store</a>
-                                    </li>
+                                <ul class="sidenav-second-level collapse" id="StoreSale">
                                     <li>
                                         <a asp-controller="Store" asp-action="StoreList">Look all stores</a>
                                     </li>
                                 </ul>
                             </li>
                         }
+                    </ul>
+                    <ul class="navbar-nav ml-auto">
+                        <li class="changePassword" >
+                            <a class="nav-link " data-target="#exampleModal" asp-controller="Account" asp-action="ChangePassword">
+                                Change Password
+                            </a>
+                        </li>
                     </ul>
                     <ul class="navbar-nav ml-auto">
                         <li class="nav-item">

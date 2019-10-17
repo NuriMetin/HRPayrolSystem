@@ -30,7 +30,7 @@ namespace HRPayrollSystem.Controllers
         }
         public IActionResult AccessDenied()
         {
-            return Content("Boom!!!!");
+            return Content("Role is false");
         }
 
 
@@ -76,7 +76,6 @@ namespace HRPayrollSystem.Controllers
 
         public IActionResult ForgetPassword()
         {
-            // var data = await _userManager.FindByEmailAsync(login.Email);
             return View();
         }
 

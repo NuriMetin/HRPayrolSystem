@@ -24,8 +24,7 @@ namespace HRPayrollSystem.Controllers
             _userManager = userManager;
         }
 
-        //[Authorize(Roles = SD.Admin)]
-        [Authorize(Roles = "DepartmentHead,Admin")]
+        [Authorize(Roles = SD.DepartmentHead)]
         public async Task<IActionResult> WorkerList()
         {
             ViewBag.SkipCount = 6;
@@ -99,6 +98,7 @@ namespace HRPayrollSystem.Controllers
             return RedirectToAction(nameof(WorkerList));
         }
 
+        [Authorize(Roles =SD.PayrollSpecalist)]
         public IActionResult StoreBonus(string selectedDate)
         {
             DateTime date = Convert.ToDateTime(selectedDate);
@@ -116,7 +116,7 @@ namespace HRPayrollSystem.Controllers
         }
 
         [HttpPost, ValidateAntiForgeryToken]
-        [Authorize(Roles = "Admin,PayrollSpecalist")]
+        [Authorize(Roles = SD.PayrollSpecalist)]
         public IActionResult StoreBonus(decimal requiredSalary, decimal bonus, SaleViewModel saleView, int bonusform)
         {
             List<WorkerBonus> addBonus = new List<WorkerBonus>();

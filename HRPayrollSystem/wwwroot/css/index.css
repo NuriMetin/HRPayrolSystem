@@ -22,3 +22,12 @@ select:focus{
 label{
     font-size:12px !important;
 }
+.changePassword{
+    margin-left:950px;
+}
+.btn-right {
+    margin: 20px 0 0 760px;
+}
+.td-height{
+    height:10px;
+}

@@ -4,9 +4,9 @@
 }
 <div class="container">
     <form asp-action="ChangeRole" asp-controller="Worker" method="post">
-        <div class="container-fluid">
+        <div class="container">
             <div class="text-danger" asp-validation-summary="ModelOnly"></div>
-            <input type="hidden" asp-for="WorkerId"/>
+            <input type="hidden" asp-for="WorkerId" />
             <div class="d-flex">
                 <div class="col-md-6">
                     <div class="form-group">
@@ -44,7 +44,9 @@
                         <span asp-validation-for="SelectedRole" class="text-danger"></span>
                     </div>
                 </div>
-                <input type="submit" value="Change" class="form-control" />
+            </div>
+            <div class="col-md-12">
+                <input type="submit" value="Save Changes" class="form-control btn-primary center-block" />
             </div>
         </div>
     </form>
