@@ -30,6 +30,8 @@ namespace HRPayrollSystem.Models
         public virtual Store Store { get; set; }
         public int? StoreId { get; set; }
 
+        public bool Working { get; set; }
+
         public virtual ICollection<Vacation> Vacations { get; set; }
     }
 }

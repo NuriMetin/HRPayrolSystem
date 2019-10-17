@@ -4,11 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using HRPayrollSystem.DAL;
 using HRPayrollSystem.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace HRPayrollSystem.Controllers
 {
+    [Authorize(Roles =SD.Admin)]
     public class CompanyController : Controller
     {
         private readonly HRPayrollDbContext _dbContext;

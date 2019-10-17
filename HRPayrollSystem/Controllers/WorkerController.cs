@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using HRPayrollSystem.DAL;
 using HRPayrollSystem.Models;
 using HRPayrollSystem.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -17,17 +18,20 @@ using static HRPayrollSystem.Models.SD;
 
 namespace HRPayrollSystem.Controllers
 {
+    [Authorize]
     public class WorkerController : Controller
     {
         private readonly HRPayrollDbContext _dbContext;
         private readonly UserManager<Worker> _userManager;
-        public WorkerController(IHostingEnvironment env, HRPayrollDbContext dbContext, UserManager<Worker> userManager)
+        private readonly RoleManager<IdentityRole> _roleManager;
+        public WorkerController(IHostingEnvironment env, HRPayrollDbContext dbContext, UserManager<Worker> userManager, RoleManager<IdentityRole> roleManagerr)
         {
             _dbContext = dbContext;
             _userManager = userManager;
+            _roleManager = roleManagerr;
         }
 
-        // [Authorize(Roles = SD.PayrollSpecalist)]
+        //[Authorize(Roles = SD.HR)]
         public IActionResult Create()
         {
             WorkersViewModel workerModel = new WorkersViewModel
@@ -39,7 +43,7 @@ namespace HRPayrollSystem.Controllers
             return View(workerModel);
         }
 
-        // [Authorize(Roles = SD.PayrollSpecalist)]
+        //[Authorize(Roles = SD.HR)]
         [HttpPost, ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(WorkersViewModel create)
         {
@@ -68,7 +72,7 @@ namespace HRPayrollSystem.Controllers
                                           + _dbContext.Employees.Where(x => x.ID == create.SelectedEmployee).Select(x => x.Surname).FirstOrDefault();
             worker.PassText = create.Password;
             worker.BeginDate = create.BeginDate;
-
+            worker.Working = true;
 
             IdentityResult result = await _userManager.CreateAsync(worker, create.Password);
             if (!result.Succeeded)
@@ -101,31 +105,24 @@ namespace HRPayrollSystem.Controllers
             return RedirectToAction(nameof(WorkerList));
         }
 
-        //   [Authorize(Roles = "PayrollSpecalist,HR")]
+        //[Authorize(Roles = SD.HR)]
         public async Task<IActionResult> WorkerList()
         {
-            var data = await (from work in _userManager.Users
-                              join emp in _dbContext.Employees
-                              on work.EmployeeId equals emp.ID
-                              join pos in _dbContext.Positions
-                              on work.PositionId equals pos.ID
-                              join dep in _dbContext.Departments
-                              on pos.DepartmentId equals dep.ID
-                              select new WorkersViewModel
-                              {
-                                  WorkerId = work.Id,
-                                  Email = work.Email,
-                                  Name = emp.Name,
-                                  Surname = emp.Surname,
-                                  Position = pos.Name,
-                                  Department = dep.Name,
-                                  BeginDate = work.BeginDate
-                              }).ToListAsync();
+            var workers = await _dbContext.Users.Include(x => x.Employee).Include(x => x.Position).Include(x => x.Position.Department).Where(x => x.Working == true).Select(x => new WorkersViewModel
+            {
+                WorkerId = x.Id,
+                Email = x.Email,
+                Name = x.Employee.Name,
+                Surname = x.Employee.Surname,
+                Position = x.Position.Name,
+                Department = x.Position.Department.Name,
+                BeginDate = x.BeginDate
+            }).ToListAsync();
 
-            return View(data);
+            return View(workers);
         }
 
-        //  [Authorize(Roles = SD.PayrollSpecalist)]
+        [Authorize(Roles = SD.HR)]
         [HttpGet]
         public async Task<IActionResult> Edit(string id)
         {
@@ -150,6 +147,7 @@ namespace HRPayrollSystem.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        //[Authorize(Roles = SD.HR)]
         public async Task<IActionResult> Edit(string id, WorkersViewModel workersView)
         {
             var workers = await _userManager.FindByIdAsync(id);
@@ -236,7 +234,7 @@ namespace HRPayrollSystem.Controllers
             return RedirectToAction(nameof(WorkerList));
         }
 
-        // [Authorize(Roles = SD.PayrollSpecalist)]
+        //[Authorize(Roles = SD.HR)]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Delete(string id)
@@ -248,6 +246,84 @@ namespace HRPayrollSystem.Controllers
                 return RedirectToAction(nameof(WorkerList));
             }
             return BadRequest();
+        }
+
+        [Authorize(Roles = "HR,Admin")]
+        public async Task<IActionResult> RemovidWorkers()
+        {
+            var workers = await _dbContext.Users.Include(x=>x.Employee).Include(x=>x.Position).Include(x=>x.Position.Department).Where(x => x.Working == false).Select(x => new WorkersViewModel
+            {
+                WorkerId = x.Id,
+                Email = x.Email,
+                Name = x.Employee.Name,
+                Surname = x.Employee.Surname,
+                Position = x.Position.Name,
+                Department = x.Position.Department.Name,
+                BeginDate = x.BeginDate
+            }).ToListAsync();
+
+            if (workers == null)
+            {
+                return NoContent();
+            }
+
+            return View(workers);
+        }
+
+        [HttpPost, ValidateAntiForgeryToken]
+        //[Authorize(Roles = "HR,Admin")]
+        public IActionResult UndoWorker(string id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+            var worker = _dbContext.Users.Find(id);
+
+            if (worker != null)
+            {
+                worker.Working = true;
+                _dbContext.SaveChanges();
+                return RedirectToAction(nameof(RemovidWorkers));
+            }
+            return BadRequest();
+        }
+
+        //[Authorize(Roles = SD.Admin)]
+        public async Task<IActionResult> ChangeRole()
+        {
+            var user = await _dbContext.Users.Include(x => x.Employee).Include(x=>x.Position).Include(x=>x.Position.Department).Where(x => x.Working == true)
+                .SingleOrDefaultAsync(x => _userManager.FindByNameAsync(User.Identity.Name)
+                     .GetAwaiter().GetResult().Id == x.Id);
+            var role = _dbContext.UserRoles.Where(x => x.UserId == user.Id).Select(x => x.RoleId).FirstOrDefault();
+  
+            var roleVM = new RoleVM {
+                 Roles=_roleManager.Roles.ToList(),
+                  Name=user.Employee.Name,
+                   Surname=user.Employee.Surname,
+                   WorkerId=user.Id,
+                    Position=user.Position.Name,
+                     Department=user.Position.Department.Name,
+                      RoleName=_roleManager.Roles.Where(x=>x.Id==role).Select(x=>x.Name).FirstOrDefault()
+            };
+            return View(roleVM);
+        }
+
+        //[Authorize(Roles = SD.Admin)]
+        [HttpPost, ValidateAntiForgeryToken]
+        public async Task<IActionResult> ChangeRole(RoleVM roleVM)
+        {
+            var worker = await _userManager.FindByIdAsync(roleVM.WorkerId);
+
+            await _userManager.RemoveFromRolesAsync(worker, await _userManager.GetRolesAsync(worker));
+
+            await _userManager.AddToRoleAsync(worker,(await _roleManager.FindByIdAsync(roleVM.SelectedRole)).Name);
+
+
+
+            var dat = roleVM.SelectedRole;
+            
+            return RedirectToAction(nameof(WorkerList));
         }
     }
 }

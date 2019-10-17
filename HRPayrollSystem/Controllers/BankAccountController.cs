@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using HRPayrollSystem.DAL;
 using HRPayrollSystem.Models;
 using HRPayrollSystem.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -14,6 +15,7 @@ using Newtonsoft.Json;
 
 namespace HRPayrollSystem.Controllers
 {
+    [Authorize]
     public class BankAccountController : Controller
     {
         private readonly HRPayrollDbContext _dbContext;
@@ -25,7 +27,7 @@ namespace HRPayrollSystem.Controllers
         }
         public async Task<IActionResult> WorkerList()
         {
-            var workers = await _dbContext.Users.ToListAsync();
+            var workers = await _dbContext.Users.Where(x=>x.Working==true).ToListAsync();
             var data =new List<Account>();
             ViewBag.SkipCount = 5;
            
@@ -47,7 +49,7 @@ namespace HRPayrollSystem.Controllers
                 k += ("//" + item.IDCardNumber + "//");
             }
 
-            data =await _dbContext.Users.Include(x => x.Employee).Include(x => x.Position).Include(x => x.Position.Department).Where(x => !k.Contains("/" + x.Employee.IDCardNumber + "/")).Select(x => new Account
+            data =await _dbContext.Users.Include(x => x.Employee).Include(x => x.Position).Include(x => x.Position.Department).Where(x => !k.Contains("/" + x.Employee.IDCardNumber + "/") && x.Working==true).Select(x => new Account
             {
                 Department = x.Position.Department.Name,
                 Name = x.Employee.Name,

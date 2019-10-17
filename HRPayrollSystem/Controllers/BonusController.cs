@@ -5,12 +5,14 @@ using System.Threading.Tasks;
 using HRPayrollSystem.DAL;
 using HRPayrollSystem.Models;
 using HRPayrollSystem.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace HRPayrollSystem.Controllers
 {
+    [Authorize]
     public class BonusController : Controller
     {
         private readonly HRPayrollDbContext _dbContext;
@@ -22,10 +24,12 @@ namespace HRPayrollSystem.Controllers
             _userManager = userManager;
         }
 
+        //[Authorize(Roles = SD.Admin)]
+        [Authorize(Roles = "DepartmentHead,Admin")]
         public async Task<IActionResult> WorkerList()
         {
             ViewBag.SkipCount = 6;
-            var user = await _dbContext.Users.Include(x => x.Position).SingleOrDefaultAsync(x => _userManager.FindByNameAsync(User.Identity.Name).GetAwaiter().GetResult().Id == x.Id);
+            var user = await _dbContext.Users.Where(x=>x.Working==true).Include(x => x.Position).SingleOrDefaultAsync(x => _userManager.FindByNameAsync(User.Identity.Name).GetAwaiter().GetResult().Id == x.Id);
             var id = user.Position.DepartmentId;
             var workers = await _dbContext.Users.ToListAsync();
             ViewBag.TotalCount = workers.Count();
@@ -37,7 +41,7 @@ namespace HRPayrollSystem.Controllers
                               on work.PositionId equals pos.ID
                               join dep in _dbContext.Departments
                               on pos.DepartmentId equals dep.ID
-                              where dep.ID == id
+                              where dep.ID == id && work.Working==true
                               select new WorkersViewModel
                               {
                                   WorkerId = work.Id,
@@ -52,7 +56,7 @@ namespace HRPayrollSystem.Controllers
             return View(data);
         }
 
-        //[Authorize(Roles = SD.DepartmentHead)]
+        [Authorize(Roles = SD.DepartmentHead)]
         [HttpGet]
         public async Task<IActionResult> AddBonus(string id)
         {
@@ -69,7 +73,7 @@ namespace HRPayrollSystem.Controllers
             return View(addBonus);
         }
 
-        //[Authorize(Roles = SD.DepartmentHead)]
+        [Authorize(Roles = SD.DepartmentHead)]
         [HttpPost, ValidateAntiForgeryToken]
         public async Task<IActionResult> AddBonus(string id, AddBonus addBonus)
         {
@@ -112,12 +116,9 @@ namespace HRPayrollSystem.Controllers
         }
 
         [HttpPost, ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin,PayrollSpecalist")]
         public IActionResult StoreBonus(decimal requiredSalary, decimal bonus, SaleViewModel saleView, int bonusform)
         {
-            if (!ModelState.IsValid || requiredSalary == 0 || bonusform != 1 || bonusform != 0)
-            {
-                return View(saleView);
-            }
             List<WorkerBonus> addBonus = new List<WorkerBonus>();
             List<Store> stores = new List<Store>();
             List<Worker> workers = new List<Worker>();
@@ -133,7 +134,7 @@ namespace HRPayrollSystem.Controllers
 
             foreach (var store in stores)
             {
-                var work = _dbContext.Users.Include(x => x.Position).Where(x => x.StoreId == store.ID).ToList();
+                var work = _dbContext.Users.Where(x=>x.Working==true).Include(x => x.Position).Where(x => x.StoreId == store.ID).ToList();
                 workers.AddRange(work);
             }
 

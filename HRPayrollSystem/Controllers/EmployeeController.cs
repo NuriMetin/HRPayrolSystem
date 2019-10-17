@@ -7,6 +7,7 @@ using HRPayrollSystem.DAL;
 using HRPayrollSystem.Extensions;
 using HRPayrollSystem.Models;
 using HRPayrollSystem.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -16,7 +17,7 @@ using static HRPayrollSystem.Utilities.Utilities;
 
 namespace HRPayrollSystem.Controllers
 {
-    // [Authorize(Roles = SD.HR)]
+    //[Authorize(Roles = "HR,Admin")]
     public class EmployeeController : Controller
     {
         private readonly UserManager<Worker> _userManager;

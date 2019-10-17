@@ -5,11 +5,14 @@ using System.Threading.Tasks;
 using HRPayrollSystem.DAL;
 using HRPayrollSystem.Models;
 using HRPayrollSystem.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace HRPayrollSystem.Controllers
 {
+    [Authorize]
     public class AbsensController : Controller
     {
         private readonly HRPayrollDbContext _dbContext;
@@ -44,6 +47,14 @@ namespace HRPayrollSystem.Controllers
         public async Task<IActionResult> AddAbsens(string id, AddAbsens addAbsens)
         {
             var workers = await _userManager.FindByIdAsync(id);
+            
+            var lastAbsens = await _dbContext.WorkerAbsens.Where(x => x.WorkerId == workers.Id && x.AbsensId == 2 && x.Date.Year == DateTime.Now.Year && x.Date.Month == DateTime.Now.Month).LastOrDefaultAsync();
+            int dateCount = 0;
+
+            if (lastAbsens!=null)
+            {
+                dateCount = DateTime.Now.Day - lastAbsens.Date.Day;
+            }
 
             if (!ModelState.IsValid)
             {
@@ -53,18 +64,37 @@ namespace HRPayrollSystem.Controllers
                 return View(addAbsens);
             }
 
-            WorkerAbsens workerAbsens = new WorkerAbsens
+            WorkerAbsens workerAbsens = new WorkerAbsens();
+
+            workerAbsens.WorkerId = workers.Id;
+            workerAbsens.AbsensId = addAbsens.SelectedAbsens;
+            workerAbsens.Date = DateTime.Now;
+            workerAbsens.Reason = addAbsens.Reason;
+
+            if (dateCount == 1)
+            {  
+                workerAbsens.AbsensCount = lastAbsens.AbsensCount + 1;
+            }
+            else
             {
-                WorkerId = workers.Id,
-                AbsensId = addAbsens.SelectedAbsens,
-                Date = DateTime.Now,
-                Reason = addAbsens.Reason
-            };
+                workerAbsens.AbsensCount = 1;
+            }
 
             await _dbContext.WorkerAbsens.AddAsync(workerAbsens);
             await _dbContext.SaveChangesAsync();
 
+            if (lastAbsens != null)
+            {
+                if (lastAbsens.AbsensCount == 4 && dateCount == 1)
+                {
+                    workers.Working = false;
+                    await _dbContext.SaveChangesAsync();
+                }
+            }
+
             return RedirectToAction("WorkerList", "Worker");
         }
+
+        
     }
 }

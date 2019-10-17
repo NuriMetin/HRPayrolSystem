@@ -52,7 +52,7 @@
                         <select class="form-control" asp-for="SelectedGender" asp-items="@(new SelectList(Model.Genders,"GenderId","GenderName"))">
                             <option value="">--Select Gender--</option>
                         </select>
-                        <span asp-validation-for="Genders" class="text-danger"></span>
+                        <span asp-validation-for="SelectedGender" class="text-danger"></span>
                     </div>
 
                 </div>

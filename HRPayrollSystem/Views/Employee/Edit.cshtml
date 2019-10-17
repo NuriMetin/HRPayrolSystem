@@ -5,7 +5,7 @@
 
 <h2>Edit</h2>
 <div class="container">
-    <form method="post" asp-controller="Employee" asp-action="Edit">
+    <form method="post" asp-controller="Employee" asp-action="Edit" enctype="multipart/form-data">
         <div class="text-danger" asp-validation-summary="ModelOnly"></div>
         <input type="hidden" asp-for="ID" />
         <div class="d-flex">
@@ -104,7 +104,7 @@
                         <label class="control-label">ID Card Fincode</label>
                     </div>
                     <div class="col-md-10">
-                        <input class="form-control" type="date" asp-for="IDCardFinCode" />
+                        <input class="form-control" type="text" asp-for="IDCardFinCode" />
                         <span class="text-danger" asp-validation-for="IDCardFinCode"></span>
                     </div>
                 </div>
@@ -113,7 +113,7 @@
                         <label class="control-label">Phone</label>
                     </div>
                     <div class="col-md-10">
-                        <input class="form-control" type="date" asp-for="Number" />
+                        <input class="form-control" asp-for="Number" />
                         <span class="text-danger" asp-validation-for="Number"></span>
                     </div>
                 </div>

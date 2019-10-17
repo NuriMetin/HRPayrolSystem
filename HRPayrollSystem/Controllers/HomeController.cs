@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using HRPayrollSystem.DAL;
 using HRPayrollSystem.Models;
 using HRPayrollSystem.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -12,6 +13,7 @@ using static HRPayrollSystem.Models.SD;
 
 namespace HRPayrollSystem.Controllers
 {
+    [Authorize]
     public class HomeController : Controller
     {
         private readonly HRPayrollDbContext _dbContext;

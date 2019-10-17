@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using HRPayrollSystem.DAL;
 using HRPayrollSystem.Models;
 using HRPayrollSystem.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -14,8 +15,10 @@ using Newtonsoft.Json;
 
 namespace HRPayrollSystem.Controllers
 {
+    [Authorize]
     public class SalaryController : Controller
     {
+
         private readonly HRPayrollDbContext _dbContext;
         private readonly UserManager<Worker> _userManager;
 
@@ -25,10 +28,21 @@ namespace HRPayrollSystem.Controllers
             _userManager = userManager;
         }
 
+        [Authorize(Roles =SD.PayrollSpecalist)]
         public async Task<IActionResult> WorkerSalary()
         {
             ViewBag.SkipCount = 5;
-            var workers = await _dbContext.Users.ToListAsync();
+            var workers = await _dbContext.Users
+               .Include(x => x.Position)
+               .Include(x => x.Position.Department)
+               .Include(x => x.Employee)
+               .Include(x => x.WorkerAbsens)
+               .Include(x => x.Employee.CompanyWorkPlaces)
+               .Include(x => x.Employee.CompanyWorkPlaces)
+               .Include(x => x.WorkerBonus)
+               .Include(x => x.Store)
+               .Include(x => x.Vacations)
+               .Where(x => x.Working == true).ToListAsync();
             ViewBag.TotalCount = workers.Count();
 
             string k = "";
@@ -44,7 +58,7 @@ namespace HRPayrollSystem.Controllers
             }
 
             SalaryModel salaryModel = new SalaryModel();
-            salaryModel.AvialableWorkers = workers.Where(x => !k.Contains("/" + x.EmployeeId + "/")).Select(x => new AvialableWorker
+            salaryModel.AvialableWorkers = workers.Where(x => !k.Contains("/" + x.EmployeeId + "/") && x.Working==true).Select(x => new AvialableWorker
             {
                 Department = _dbContext.Positions.Where(y => y.ID == x.PositionId).Select(y => y.Department.Name).FirstOrDefault(),
                 ID = x.Id,
@@ -63,7 +77,7 @@ namespace HRPayrollSystem.Controllers
                        + _dbContext.CompanyWorkPlaceBonus.Include(m => m.CompanyWorkPlace)
                           .Where(y => y.CompanyWorkPlace.EmployeeId == x.EmployeeId && y.CompanyWorkPlace.ChangedDate.Year == year && y.CompanyWorkPlace.ChangedDate.Month == month).Select(y => y.BonusSalary).FirstOrDefault(),
 
-                MonthlySalary = _dbContext.Positions.Where(y => y.ID == x.PositionId).Select(y => y.Salary).FirstOrDefault() / daysInMonth * currentDay,
+                MonthlySalary =x.Position.Salary / daysInMonth * currentDay,
 
                 ExcusableAbsens = _dbContext.WorkerAbsens.Where(y => y.AbsensId == 1 && y.WorkerId == x.Id && y.Date.Year == year && y.Date.Month == month).Count()
                           + _dbContext.CompanyWorkPlaceAbsens.Where(y => y.CompanyWorkPlace.EmployeeId == x.EmployeeId && y.CompanyWorkPlace.ChangedDate.Year == year && y.CompanyWorkPlace.ChangedDate.Month == month)
@@ -94,6 +108,7 @@ namespace HRPayrollSystem.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = SD.PayrollSpecalist)]
         public IActionResult CalculateSalary(string selectedDate)
         {
             ViewBag.SkipCount = 5;
@@ -102,7 +117,7 @@ namespace HRPayrollSystem.Controllers
                 return NotFound();
             }
             var date = Convert.ToDateTime(selectedDate);
-            var workers = _dbContext.Users.ToList();
+            var workers = _dbContext.Users.Where(x=>x.Working==true).ToList();
             string k = "";
             int daysInMonth = DateTime.DaysInMonth(date.Year, date.Month);
             var empId = _dbContext.Salaries.Where(x => x.CalculatedDate.Year == date.Year && x.CalculatedDate.Month == date.Month).ToList();
@@ -114,7 +129,7 @@ namespace HRPayrollSystem.Controllers
 
             SalaryModel salaryModel = new SalaryModel();
 
-            salaryModel.AvialableWorkers = workers.Where(x => !k.Contains("/" + x.EmployeeId + "/")).Select(x => new AvialableWorker
+            salaryModel.AvialableWorkers = workers.Where(x => !k.Contains("/" + x.EmployeeId + "/") && x.Working==true).Select(x => new AvialableWorker
             {
                 Department = _dbContext.Positions.Where(y => y.ID == x.PositionId).Select(y => y.Department.Name).FirstOrDefault(),
                 ID = x.Id,
@@ -165,6 +180,7 @@ namespace HRPayrollSystem.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = SD.PayrollSpecalist)]
         public async Task<IActionResult> CalculateSalary(SalaryModel salaryModel)
         {
             List<Salary> salary = new List<Salary>();

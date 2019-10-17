@@ -1,4 +1,4 @@
-﻿@model IEnumerable<AvialableStores>
+﻿@model StoreViewModel
 @{
     ViewData["Title"] = "StoreSale";
 }
@@ -16,35 +16,24 @@
                 <input type="search" class="form-control" id="txtSearch" placeholder="Store name" />
             </div>
             <div class="col-md-7">
-                <form asp-controller="Bonus" asp-action="StoreBonus">
-                    <div class="d-flex">
-                        <div class="form-group col-md-6">
-                            <input type="text" class="form-control" name="requiredSalary" placeholder="Required amount" />
-                        </div>
-                        <div class="col-md-3">
-                            <input type="submit" value="Add Bonus" class="btn btn-success" />
-                        </div>
+                <form asp-controller="Store" asp-action="AddStore">
+                    <div class="form-group">
+                        <select class="form-control" asp-for="SelectedCompany" asp-items="@(new SelectList(Model.Companies,"ID","Name"))">
+                            <option value="">--Select Company--</option>
+                        </select>
+                        <span asp-validation-for="SelectedCompany" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label class="control-label" asp-for="@Model.Name"></label>
+                        <input class="form-control" asp-for="@Model.Name" />
+                        <span asp-validation-for="@Model.Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" class="btn btn-primary" value="Create" />
                     </div>
                 </form>
             </div>
         </div>
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Salary</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td>@item.StoreName</td>
-                        <td>@item.SaleSalary</td>
-                    </tr>
-                }
-            </tbody>
-        </table>
     </div>
 </div>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>

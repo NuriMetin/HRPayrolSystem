@@ -134,7 +134,7 @@ namespace HRPayrollSystem.Controllers
             return View(salaryModel);
         }
 
-        public async Task<IActionResult> LoadBankAccount(int skip)
+        public IActionResult LoadBankAccount(int skip)
         {
             List<Account> account = new List<Account>();
             using (HttpClient httpClient = new HttpClient())

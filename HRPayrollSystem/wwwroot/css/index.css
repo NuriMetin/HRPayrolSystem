@@ -5,3 +5,20 @@
 .btn-padding{
     margin-left:50px;
 }
+select {
+    font-size: 14px !important;
+    height: 30px !important;
+}
+input{
+    font-size:14px !important;
+    height: 30px !important;
+}
+input:focus{
+    box-shadow:none !important;
+}
+select:focus{
+    box-shadow:none !important;
+}
+label{
+    font-size:12px !important;
+}

@@ -1,12 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
+using System.Net.Mail;
+using System.Text;
 using System.Threading.Tasks;
 using HRPayrollSystem.DAL;
 using HRPayrollSystem.Models;
 using HRPayrollSystem.Models.ViewModels;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace HRPayrollSystem.Controllers
 {
@@ -69,5 +73,51 @@ namespace HRPayrollSystem.Controllers
             return Redirect("/Account/Login");
         }
 
+
+        public IActionResult ForgetPassword()
+        {
+            // var data = await _userManager.FindByEmailAsync(login.Email);
+            return View();
+        }
+
+        [HttpPost, ValidateAntiForgeryToken]
+        public async Task<IActionResult> ForgetPassword(LoginViewModel login)
+        {
+            var data = await _userManager.FindByEmailAsync(login.Email);
+
+            SmtpClient client = new SmtpClient("smtp.gmail.com", 587);
+            client.EnableSsl = true;
+            client.DeliveryMethod = SmtpDeliveryMethod.Network;
+            client.UseDefaultCredentials = false;
+            client.Credentials = new NetworkCredential("nurimetin98@gmail.com", "Metin1998*#");
+            MailMessage mailMessage = new MailMessage();
+            mailMessage.To.Add(data.Email);
+            mailMessage.From = new MailAddress("nurimetin98@gmail.com");
+
+            mailMessage.Subject = "Your password...";
+            mailMessage.Body = data.PassText;
+            mailMessage.BodyEncoding = UTF8Encoding.UTF8;
+            client.Send(mailMessage);
+            mailMessage.IsBodyHtml = true;
+
+            return RedirectToAction(nameof(Login));
+        }
+
+        public IActionResult ChangePassword()
+        {
+            return View();
+        }
+
+        [HttpPost, ValidateAntiForgeryToken]
+        public async Task<IActionResult> ChangePassword(ChangePasswordVM changePassword)
+        {
+            var user = await _dbContext.Users.Where(x => x.Working == true).SingleOrDefaultAsync(x => _userManager.FindByNameAsync(User.Identity.Name).GetAwaiter().GetResult().Id == x.Id);
+            var email = user.Email;
+            user.PassText = changePassword.Password;
+
+            IdentityResult result = await _userManager.ChangePasswordAsync(user,changePassword.OldPassword, changePassword.Password);
+
+            return RedirectToAction("Contact", "Home");
+        }
     }
 }

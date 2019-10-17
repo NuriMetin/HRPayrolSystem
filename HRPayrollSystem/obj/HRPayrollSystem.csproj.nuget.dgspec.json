@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\nurim\\source\\repos\\HRPayrollSystem\\HRPayrollSystem\\HRPayrollSystem.csproj": {}
+    "M:\\Dərslər\\Programmer\\BackEnd\\Projects\\FinalProject\\HRPayrol\\HRPayrollSystem\\HRPayrollSystem.csproj": {}
   },
   "projects": {
-    "C:\\Users\\nurim\\source\\repos\\HRPayrollSystem\\HRPayrollSystem\\HRPayrollSystem.csproj": {
+    "M:\\Dərslər\\Programmer\\BackEnd\\Projects\\FinalProject\\HRPayrol\\HRPayrollSystem\\HRPayrollSystem.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\nurim\\source\\repos\\HRPayrollSystem\\HRPayrollSystem\\HRPayrollSystem.csproj",
+        "projectUniqueName": "M:\\Dərslər\\Programmer\\BackEnd\\Projects\\FinalProject\\HRPayrol\\HRPayrollSystem\\HRPayrollSystem.csproj",
         "projectName": "HRPayrollSystem",
-        "projectPath": "C:\\Users\\nurim\\source\\repos\\HRPayrollSystem\\HRPayrollSystem\\HRPayrollSystem.csproj",
+        "projectPath": "M:\\Dərslər\\Programmer\\BackEnd\\Projects\\FinalProject\\HRPayrol\\HRPayrollSystem\\HRPayrollSystem.csproj",
         "packagesPath": "C:\\Users\\nurim\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\nurim\\source\\repos\\HRPayrollSystem\\HRPayrollSystem\\obj\\",
+        "outputPath": "M:\\Dərslər\\Programmer\\BackEnd\\Projects\\FinalProject\\HRPayrol\\HRPayrollSystem\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -59,7 +59,7 @@
             },
             "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
               "target": "Package",
-              "version": "[2.1.9, )"
+              "version": "[2.1.10, )"
             }
           },
           "imports": [

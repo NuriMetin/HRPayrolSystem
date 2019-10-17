@@ -5,10 +5,12 @@ using System.Threading.Tasks;
 using HRPayrollSystem.DAL;
 using HRPayrollSystem.Models;
 using HRPayrollSystem.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HRPayrollSystem.Controllers
 {
+    [Authorize]
     public class SaleController : Controller
     {
         private readonly HRPayrollDbContext _dbContext;

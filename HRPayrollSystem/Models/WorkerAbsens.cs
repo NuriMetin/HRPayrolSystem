@@ -23,5 +23,7 @@ namespace HRPayrollSystem.Models
         [Required]
         public int AbsensId { get; set; }
         public virtual Absens Absens { get; set; }
+
+        public int? AbsensCount { get; set; }
     }
 }
