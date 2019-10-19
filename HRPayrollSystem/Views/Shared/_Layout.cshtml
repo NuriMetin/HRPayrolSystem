@@ -27,7 +27,6 @@
                 <div class="collapse navbar-collapse" id="navbarResponsive">
                     <ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
                         <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
-
                             @{var data = await _userManager.FindByNameAsync(User.Identity.Name);
                                 <h5 class="nav-link">
                                     <span class="account-text">@data.Account</span>
@@ -53,7 +52,7 @@
                             </li>
                             <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Store">
                                 <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#StorePages" data-parent="#exampleAccordion">
-                                    <i class="fa fa-fw fa-file"></i>
+
                                     <span class="nav-link-text">Store</span>
                                 </a>
                                 <ul class="sidenav-second-level collapse" id="StorePages">
@@ -68,7 +67,6 @@
                             </li>
                             <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Department">
                                 <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#DepartmentPages" data-parent="#exampleAccordion">
-                                    <i class="fa fa-fw fa-file"></i>
                                     <span class="nav-link-text">Department</span>
                                 </a>
                                 <ul class="sidenav-second-level collapse" id="DepartmentPages">
@@ -83,7 +81,6 @@
                             </li>
                             <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Position">
                                 <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#PositionPages" data-parent="#exampleAccordion">
-                                    <i class="fa fa-fw fa-file"></i>
                                     <span class="nav-link-text">Position</span>
                                 </a>
                                 <ul class="sidenav-second-level collapse" id="PositionPages">
@@ -97,7 +94,6 @@
                             </li>
                             <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Workers">
                                 <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#HrWorkerPages" data-parent="#exampleAccordion">
-                                    <i class="fa fa-fw fa-wrench"></i>
                                     <span class="nav-link-text">Roles</span>
                                 </a>
                                 <ul class="sidenav-second-level collapse" id="HrWorkerPages">
@@ -108,7 +104,6 @@
                             </li>
                             <li class="nav-item" data-toggle="tooltip" data-placement="right" title="StoreSale">
                                 <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#StoreSale" data-parent="#exampleAccordion">
-                                    <i class="fa fa-fw fa-file"></i>
                                     <span class="nav-link-text">Sales</span>
                                 </a>
                                 <ul class="sidenav-second-level collapse" id="StoreSale">
@@ -119,12 +114,10 @@
                                 </ul>
                             </li>
                         }
-
                         @if (User.IsInRole(SD.DepartmentHead.ToString()))
                         {
                             <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Workers">
                                 <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#HrWorkerPages" data-parent="#exampleAccordion">
-                                    <i class="fa fa-fw fa-wrench"></i>
                                     <span class="nav-link-text">Workers</span>
                                 </a>
                                 <ul class="sidenav-second-level collapse" id="HrWorkerPages">
@@ -138,7 +131,6 @@
                         {
                             <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Employees">
                                 <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#HrEmployePages" data-parent="#exampleAccordion">
-                                    <i class="fa fa-fw fa-file"></i>
                                     <span class="nav-link-text">Employees</span>
                                 </a>
                                 <ul class="sidenav-second-level collapse" id="HrEmployePages">
@@ -153,7 +145,6 @@
                             </li>
                             <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Workers">
                                 <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#HrWorkerPages" data-parent="#exampleAccordion">
-                                    <i class="fa fa-fw fa-wrench"></i>
                                     <span class="nav-link-text">Workers</span>
                                 </a>
                                 <ul class="sidenav-second-level collapse" id="HrWorkerPages">
@@ -173,21 +164,16 @@
                         {
                             <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Workers">
                                 <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#PsWorkerPages" data-parent="#exampleAccordion">
-                                    <i class="fa fa-fw fa-file"></i>
                                     <span class="nav-link-text">Worker</span>
                                 </a>
                                 <ul class="sidenav-second-level collapse" id="PsWorkerPages">
                                     <li>
                                         <a asp-controller="Salary" asp-action="WorkerSalary">Calculate salary</a>
                                     </li>
-                                    <li>
-                                        <a asp-controller="Worker" asp-action="WorkerList">Look all workers</a>
-                                    </li>
                                 </ul>
                             </li>
                             <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Bonus">
                                 <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#StoreSale" data-parent="#exampleAccordion">
-                                    <i class="fa fa-fw fa-wrench"></i>
                                     <span class="nav-link-text">Store sale salary</span>
                                 </a>
                                 <ul class="sidenav-second-level collapse" id="StoreSale">
@@ -199,7 +185,7 @@
                         }
                     </ul>
                     <ul class="navbar-nav ml-auto">
-                        <li class="changePassword" >
+                        <li class="changePassword">
                             <a class="nav-link " data-target="#exampleModal" asp-controller="Account" asp-action="ChangePassword">
                                 Change Password
                             </a>
@@ -241,7 +227,7 @@
                                     <span aria-hidden="true">×</span>
                                 </button>
                             </div>
-                            <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                            <div class="modal-body">Are you sure, you want to logout?</div>
                             <div class="modal-footer">
                                 <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
                                 <a class="btn btn-primary" asp-controller="Account" asp-action="Logout">Logout</a>

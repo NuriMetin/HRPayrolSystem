@@ -52,10 +52,10 @@
                         <td>@Model.AvialableWorkers[i].Position</td>
                         <td>@Model.AvialableWorkers[i].Department</td>
                         <td>@Model.AvialableWorkers[i].Bonus</td>
-                        <td>@Model.AvialableWorkers[i].MonthlySalary</td>
+                        <td>@decimal.Round(@Model.AvialableWorkers[i].MonthlySalary,2)</td>
                         <td>@Model.AvialableWorkers[i].ExcusableAbsens</td>
                         <td>@Model.AvialableWorkers[i].UnExcusableAbsens</td>
-                        <td>@Model.AvialableWorkers[i].TotalSalary</td>
+                        <td>@decimal.Round(@Model.AvialableWorkers[i].TotalSalary,2)</td>
                     </tr>
                 }
             </tbody>

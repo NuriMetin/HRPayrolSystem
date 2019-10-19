@@ -7,13 +7,6 @@
 <div class="container">
     <form asp-action="StoreBonus" asp-controller="Bonus" method="get">
         <div class="d-flex">
-            <select class="form-control col-md-3" id="selectFor">
-                <option>Select for</option>
-                <option value=":nth-child(1)">Name</option>
-            </select>
-            <div class="form-group col-md-3">
-                <input type="text" class="form-control" id="txtSearch" placeholder="Write..." />
-            </div>
             @if (User.IsInRole(SD.PayrollSpecalist))
             {
                 <div class="form-group col-md-3">

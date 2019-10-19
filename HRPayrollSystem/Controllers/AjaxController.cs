@@ -17,11 +17,12 @@ namespace HRPayrollSystem.Controllers
     {
         private readonly HRPayrollDbContext _dbContext;
         private readonly UserManager<Worker> _userManager;
-
-        public AjaxController(UserManager<Worker> userManager, HRPayrollDbContext dbContext)
+        private readonly RoleManager<IdentityRole> _roleManager;
+        public AjaxController(UserManager<Worker> userManager, HRPayrollDbContext dbContext, RoleManager<IdentityRole> roleManager)
         {
             _dbContext = dbContext;
             _userManager = userManager;
+            _roleManager = roleManager;
         }
         public IActionResult LoadPositions(int? departmentId)
         {
@@ -67,6 +68,29 @@ namespace HRPayrollSystem.Controllers
             }).Skip(skip).Take(2).ToList();
 
             return View(data);
+        }
+
+        public async Task<IActionResult> LoadWorkers(int skip)
+        {
+            var workers = await _dbContext.Users
+                .Include(x => x.Employee)
+                .Include(x => x.Position)
+                .Include(x => x.Position.Department)
+                .Include(x => x.Store)
+                .Where(x => x.Working == true).Select(x => new WorkersViewModel
+                {
+                    WorkerId = x.Id,
+                    Email = x.Email,
+                    Name = x.Employee.Name,
+                    Surname = x.Employee.Surname,
+                    Position = x.Position.Name,
+                    Department = x.Position.Department.Name,
+                    BeginDate = x.BeginDate,
+                    StoreName = x.Store.Name,
+                    RoleName = _roleManager.Roles.Where(m => m.Id == _dbContext.UserRoles.Where(l => l.UserId == x.Id).Select(l => l.RoleId).FirstOrDefault()).Select(m => m.Name).FirstOrDefault()
+                }).Skip(skip).Take(2).ToListAsync();
+
+            return View(workers);
         }
 
         public IActionResult LoadSalary(int skip)
@@ -294,27 +318,6 @@ namespace HRPayrollSystem.Controllers
         }
 
 
-        public async Task<IActionResult> LoadWorkers(int skip)
-        {
-            var data = await (from work in _userManager.Users
-                              join emp in _dbContext.Employees
-                              on work.EmployeeId equals emp.ID
-                              join pos in _dbContext.Positions
-                              on work.PositionId equals pos.ID
-                              join dep in _dbContext.Departments
-                              on pos.DepartmentId equals dep.ID
-                              select new WorkersViewModel
-                              {
-                                  WorkerId = work.Id,
-                                  Email = work.Email,
-                                  Name = emp.Name,
-                                  Surname = emp.Surname,
-                                  Position = pos.Name,
-                                  Department = dep.Name,
-                                  BeginDate = work.BeginDate
-                              }).Skip(skip).Take(2).ToListAsync();
-
-            return View(data);
-        }
+       
     }
 }

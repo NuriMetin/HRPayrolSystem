@@ -8,6 +8,49 @@
         obj.readAsDataURL(this.files[0]);
     }
 }
+
+//----------------------------LoadEmployee-----------------------
+$(function () {
+    $(window).scroll(function () {
+        if ($(window).height() + Math.ceil($(document).scrollTop()) >= $(document).height()) {
+            var skip = +$(".skip").val();
+            var total = $("#total").val();
+            if (skip <= total) {
+                $.ajax({
+                    url: "/AJAX/LoadEmployee",
+                    type: "Get",
+                    data: { skip: skip },
+                    success: function (mm) {
+                        $("#append").append(mm);
+                        $(".skip").val(skip + 2)
+                    }
+                });
+            }
+        }
+    });
+});
+
+//----------------------Load Workers----------------
+$(function () {
+    $(window).scroll(function () {
+        if ($(window).height() + Math.ceil($(document).scrollTop()) >= $(document).height()) {
+            var workerSkipcount = +$(".workerSkipcount").val();
+            var workerTotalCount = $("#workerTotalCount").val();
+            if (workerSkipcount <= workerTotalCount) {
+                $.ajax({
+                    url: "/AJAX/LoadWorkers",
+                    type: "Get",
+                    data: { skip: workerSkipcount },
+                    success: function (res) {
+                        $("#workerAppend").append(res);
+                        $(".workerSkipcount").val(workerSkipcount + 2)
+                    }
+                });
+            }
+        }
+    });
+});
+
 ////---------------Load salary--------------------
 $(function () {
     $(window).scroll(function () {
@@ -22,28 +65,6 @@ $(function () {
                     success: function (res) {
                         $("#forappend").append(res);
                         $(".skipcount").val(skipcount + 2)
-                    }
-                });
-            }
-        }
-    });
-});
-
-
-//----------------------------LoadEmployee-----------------------
-$(function () {
-    $(window).scroll(function () {
-        if ($(window).height() + Math.ceil($(document).scrollTop()) >= $(document).height()) {
-            var skip= +$(".skip").val();
-            var total = $("#total").val();
-            if (skip <= total) {
-                $.ajax({
-                    url: "/AJAX/LoadEmployee",
-                    type: "Get",
-                    data: { skip: skip },
-                    success: function (mm) {
-                        $("#append").append(mm);
-                        $(".skip").val(skip + 2)
                     }
                 });
             }
@@ -96,29 +117,8 @@ $(function () {
     });
 });
 
-//----------------------Load DepartmentList----------------
-$(function () {
-    $(window).scroll(function () {
-        if ($(window).height() + Math.ceil($(document).scrollTop()) >= $(document).height()) {
-            var departmentListskipcount = +$(".departmentListskipcount").val();
-            var bonusWorkersTotalCount = $("#bonusWorkersTotalCount").val();
-            if (departmentListskipcount <= bonusWorkersTotalCount) {
-                $.ajax({
-                    url: "/AJAX/LoadDepartmentList",
-                    type: "Get",
-                    data: { skip: departmentListskipcount },
-                    success: function (res) {
-                        $("#bonusWorkersAppend").append(res);
-                        $(".departmentListskipcount").val(departmentListskipcount + 2)
-                    }
-                });
-            }
-        }
-    });
-});
 
-
-//----------------------Load DepartmentList----------------
+//----------------------Load Load salary----------------
 $(function () {
     $(window).scroll(function () {
         if ($(window).height() + Math.ceil($(document).scrollTop()) >= $(document).height()) {
@@ -139,23 +139,3 @@ $(function () {
     });
 });
 
-//----------------------Load Workers----------------
-$(function () {
-    $(window).scroll(function () {
-        if ($(window).height() + Math.ceil($(document).scrollTop()) >= $(document).height()) {
-            var workerSkipcount = +$(".workerSkipcount").val();
-            var workerTotalCount = $("#workerTotalCount").val();
-            if (workerSkipcount <= workerTotalCount) {
-                $.ajax({
-                    url: "/AJAX/LoadWorkers",
-                    type: "Get",
-                    data: { skip: workerSkipcount },
-                    success: function (res) {
-                        $("#workerAppend").append(res);
-                        $(".workerSkipcount").val(workerSkipcount + 2)
-                    }
-                });
-            }
-        }
-    });
-});

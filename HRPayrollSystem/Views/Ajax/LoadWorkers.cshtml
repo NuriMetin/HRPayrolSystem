@@ -1,28 +1,36 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @model IEnumerable<WorkersViewModel>
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>@item.Name</td>
-            <td>@item.Surname</td>
-            <td>@item.Position</td>
-            <td>@item.Department</td>
-            <td>@item.BeginDate.ToShortDateString()</td>
-            <td class="d-flex">
-                @if (User.IsInRole(SD.HR.ToString()))
-                {
-                    <a asp-action="AddAbsens" asp-controller="Absens" asp-route-id="@item.WorkerId" class="btn btn-default text-danger">Add Absens   </a>
-                    <a asp-action="AddVacation" asp-controller="Vacation" asp-route-id="@item.WorkerId" class="btn btn-default text-primary">Add Vacation</a>
-                }
-
-                @if (User.IsInRole(SD.PayrollSpecalist.ToString()))
-                {
-                    <a asp-action="Edit" asp-controller="Worker" asp-route-id="@item.WorkerId" class="btn btn-default text-capitalize">Edit</a>
-                    <form asp-action="Delete" asp-controller="Worker" method="post" asp-route-id="@item.WorkerId">
-                        <input type="hidden" name="ID" value="@item.WorkerId" />
-                        <input type="submit" value="Delete" class="btn btn-default text-danger" />
-                    </form>
-                }
-            </td>
-        </tr>
-    }
+@{
+    Layout = null;
+}
+@foreach (var item in Model)
+{
+    <tr>
+        <td>@item.Name</td>
+        <td>@item.Surname</td>
+        <td>@item.Position</td>
+        <td>@item.Department</td>
+        @if (User.IsInRole(SD.Admin))
+        {
+            <td>@item.RoleName</td>
+        }
+        <td>@item.StoreName</td>
+        <td>@item.BeginDate.ToShortDateString()</td>
+        <td class="d-flex">
+            @if (User.IsInRole(SD.HR.ToString()))
+            {
+                <a asp-action="AddAbsens" asp-controller="Absens" asp-route-id="@item.WorkerId" class="btn btn-default text-danger">Add Absens   </a>
+                <a asp-action="AddVacation" asp-controller="Vacation" asp-route-id="@item.WorkerId" class="btn btn-default text-primary">Add Vacation</a>
+                <a asp-action="Edit" asp-controller="Worker" asp-route-id="@item.WorkerId" class="btn btn-default text-capitalize">Edit</a>
+                <form asp-action="Delete" asp-controller="Worker" method="post" asp-route-id="@item.WorkerId">
+                    <input type="hidden" name="ID" value="@item.WorkerId" />
+                    <input type="submit" value="Delete" class="btn btn-default text-danger" />
+                </form>
+            }
+            @if (User.IsInRole(SD.Admin.ToString()))
+            {
+                <a asp-action="ChangeRole" asp-controller="Worker" asp-route-id="@item.WorkerId" style="height:35px;" class="btn btn-primary">Change</a>
+            }
+        </td>
+    </tr>
+}

@@ -140,16 +140,16 @@ namespace HRPayrollSystem.Controllers
         public IActionResult EmployeeList()
         {
             ViewBag.TotalCount = _dbContext.Employees.Count();
-            ViewBag.SkipCount = 4;
-            var data = _dbContext.Employees.Select(x => new EmployeeViewModel
+            ViewBag.SkipCount = 5;
+            var data = _dbContext.Employees.Include(x=>x.Education).Select(x => new EmployeeViewModel
             {
                 ID = x.ID,
-                EducationText = _dbContext.Educations.Where(m => m.EducationId == x.EducationId).Select(m => m.EducationName).FirstOrDefault(),
+                EducationText =x.Education.EducationName,
                 FatherName = x.FatherName,
                 Name = x.Name,
                 Surname = x.Surname,
                 Image = x.Image
-            }).Take(4).ToList();
+            }).Take(5).ToList();
 
             return View(data);
         }

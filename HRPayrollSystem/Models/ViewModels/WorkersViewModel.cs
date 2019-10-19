@@ -25,8 +25,8 @@ namespace HRPayrollSystem.Models.ViewModels
         [Required]
         public int SelectedPosition { get; set; }
         public IEnumerable<Position> Positions { get; set; }
-
-
+        public string StoreName { get; set; }
+        public string RoleName { get; set; }
         public IEnumerable<Store> Stores { get; set; }
         public int? SelectedStore { get; set; }
 

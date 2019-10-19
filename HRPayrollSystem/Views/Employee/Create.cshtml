@@ -2,154 +2,96 @@
 @{
     ViewData["Title"] = "Create";
 }
-<link href="~/css/index.css" rel="stylesheet" />
-<div class="container-fluid" style="margin-top:15px;">
-    <form method="post" asp-controller="Employee" asp-action="Create" enctype="multipart/form-data">
-        <div class="col-md-12 d-flex">
-            <div class="col-md-5">
-                <div class="text-danger" asp-validation-summary="ModelOnly"></div>
-                <div class="col-md-12">
-                    <div class="col-md-4">
-                        <label class="control-label" asp-for="Name"></label>
-                    </div>
-                    <div class="col-md-8">
-                        <input class="form-control" asp-for="Name" />
-                        <span class="text-danger" asp-validation-for="Name"></span>
-                    </div>
-                </div>
-                <div class="col-md-12" style="margin-top:30px;">
-                    <div class="col-md-4">
-                        <label class="control-label" asp-for="Surname"></label>
-                    </div>
-                    <div class="col-md-8">
-                        <input class="form-control" asp-for="Surname" />
-                        <span class="text-danger" asp-validation-for="Surname"></span>
-                    </div>
-                </div>
-                <div class="col-md-12" style="margin-top:30px;">
-                    <div class="col-md-4">
-                        <label class="control-label" asp-for="FatherName"></label>
-                    </div>
-                    <div class="col-md-8">
-                        <input class="form-control" asp-for="FatherName" />
-                        <span class="text-danger" asp-validation-for="FatherName"></span>
-                    </div>
-                </div>
-                <div class="col-md-12" style="margin-top:30px;">
-                    <div class="col-md-4">
-                        <label class="control-label" asp-for="Born"></label>
-                    </div>
-                    <div class="col-md-8">
-                        <input class="form-control" type="date" asp-for="Born" />
-                        <span class="text-danger" asp-validation-for="Born"></span>
-                    </div>
-                </div>
-                <div class="col-md-12" style="margin-top:30px;">
-                    <div class="col-md-4">
-                        <label asp-for="Genders" class="control-label"></label>
-                    </div>
-                    <div class="col-md-8">
-                        <select class="form-control" asp-for="SelectedGender" asp-items="@(new SelectList(Model.Genders,"GenderId","GenderName"))">
-                            <option value="">--Select Gender--</option>
-                        </select>
-                        <span asp-validation-for="SelectedGender" class="text-danger"></span>
-                    </div>
 
+
+<div class="container-fluid">
+    <form method="post" asp-controller="Employee" asp-action="Create" enctype="multipart/form-data">
+        <div class="red" asp-validation-summary="ModelOnly"></div>
+        <input type="hidden" asp-for="ID" />
+        <div class="d-flex">
+            <div class="col-md-3">
+                <div class="form-group col-md-11">
+                    <label asp-for="Name" class="control-label"></label>
+                    <input class="form-control" asp-for="Name" />
+                    <span class="text-danger red" asp-validation-for="Name"></span>
                 </div>
-                <div class="col-md-12" style="margin-top:30px;">
-                    <div class="col-md-4">
-                        <label asp-for="Educations" class="control-label"></label>
-                    </div>
-                    <div class="col-md-8">
-                        <select class="form-control" asp-for="SelectedEducation" asp-items="@(new SelectList(Model.Educations,"EducationId","EducationName"))">
-                            <option value="">--Select Education--</option>
-                        </select>
-                        <span asp-validation-for="Educations" class="text-danger"></span>
-                    </div>
+                <div class="col-md-11" style="margin-top:30px;">
+                    <label class="control-label" asp-for="Surname"></label>
+                    <input class="form-control" asp-for="Surname" />
+                    <span class="text-danger red" asp-validation-for="Surname"></span>
                 </div>
-                <div class="col-md-12" style="margin-top:30px;">
-                    <div class="col-md-4">
-                        <label class="control-label" asp-for="Residence"></label>
-                    </div>
-                    <div class="col-md-8">
-                        <input class="form-control" asp-for="Residence" />
-                        <span class="text-danger" asp-validation-for="Residence"></span>
-                    </div>
+                <div class="col-md-11" style="margin-top:30px;">
+                    <label class="control-label" asp-for="FatherName"></label>
+                    <input class="form-control" asp-for="FatherName" />
+                    <span class="text-danger red" asp-validation-for="FatherName"></span>
                 </div>
-                <div class="col-md-12" style="margin-top:30px;">
-                    <div class="col-md-4">
-                        <label asp-for="Maritals" class="control-label"></label>
-                    </div>
-                    <div class="col-md-8">
-                        <select class="form-control" asp-for="SelectedMarital" asp-items="@(new SelectList(Model.Maritals,"MaritalStatusId","MaritalStatusName"))">
-                            <option value="">--Select Marital status</option>
-                        </select>
-                        <span asp-validation-for="Maritals" class="text-danger"></span>
-                    </div>
-                </div>
-                <div class="col-md-12" style="margin-top:30px;">
-                    <div class="col-md-4">
-                        <label class="control-label">District Registration</label>
-                    </div>
-                    <div class="col-md-8">
-                        <input class="form-control" asp-for="DistrictRegistration" />
-                        <span class="text-danger" asp-validation-for="DistrictRegistration"></span>
-                    </div>
-                </div>
-                <div class="col-md-12" style="margin-top:30px;">
-                    <div class="col-md-4">
-                        <label class="control-label">Personality Card Number</label>
-                    </div>
-                    <div class="col-md-8">
-                        <input class="form-control" asp-for="IDCardNumber" />
-                        <span class="text-danger" asp-validation-for="IDCardNumber"></span>
-                    </div>
-                </div>
-                <div class="col-md-12" style="margin-top:30px;">
-                    <div class="col-md-4">
-                        <label class="control-label">Personality Card Fincode</label>
-                    </div>
-                    <div class="col-md-8">
-                        <input class="form-control" asp-for="IDCardFinCode" />
-                        <span class="text-danger" asp-validation-for="IDCardFinCode"></span>
-                    </div>
-                </div>
-                <div class="col-md-12" style="margin-top:30px;">
-                    <div class="col-md-4">
-                        <label class="control-label">Phone</label>
-                    </div>
-                    <div class="col-md-8">
-                        <input class="form-control" asp-for="Number" />
-                        <span class="text-danger" asp-validation-for="Number"></span>
-                    </div>
-                </div>
-                <div class="col-md-12" style="margin-top:30px;">
-                    <div class="col-md-4">
-                        <label class="control-label">Old WorkPlaces</label>
-                    </div>
-                    <div class="col-md-8">
-                        <input class="form-control" asp-for="OldWorkPlaces" />
-                        <span class="text-danger" asp-validation-for="OldWorkPlaces"></span>
-                    </div>
+                <div class="col-md-11" style="margin-top:30px;">
+                    <label class="control-label" asp-for="Born"></label>
+                    <input class="form-control" type="date" asp-for="Born" />
+                    <span class="text-danger red" asp-validation-for="Born"></span>
                 </div>
             </div>
-            <div class="col-md-7" style="padding-right:30px;">
+            <div class="col-md-3">
+                <div class="col-md-11">
+                    <label class="control-label">Genders</label>
+                    <select class="form-control" asp-for="SelectedGender" asp-items="@(new SelectList(Model.Genders,"GenderId","GenderName"))">
+                        <option value="">--Select Gender--</option>
+                    </select>
+                    <span asp-validation-for="SelectedGender" class="text-danger red"></span>
+                </div>
+                <div class="col-md-11" style="margin-top:30px;">
+                    <label class="control-label">Educations</label>
+                    <select class="form-control" asp-for="SelectedEducation" asp-items="@(new SelectList(Model.Educations,"EducationId","EducationName"))">
+                        <option value="">--Select Education--</option>
+                    </select>
+                    <span asp-validation-for="SelectedEducation" class="text-danger red"></span>
+                </div>
+                <div class="col-md-11" style="margin-top:30px;">
+                    <label class="control-label">Marital status</label>
+                    <select class="form-control" asp-for="SelectedMarital" asp-items="@(new SelectList(Model.Maritals,"MaritalStatusId","MaritalStatusName"))">
+                        <option value="">--Select Marital status</option>
+                    </select>
+                    <span asp-validation-for="SelectedMarital" class="text-danger red"></span>
+                </div>
+                <div class="col-md-11" style="margin-top:30px;">
+                    <label class="control-label">District Registration</label>
+                    <input class="form-control" asp-for="DistrictRegistration" />
+                    <span class="text-danger red" asp-validation-for="DistrictRegistration"></span>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="col-md-11">
+                    <label class="control-label">ID Card Fincode</label>
+                    <input class="form-control" type="text" asp-for="IDCardFinCode" />
+                    <span class="text-danger red" asp-validation-for="IDCardFinCode"></span>
+                </div>
+                <div class="col-md-11" style="margin-top:30px;">
+                    <label class="control-label">Phone</label>
+                    <input class="form-control" asp-for="Number" />
+                    <span class="text-danger red" asp-validation-for="Number"></span>
+                </div>
+                <div class="col-md-11" style="margin-top:30px;">
+                    <label class="control-label">ID Card Number</label>
+                    <input class="form-control" asp-for="IDCardNumber" />
+                    <span class="text-danger red" asp-validation-for="IDCardNumber"></span>
+                </div>
+                <div class="col-md-11" style="margin-top:30px;">
+                    <label class="control-label" asp-for="Residence"></label>
+                    <input class="form-control" asp-for="Residence" />
+                    <span class="text-danger red" asp-validation-for="Residence"></span>
+                </div>
+            </div>
+            <div class="col-md-3">
                 <div class="col-md-12">
-                    <div class="col-md-6">
-                        <div id="imgPreview">
-                            <img src="" style=" border:1px solid black; height:200px; width:100%; background-image: url(/images/no_photo.jpg); background-size:contain;" id="image">
-                        </div>
-                        <input style="margin-top:5px" ; accept="image/*" asp-for="Photo" type="file" onchange="showImage.call(this)" />
-                        <span class="text-danger" asp-validation-for="Photo"></span>
+                    <div id="imgPreview">
+                        <img src="" style=" border:1px solid black; height:200px; width:100%; background-image: url(/images/no_photo.jpg); background-size:contain;" id="image">
                     </div>
-
+                    <input style="margin-top:5px" ; accept="image/*" asp-for="Photo" type="file" onchange="showImage.call(this)" />
+                    <span class="text-danger red" asp-validation-for="Photo"></span>
                 </div>
-                <div class="form-group">
-                    <input style="margin:50px 0 0 80px;" type="submit" value="Create Employe" class="btn btn-warning" />
-                </div>
+                <input style="margin:50px 0 0 80px;" type="submit" value="Create Employe" class="btn btn-warning" />
             </div>
         </div>
+
     </form>
 </div>
-
-

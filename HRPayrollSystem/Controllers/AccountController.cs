@@ -63,7 +63,7 @@ namespace HRPayrollSystem.Controllers
                 return View(login);
             }
 
-            return Redirect("/Home/Contact");
+            return Redirect("/Home/Index");
 
         }
 
@@ -110,6 +110,10 @@ namespace HRPayrollSystem.Controllers
         [HttpPost, ValidateAntiForgeryToken]
         public async Task<IActionResult> ChangePassword(ChangePasswordVM changePassword)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(changePassword);
+            }
             var user = await _dbContext.Users.Where(x => x.Working == true).SingleOrDefaultAsync(x => _userManager.FindByNameAsync(User.Identity.Name).GetAwaiter().GetResult().Id == x.Id);
             var email = user.Email;
             user.PassText = changePassword.Password;

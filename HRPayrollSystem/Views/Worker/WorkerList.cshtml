@@ -8,14 +8,14 @@
         <div style="margin-top:10px; overflow-x:auto; overflow-y:auto;">
             <div class="d-flex">
                 <select class="form-control col-md-3" id="selectFor">
-                    <option>Select for</option>
+                    <option>Searh for</option>
                     <option value=":nth-child(1)">Name</option>
                     <option value=":nth-child(2)">Surname</option>
                     <option value=":nth-child(3)">Position</option>
                     <option value=":nth-child(4)">Department</option>
                 </select>
                 <div class="form-group col-md-3">
-                    <input type="text" class="form-control" id="txtSearch" placeholder="Employee name" />
+                    <input type="text" class="form-control" id="txtSearch" placeholder="Searh" />
                 </div>
             </div>
             <table class="table table-striped">
@@ -25,6 +25,11 @@
                         <th>Surname</th>
                         <th>Position</th>
                         <th>Department</th>
+                        @if (User.IsInRole(SD.Admin))
+                        {
+                            <th>Role</th>
+                        }
+                        <th>Store Name</th>
                         <th>Beginnig Date</th>
                         <th>Crud</th>
                     </tr>
@@ -37,6 +42,11 @@
                             <td>@item.Surname</td>
                             <td>@item.Position</td>
                             <td>@item.Department</td>
+                            @if (User.IsInRole(SD.Admin))
+                            {
+                                <td>@item.RoleName</td>
+                            }
+                            <td>@item.StoreName</td>
                             <td>@item.BeginDate.ToShortDateString()</td>
                             <td class="d-flex">
                                 @if (User.IsInRole(SD.HR.ToString()))
@@ -49,10 +59,9 @@
                                         <input type="submit" value="Delete" class="btn btn-default text-danger" />
                                     </form>
                                 }
-
                                 @if (User.IsInRole(SD.Admin.ToString()))
                                 {
-                                    <a asp-action="ChangeRole" asp-controller="Worker" asp-route-id="@item.WorkerId" class="btn btn-primary">Change Role</a>
+                                    <a asp-action="ChangeRole" asp-controller="Worker" asp-route-id="@item.WorkerId" style="height:35px;" class="btn btn-primary">Change</a>
                                 }
                             </td>
                         </tr>

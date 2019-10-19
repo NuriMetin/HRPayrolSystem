@@ -5,11 +5,13 @@ using System.Threading.Tasks;
 using HRPayrollSystem.DAL;
 using HRPayrollSystem.Models;
 using HRPayrollSystem.Models.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace HRPayrollSystem.Controllers
 {
+    [Authorize]
     public class StoreController : Controller
     {
         private readonly HRPayrollDbContext _dbContext;
@@ -43,7 +45,7 @@ namespace HRPayrollSystem.Controllers
 
             return RedirectToAction(nameof(StoreList));
         }
-
+        
         [HttpGet]
         public async Task<IActionResult> StoreList()
         {

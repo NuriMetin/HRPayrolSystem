@@ -39,9 +39,6 @@ namespace HRPayrollSystem.Models.ViewModels
         [Required]
         public string Number { get; set; }
 
-        [Required]
-        public string OldWorkPlaces { get; set; }
-
         public IEnumerable<Gender> Genders { get; set; }
         [Required]
         public int SelectedGender { get; set; }

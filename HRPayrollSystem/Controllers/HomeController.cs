@@ -56,76 +56,7 @@ namespace HRPayrollSystem.Controllers
             }
         }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
-
-        public async Task<IActionResult> About(string selectedDate)
-        {
-            if (selectedDate == null)
-            {
-                return NotFound();
-            }
-            var date = Convert.ToDateTime(selectedDate);
-            var workers = _dbContext.Users.ToList();
-            var user = await _dbContext.Users.Include(x => x.Employee).SingleOrDefaultAsync(x => _userManager.FindByNameAsync(User.Identity.Name).GetAwaiter().GetResult().Id == x.Id);
-            var id = user.Id;
-            int daysInMonth = DateTime.DaysInMonth(date.Year, date.Month);
-
-
-            SalaryModel salaryModel = new SalaryModel();
-
-            salaryModel.AvialableWorkers = workers.Where(x => x.Id == id).Select(x => new AvialableWorker
-            {
-                Department = _dbContext.Positions.Where(y => y.ID == x.PositionId).Select(y => y.Department.Name).FirstOrDefault(),
-                ID = x.Id,
-                Name = _dbContext.Employees.Where(y => y.Worker.Id == x.Id).Select(y => y.Name).FirstOrDefault(),
-                IDCardNumber = _dbContext.Employees.Where(y => y.Worker.Id == x.Id)
-                          .Select(y => y.IDCardNumber).FirstOrDefault(),
-
-                Surname = _dbContext.Employees.Where(y => y.Worker.Id == x.Id).Select(y => y.Surname).FirstOrDefault(),
-                Position = _dbContext.Positions.Where(y => y.ID == x.PositionId).Select(y => y.Name).FirstOrDefault(),
-                IsChecked = false,
-                EmployeeId = x.EmployeeId,
-
-                OldCalculate = date,
-
-                Bonus = _dbContext.WorkerBonus.Where(y => y.WorkerId == x.Id && y.BonusDate.Year == date.Year && y.BonusDate.Month == date.Month).Sum(y => y.BonusSalary)
-                       + _dbContext.CompanyWorkPlaceBonus.Include(m => m.CompanyWorkPlace)
-                          .Where(y => y.CompanyWorkPlace.EmployeeId == x.EmployeeId && y.CompanyWorkPlace.ChangedDate.Year == date.Year && y.CompanyWorkPlace.ChangedDate.Month == date.Month).Select(y => y.BonusSalary).FirstOrDefault(),
-
-                MonthlySalary = _dbContext.Positions.Where(y => y.ID == x.PositionId).Select(y => y.Salary).FirstOrDefault(),
-
-                ExcusableAbsens = _dbContext.WorkerAbsens.Where(y => y.AbsensId == 1 && y.WorkerId == x.Id && y.Date.Year == date.Year && y.Date.Month == date.Month).Count()
-                          + _dbContext.CompanyWorkPlaceAbsens.Where(y => y.CompanyWorkPlace.EmployeeId == x.EmployeeId && y.CompanyWorkPlace.ChangedDate.Year == date.Year && y.CompanyWorkPlace.ChangedDate.Month == date.Month)
-                              .Select(y => y.ExcusableAbsens).FirstOrDefault(),
-
-                UnExcusableAbsens = _dbContext.WorkerAbsens.Where(y => y.AbsensId == 2 && y.WorkerId == x.Id && y.Date.Year == date.Year && y.Date.Month == date.Month).Count()
-                          + _dbContext.CompanyWorkPlaceAbsens.Where(y => y.CompanyWorkPlace.EmployeeId == x.EmployeeId && y.CompanyWorkPlace.ChangedDate.Year == date.Year && y.CompanyWorkPlace.ChangedDate.Month == date.Month)
-                              .Select(y => y.UnExcusableAbsens).FirstOrDefault(),
-
-                AbsensCount = _dbContext.WorkerAbsens.Where(y => y.AbsensId == 1 && y.WorkerId == x.Id).Count()
-                          + _dbContext.CompanyWorkPlaceAbsens.Where(y => y.CompanyWorkPlace.EmployeeId == x.EmployeeId)
-                              .Select(y => y.ExcusableAbsens).FirstOrDefault()
-                                  + _dbContext.WorkerAbsens.Where(y => y.AbsensId == 2 && y.WorkerId == x.Id).Count()
-                                       + _dbContext.CompanyWorkPlaceAbsens.Where(y => y.CompanyWorkPlace.EmployeeId == x.EmployeeId)
-                                          .Select(y => y.UnExcusableAbsens).FirstOrDefault(),
-
-                TotalSalary = (_dbContext.Positions.Where(y => y.ID == x.PositionId).Select(y => y.Salary).FirstOrDefault() - _dbContext.Positions.Where(y => y.ID == x.PositionId).Select(y => y.Salary).FirstOrDefault() / daysInMonth
-                               * _dbContext.WorkerAbsens.Where(y => y.AbsensId == 2 && y.WorkerId == x.Id && y.Date.Year == date.Year && y.Date.Month == date.Month).Count()
-                                  + _dbContext.CompanyWorkPlaceAbsens.Where(y => y.CompanyWorkPlace.EmployeeId == x.EmployeeId && y.CompanyWorkPlace.ChangedDate.Year == date.Year && y.CompanyWorkPlace.ChangedDate.Month == date.Month)
-                                      .Select(y => y.UnExcusableAbsens).FirstOrDefault())
-                                          + _dbContext.WorkerBonus.Where(y => y.WorkerId == x.Id && y.BonusDate.Year == date.Year && y.BonusDate.Month == date.Month).Sum(y => y.BonusSalary)
-                       + _dbContext.CompanyWorkPlaceBonus.Include(m => m.CompanyWorkPlace)
-                          .Where(y => y.CompanyWorkPlace.EmployeeId == x.EmployeeId && y.CompanyWorkPlace.ChangedDate.Year == date.Year && y.CompanyWorkPlace.ChangedDate.Month == date.Month).Select(y => y.BonusSalary).FirstOrDefault()
-
-            }).ToList();
-
-            return View(salaryModel);
-        }
-
-        public async Task<IActionResult> Contact()
+        public async Task<IActionResult> Index()
         {
             var user = await _dbContext.Users.Include(x => x.Employee).SingleOrDefaultAsync(x => _userManager.FindByNameAsync(User.Identity.Name).GetAwaiter().GetResult().Id == x.Id);
             var id = user.Id;
@@ -185,5 +116,68 @@ namespace HRPayrollSystem.Controllers
 
             return View(salaryModel);
         }
+
+        public async Task<IActionResult> Salary(string selectedDate)
+        {
+            if (selectedDate == null)
+            {
+                return NotFound();
+            }
+            var date = Convert.ToDateTime(selectedDate);
+            var workers = _dbContext.Users.ToList();
+            var user = await _dbContext.Users.Include(x => x.Employee).SingleOrDefaultAsync(x => _userManager.FindByNameAsync(User.Identity.Name).GetAwaiter().GetResult().Id == x.Id);
+            var id = user.Id;
+            int daysInMonth = DateTime.DaysInMonth(date.Year, date.Month);
+
+            SalaryModel salaryModel = new SalaryModel();
+
+            salaryModel.AvialableWorkers = workers.Where(x => x.Id == id).Select(x => new AvialableWorker
+            {
+                Department = _dbContext.Positions.Where(y => y.ID == x.PositionId).Select(y => y.Department.Name).FirstOrDefault(),
+                ID = x.Id,
+                Name = _dbContext.Employees.Where(y => y.Worker.Id == x.Id).Select(y => y.Name).FirstOrDefault(),
+                IDCardNumber = _dbContext.Employees.Where(y => y.Worker.Id == x.Id)
+                          .Select(y => y.IDCardNumber).FirstOrDefault(),
+
+                Surname = _dbContext.Employees.Where(y => y.Worker.Id == x.Id).Select(y => y.Surname).FirstOrDefault(),
+                Position = _dbContext.Positions.Where(y => y.ID == x.PositionId).Select(y => y.Name).FirstOrDefault(),
+                IsChecked = false,
+                EmployeeId = x.EmployeeId,
+
+                OldCalculate = date,
+
+                Bonus = _dbContext.WorkerBonus.Where(y => y.WorkerId == x.Id && y.BonusDate.Year == date.Year && y.BonusDate.Month == date.Month).Sum(y => y.BonusSalary)
+                       + _dbContext.CompanyWorkPlaceBonus.Include(m => m.CompanyWorkPlace)
+                          .Where(y => y.CompanyWorkPlace.EmployeeId == x.EmployeeId && y.CompanyWorkPlace.ChangedDate.Year == date.Year && y.CompanyWorkPlace.ChangedDate.Month == date.Month).Select(y => y.BonusSalary).FirstOrDefault(),
+
+                MonthlySalary = _dbContext.Positions.Where(y => y.ID == x.PositionId).Select(y => y.Salary).FirstOrDefault(),
+
+                ExcusableAbsens = _dbContext.WorkerAbsens.Where(y => y.AbsensId == 1 && y.WorkerId == x.Id && y.Date.Year == date.Year && y.Date.Month == date.Month).Count()
+                          + _dbContext.CompanyWorkPlaceAbsens.Where(y => y.CompanyWorkPlace.EmployeeId == x.EmployeeId && y.CompanyWorkPlace.ChangedDate.Year == date.Year && y.CompanyWorkPlace.ChangedDate.Month == date.Month)
+                              .Select(y => y.ExcusableAbsens).FirstOrDefault(),
+
+                UnExcusableAbsens = _dbContext.WorkerAbsens.Where(y => y.AbsensId == 2 && y.WorkerId == x.Id && y.Date.Year == date.Year && y.Date.Month == date.Month).Count()
+                          + _dbContext.CompanyWorkPlaceAbsens.Where(y => y.CompanyWorkPlace.EmployeeId == x.EmployeeId && y.CompanyWorkPlace.ChangedDate.Year == date.Year && y.CompanyWorkPlace.ChangedDate.Month == date.Month)
+                              .Select(y => y.UnExcusableAbsens).FirstOrDefault(),
+
+                AbsensCount = _dbContext.WorkerAbsens.Where(y => y.AbsensId == 1 && y.WorkerId == x.Id).Count()
+                          + _dbContext.CompanyWorkPlaceAbsens.Where(y => y.CompanyWorkPlace.EmployeeId == x.EmployeeId)
+                              .Select(y => y.ExcusableAbsens).FirstOrDefault()
+                                  + _dbContext.WorkerAbsens.Where(y => y.AbsensId == 2 && y.WorkerId == x.Id).Count()
+                                       + _dbContext.CompanyWorkPlaceAbsens.Where(y => y.CompanyWorkPlace.EmployeeId == x.EmployeeId)
+                                          .Select(y => y.UnExcusableAbsens).FirstOrDefault(),
+
+                TotalSalary = (_dbContext.Positions.Where(y => y.ID == x.PositionId).Select(y => y.Salary).FirstOrDefault() - _dbContext.Positions.Where(y => y.ID == x.PositionId).Select(y => y.Salary).FirstOrDefault() / daysInMonth
+                               * _dbContext.WorkerAbsens.Where(y => y.AbsensId == 2 && y.WorkerId == x.Id && y.Date.Year == date.Year && y.Date.Month == date.Month).Count()
+                                  + _dbContext.CompanyWorkPlaceAbsens.Where(y => y.CompanyWorkPlace.EmployeeId == x.EmployeeId && y.CompanyWorkPlace.ChangedDate.Year == date.Year && y.CompanyWorkPlace.ChangedDate.Month == date.Month)
+                                      .Select(y => y.UnExcusableAbsens).FirstOrDefault())
+                                          + _dbContext.WorkerBonus.Where(y => y.WorkerId == x.Id && y.BonusDate.Year == date.Year && y.BonusDate.Month == date.Month).Sum(y => y.BonusSalary)
+                       + _dbContext.CompanyWorkPlaceBonus.Include(m => m.CompanyWorkPlace)
+                          .Where(y => y.CompanyWorkPlace.EmployeeId == x.EmployeeId && y.CompanyWorkPlace.ChangedDate.Year == date.Year && y.CompanyWorkPlace.ChangedDate.Month == date.Month).Select(y => y.BonusSalary).FirstOrDefault()
+
+            }).ToList();
+
+            return View(salaryModel);
+        }   
     }
 }

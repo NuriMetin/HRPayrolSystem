@@ -153,7 +153,7 @@ namespace HRPayrollSystem.Controllers
 
             _dbContext.WorkerBonus.AddRange(addBonus);
             _dbContext.SaveChanges();
-            return RedirectToAction(nameof(WorkerList));
+            return RedirectToAction("StoreList","Store");
         }
     }
 }

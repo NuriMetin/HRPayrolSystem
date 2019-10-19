@@ -24,11 +24,11 @@ namespace HRPayrollSystem.Controllers
         private readonly HRPayrollDbContext _dbContext;
         private readonly UserManager<Worker> _userManager;
         private readonly RoleManager<IdentityRole> _roleManager;
-        public WorkerController(IHostingEnvironment env, HRPayrollDbContext dbContext, UserManager<Worker> userManager, RoleManager<IdentityRole> roleManagerr)
+        public WorkerController(IHostingEnvironment env, HRPayrollDbContext dbContext, UserManager<Worker> userManager, RoleManager<IdentityRole> roleManager)
         {
             _dbContext = dbContext;
             _userManager = userManager;
-            _roleManager = roleManagerr;
+            _roleManager = roleManager;
         }
 
         [Authorize(Roles = SD.HR)]
@@ -105,10 +105,18 @@ namespace HRPayrollSystem.Controllers
             return RedirectToAction(nameof(WorkerList));
         }
 
-        //[Authorize(Roles = SD.HR)]
+        //[Authorize(Roles = "Admin,HR")]
         public async Task<IActionResult> WorkerList()
         {
-            var workers = await _dbContext.Users.Include(x => x.Employee).Include(x => x.Position).Include(x => x.Position.Department).Where(x => x.Working == true).Select(x => new WorkersViewModel
+            ViewBag.TotalCount = _dbContext.Users.Where(x => x.Working == true).Count();
+            ViewBag.SkipCount = 6;
+
+            var workers = await _dbContext.Users
+                .Include(x => x.Employee)
+                .Include(x => x.Position)
+                .Include(x => x.Position.Department)
+                .Include(x=>x.Store)
+                .Where(x => x.Working == true).Select(x => new WorkersViewModel
             {
                 WorkerId = x.Id,
                 Email = x.Email,
@@ -116,8 +124,10 @@ namespace HRPayrollSystem.Controllers
                 Surname = x.Employee.Surname,
                 Position = x.Position.Name,
                 Department = x.Position.Department.Name,
-                BeginDate = x.BeginDate
-            }).ToListAsync();
+                BeginDate = x.BeginDate,
+                StoreName=x.Store.Name,
+                RoleName=_roleManager.Roles.Where(m=>m.Id==_dbContext.UserRoles.Where(l=>l.UserId==x.Id).Select(l=>l.RoleId).FirstOrDefault()).Select(m=>m.Name).FirstOrDefault()
+                }).Take(6).ToListAsync();
 
             return View(workers);
         }
@@ -249,7 +259,7 @@ namespace HRPayrollSystem.Controllers
             return BadRequest();
         }
 
-        [Authorize(Roles = "HR,Admin")]
+        [Authorize(Roles = "HR")]
         public async Task<IActionResult> RemovidWorkers()
         {
             var workers = await _dbContext.Users.Include(x=>x.Employee).Include(x=>x.Position).Include(x=>x.Position.Department).Where(x => x.Working == false).Select(x => new WorkersViewModel
@@ -272,7 +282,7 @@ namespace HRPayrollSystem.Controllers
         }
 
         [HttpPost, ValidateAntiForgeryToken]
-        [Authorize(Roles = "HR,Admin")]
+        [Authorize(Roles = "HR")]
         public IActionResult UndoWorker(string id)
         {
             if (id == null)

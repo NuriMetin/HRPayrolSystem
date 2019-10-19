@@ -79,6 +79,8 @@ M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\HRPayrollSystem\o
 M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\HRPayrollSystem\obj\Debug\netcoreapp2.1\HRPayrollSystem.TagHelpers.output.cache
 M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\HRPayrollSystem\obj\Debug\netcoreapp2.1\HRPayrollSystem.RazorCoreGenerate.cache
 M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\HRPayrollSystem\obj\Debug\netcoreapp2.1\Razor\Views\Absens\AddAbsens.g.cshtml.cs
+M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\HRPayrollSystem\obj\Debug\netcoreapp2.1\Razor\Views\Account\ChangePassword.g.cshtml.cs
+M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\HRPayrollSystem\obj\Debug\netcoreapp2.1\Razor\Views\Account\ForgetPassword.g.cshtml.cs
 M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\HRPayrollSystem\obj\Debug\netcoreapp2.1\Razor\Views\Account\Login.g.cshtml.cs
 M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\HRPayrollSystem\obj\Debug\netcoreapp2.1\Razor\Views\Ajax\LoadBankAccount.g.cshtml.cs
 M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\HRPayrollSystem\obj\Debug\netcoreapp2.1\Razor\Views\Ajax\LoadBonusWorkerList.g.cshtml.cs
@@ -99,10 +101,10 @@ M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\HRPayrollSystem\o
 M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\HRPayrollSystem\obj\Debug\netcoreapp2.1\Razor\Views\Department\Edit.g.cshtml.cs
 M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\HRPayrollSystem\obj\Debug\netcoreapp2.1\Razor\Views\Employee\AddWorkPlace.g.cshtml.cs
 M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\HRPayrollSystem\obj\Debug\netcoreapp2.1\Razor\Views\Employee\Create.g.cshtml.cs
+M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\HRPayrollSystem\obj\Debug\netcoreapp2.1\Razor\Views\Employee\Details.g.cshtml.cs
 M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\HRPayrollSystem\obj\Debug\netcoreapp2.1\Razor\Views\Employee\Edit.g.cshtml.cs
 M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\HRPayrollSystem\obj\Debug\netcoreapp2.1\Razor\Views\Employee\EmployeeList.g.cshtml.cs
-M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\HRPayrollSystem\obj\Debug\netcoreapp2.1\Razor\Views\Home\About.g.cshtml.cs
-M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\HRPayrollSystem\obj\Debug\netcoreapp2.1\Razor\Views\Home\Contact.g.cshtml.cs
+M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\HRPayrollSystem\obj\Debug\netcoreapp2.1\Razor\Views\Home\Index.g.cshtml.cs
 M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\HRPayrollSystem\obj\Debug\netcoreapp2.1\Razor\Views\Position\AddPosition.g.cshtml.cs
 M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\HRPayrollSystem\obj\Debug\netcoreapp2.1\Razor\Views\Position\Edit.g.cshtml.cs
 M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\HRPayrollSystem\obj\Debug\netcoreapp2.1\Razor\Views\Position\PositionList.g.cshtml.cs
@@ -117,8 +119,10 @@ M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\HRPayrollSystem\o
 M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\HRPayrollSystem\obj\Debug\netcoreapp2.1\Razor\Views\Store\Edit.g.cshtml.cs
 M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\HRPayrollSystem\obj\Debug\netcoreapp2.1\Razor\Views\Store\StoreList.g.cshtml.cs
 M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\HRPayrollSystem\obj\Debug\netcoreapp2.1\Razor\Views\Vacation\AddVacation.g.cshtml.cs
+M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\HRPayrollSystem\obj\Debug\netcoreapp2.1\Razor\Views\Worker\ChangeRole.g.cshtml.cs
 M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\HRPayrollSystem\obj\Debug\netcoreapp2.1\Razor\Views\Worker\Create.g.cshtml.cs
 M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\HRPayrollSystem\obj\Debug\netcoreapp2.1\Razor\Views\Worker\Edit.g.cshtml.cs
+M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\HRPayrollSystem\obj\Debug\netcoreapp2.1\Razor\Views\Worker\RemovidWorkers.g.cshtml.cs
 M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\HRPayrollSystem\obj\Debug\netcoreapp2.1\Razor\Views\Worker\WorkerList.g.cshtml.cs
 M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\HRPayrollSystem\obj\Debug\netcoreapp2.1\Razor\Views\_ViewImports.g.cshtml.cs
 M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\HRPayrollSystem\obj\Debug\netcoreapp2.1\Razor\Views\_ViewStart.g.cshtml.cs
@@ -128,8 +132,4 @@ M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\HRPayrollSystem\o
 M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\HRPayrollSystem\obj\Debug\netcoreapp2.1\HRPayrollSystem.dll
 M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\HRPayrollSystem\obj\Debug\netcoreapp2.1\HRPayrollSystem.pdb
 M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\HRPayrollSystem\obj\Debug\netcoreapp2.1\HRPayrollSystem.csproj.CopyComplete
-M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\HRPayrollSystem\obj\Debug\netcoreapp2.1\Razor\Views\Worker\RemovidWorkers.g.cshtml.cs
-M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\HRPayrollSystem\obj\Debug\netcoreapp2.1\Razor\Views\Account\ForgetPassword.g.cshtml.cs
-M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\HRPayrollSystem\obj\Debug\netcoreapp2.1\Razor\Views\Account\ChangePassword.g.cshtml.cs
-M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\HRPayrollSystem\obj\Debug\netcoreapp2.1\Razor\Views\Worker\ChangeRole.g.cshtml.cs
-M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\HRPayrollSystem\obj\Debug\netcoreapp2.1\Razor\Views\Employee\Details.g.cshtml.cs
+M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\HRPayrollSystem\obj\Debug\netcoreapp2.1\Razor\Views\Home\Salary.g.cshtml.cs

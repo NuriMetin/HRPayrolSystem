@@ -10,19 +10,16 @@
         <input type="hidden" asp-for="ID" />
         <div class="col-md-5">
             <div class="form-group">
-                <label class="control-label">Company Name</label>
-                <input class="form-control" disabled asp-for="CompanyName" />
+                <label class="control-label">Company name</label>
+                <select class="form-control" asp-for="SelectedCompany" asp-items="@(new SelectList(Model.Companies,"ID","Name"))">
+                    <option value="">@Model.CompanyName</option>
+                </select>
+                <span asp-validation-for="SelectedCompany" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
                 <input class="form-control" asp-for="Name" />
                 <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <select class="form-control" asp-for="SelectedCompany" asp-items="@(new SelectList(Model.Companies,"ID","Name"))">
-                    <option value="">--Company--</option>
-                </select>
-                <span asp-validation-for="SelectedCompany" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" class="btn btn-success" value="Save" />
