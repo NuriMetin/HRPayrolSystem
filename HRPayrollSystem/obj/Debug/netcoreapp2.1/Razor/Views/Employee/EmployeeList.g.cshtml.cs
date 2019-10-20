@@ -80,7 +80,7 @@ using HRPayrollSystem.Models.ViewModels;
             WriteLiteral("<div class=\"container\">\r\n    <div style=\"overflow-x:auto;\">\r\n        <div class=\"d-flex\">\r\n            <select class=\"form-control col-md-3\" id=\"selectFor\">\r\n                ");
             EndContext();
             BeginContext(261, 26, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "3c29a645a794443ba2adef21dd6e3cb2", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "cf020504471b426c94deb494ab3dc190", async() => {
                 BeginContext(269, 9, true);
                 WriteLiteral("Searh for");
                 EndContext();
@@ -100,7 +100,7 @@ using HRPayrollSystem.Models.ViewModels;
             WriteLiteral("\r\n                ");
             EndContext();
             BeginContext(305, 43, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "5213f75971e247c2ba4fb1fda8d30be5", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "402c04caa1604f598c448378d8f1f852", async() => {
                 BeginContext(335, 4, true);
                 WriteLiteral("Name");
                 EndContext();
@@ -122,7 +122,7 @@ using HRPayrollSystem.Models.ViewModels;
             WriteLiteral("\r\n                ");
             EndContext();
             BeginContext(366, 46, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "254d3ef8c5834e8783ef074c9eb50bde", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "6860dc2e33854b1ba1d3ae8c769db754", async() => {
                 BeginContext(396, 7, true);
                 WriteLiteral("Surname");
                 EndContext();
@@ -144,7 +144,7 @@ using HRPayrollSystem.Models.ViewModels;
             WriteLiteral("\r\n                ");
             EndContext();
             BeginContext(430, 50, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "51687c42a3da4d6685baa73ba5663bd9", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("option", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "c25a752ba54f4f6487faae3a6cfce558", async() => {
                 BeginContext(460, 11, true);
                 WriteLiteral("Father Name");
                 EndContext();
@@ -195,7 +195,7 @@ using HRPayrollSystem.Models.ViewModels;
             WriteLiteral("                    <tr>\r\n                        <td>");
             EndContext();
             BeginContext(1265, 155, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "ec9fa712672a4cf3b26305ef1cfbefb7", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("img", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.SelfClosing, "2c5013c366f54c559b00ead0ed74d023", async() => {
             }
             );
             __Microsoft_AspNetCore_Mvc_Razor_TagHelpers_UrlResolutionTagHelper = CreateTagHelper<global::Microsoft.AspNetCore.Mvc.Razor.TagHelpers.UrlResolutionTagHelper>();
@@ -272,7 +272,7 @@ AddHtmlAttributeValue("", 1284, item.Image, 1284, 11, false);
             WriteLiteral("</td>\r\n                        <td>\r\n                            <div class=\"d-flex\">\r\n                                ");
             EndContext();
             BeginContext(1802, 123, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "cf60d2467ab14063b206cd514af9c454", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "e692d2705f4040ed9e78ccea9dbc6ea9", async() => {
                 BeginContext(1913, 8, true);
                 WriteLiteral("Details ");
                 EndContext();
@@ -310,7 +310,7 @@ AddHtmlAttributeValue("", 1284, item.Image, 1284, 11, false);
             WriteLiteral("\r\n                                ");
             EndContext();
             BeginContext(1959, 117, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "b16898d207e1416babd998cc1895fba8", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("a", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "ed998b96c73c4407a5f2fabceef2c596", async() => {
                 BeginContext(2067, 5, true);
                 WriteLiteral("Edit ");
                 EndContext();
@@ -348,7 +348,7 @@ AddHtmlAttributeValue("", 1284, item.Image, 1284, 11, false);
             WriteLiteral("\r\n                                ");
             EndContext();
             BeginContext(2110, 331, false);
-            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "ca11d7faad754f0faf676c821a455fe5", async() => {
+            __tagHelperExecutionContext = __tagHelperScopeManager.Begin("form", global::Microsoft.AspNetCore.Razor.TagHelpers.TagMode.StartTagAndEndTag, "5ab124b9d3044994b89b695229b456a2", async() => {
                 BeginContext(2200, 68, true);
                 WriteLiteral("\r\n                                    <input type=\"hidden\" name=\"ID\"");
                 EndContext();

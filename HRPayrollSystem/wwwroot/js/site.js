@@ -51,6 +51,27 @@ $(function () {
     });
 });
 
+//----------------------Load Bank WorkerList----------------
+$(function () {
+    $(window).scroll(function () {
+        if ($(window).height() + Math.ceil($(document).scrollTop()) >= $(document).height()) {
+            var bankSkipCount = +$(".bankSkipCount").val();
+            var bankTotalCount = $("#bankTotalCount").val();
+            if (bankSkipCount <= bankTotalCount) {
+                $.ajax({
+                    url: "/AJAX/LoadBankAccount",
+                    type: "Get",
+                    data: { skip: bankSkipCount },
+                    success: function (res) {
+                        $("#bankAppend").append(res);
+                        $(".bankSkipCount").val(bankSkipCount + 2)
+                    }
+                });
+            }
+        }
+    });
+});
+
 ////---------------Load salary--------------------
 $(function () {
     $(window).scroll(function () {
@@ -72,29 +93,8 @@ $(function () {
     });
 });
 
-//----------------------Load Bank WorkerList----------------
-$(function () {
-    $(window).scroll(function () {
-        if ($(window).height() + Math.ceil($(document).scrollTop()) >= $(document).height()) {
-            var bankSkipCount = +$(".bankSkipCount").val();
-            var bankTotalCount = $("#bankTotalCount").val();
-            if (bankSkipCount <= bankTotalCount) {
-                $.ajax({
-                    url: "/AJAX/LoadBankAccount",
-                    type: "Get",
-                    data: { skip: bankSkipCount },
-                    success: function (tt) {
-                        $("#bankAppend").append(tt);
-                        $(".bankSkipCount").val(bankSkipCount + 2)
-                    }
-                });
-            }
-        }
-    });
-});
 
 
-//----------------------Load StoreBonus----------------
 
 //----------------------Load BonusWorkerList----------------
 $(function () {

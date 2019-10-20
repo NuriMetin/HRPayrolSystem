@@ -4,7 +4,7 @@
 }
 <div class="container">
     <form method="post" asp-controller="Worker" asp-action="Create">
-        <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+        <div class="text-danger red" asp-validation-summary="ModelOnly"></div>
         <div class="container d-flex">
             <div class="col-md-1"></div>
             <div class="col-md-4">
@@ -13,7 +13,7 @@
                     <select asp-for="SelectedEmployee" class="form-control" asp-items="@(new SelectList(Model.Employees,"ID","Name"))">
                         <option value="">--Select Employee--</option>
                     </select>
-                    <span asp-validation-for="SelectedEmployee" class="text-danger"></span>
+                    <span asp-validation-for="SelectedEmployee" class="text-danger red"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="Stores" class="control-label"></label>
@@ -24,7 +24,7 @@
                 <div class="form-group">
                     <label class="control-label" asp-for="Email"></label>
                     <input class="form-control" asp-for="Email" />
-                    <span class="text-danger" asp-validation-for="Email"></span>
+                    <span class="text-danger red" asp-validation-for="Email"></span>
                 </div>
             </div>
             <div class="col-md-4">
@@ -33,20 +33,20 @@
                     <select asp-for="SelectedDepartment" class="departments form-control" asp-items="@(new SelectList(Model.Departments,"ID","Name"))">
                         <option value="">--Select Department--</option>
                     </select>
-                    <span asp-validation-for="SelectedDepartment" class="text-danger"></span>
+                    <span asp-validation-for="SelectedDepartment" class="text-danger red"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="Position"></label>
                     <select asp-for="SelectedPosition" class="form-control">
                         <option value="">Select Position...</option>
                     </select>
-                    <span asp-validation-for="SelectedPosition" class="text-danger"></span>
+                    <span asp-validation-for="SelectedPosition" class="text-danger red"></span>
                 </div>
 
                 <div class="form-group">
                     <label class="control-label" asp-for="BeginDate"></label>
                     <input class="form-control" type="date" asp-for="BeginDate" />
-                    <span asp-validation-for="BeginDate" class="text-danger"></span>
+                    <span asp-validation-for="BeginDate" class="text-danger red"></span>
                 </div>
             </div>
         </div>

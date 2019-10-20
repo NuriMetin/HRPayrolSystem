@@ -15,6 +15,7 @@ namespace HRPayrollSystem.Models.ViewModels
         public string Department { get; set; }
         public string IDCardNumber { get; set; }
         public string IDcardFincode { get; set; }
+        public string StoreName { get; set; }
         public string Email { get; set; }
         public string Number { get; set; }
     }

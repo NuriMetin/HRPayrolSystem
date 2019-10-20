@@ -6,12 +6,12 @@
 <h2>Add Company</h2>
 <div class="container-fluid" style="margin-top:15px;">
     <form method="post" asp-controller="Company" asp-action="AddCompany" enctype="multipart/form-data">
-        <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+        <div class="text-danger red" asp-validation-summary="ModelOnly"></div>
         <div class="col-md-4">
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
                 <input class="form-control" asp-for="Name" />
-                <span asp-validation-for="Name" class="text-danger"></span>
+                <span asp-validation-for="Name" class="text-danger red"></span>
             </div>
             <input type="submit" value="Add" class="btn btn-primary" />
         </div>

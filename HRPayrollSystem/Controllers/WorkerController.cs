@@ -105,7 +105,7 @@ namespace HRPayrollSystem.Controllers
             return RedirectToAction(nameof(WorkerList));
         }
 
-        //[Authorize(Roles = "Admin,HR")]
+        [Authorize(Roles = "Admin,HR,PayrollSpecalist")]
         public async Task<IActionResult> WorkerList()
         {
             ViewBag.TotalCount = _dbContext.Users.Where(x => x.Working == true).Count();

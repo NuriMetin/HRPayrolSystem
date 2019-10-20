@@ -31,7 +31,8 @@ namespace HRPayrollSystem.Controllers
         [Authorize(Roles =SD.PayrollSpecalist)]
         public async Task<IActionResult> WorkerSalary()
         {
-            ViewBag.SkipCount = 5;
+            string k = "";
+           
             var workers = await _dbContext.Users
                .Include(x => x.Position)
                .Include(x => x.Position.Department)
@@ -43,9 +44,9 @@ namespace HRPayrollSystem.Controllers
                .Include(x => x.Store)
                .Include(x => x.Vacations)
                .Where(x => x.Working == true).ToListAsync();
-            ViewBag.TotalCount = workers.Count();
+            ViewBag.TotalCount = _dbContext.Users.Where(x => !k.Contains("/" + x.EmployeeId + "/") && x.Working == true).Count();
 
-            string k = "";
+            ViewBag.SkipCount = 6;
             var month = DateTime.Now.Month;
             var year = DateTime.Now.Year;
             int daysInMonth = DateTime.DaysInMonth(year, month);
@@ -103,7 +104,7 @@ namespace HRPayrollSystem.Controllers
                           .Where(y => y.CompanyWorkPlace.EmployeeId == x.EmployeeId && y.CompanyWorkPlace.ChangedDate.Year == year && y.CompanyWorkPlace.ChangedDate.Month == month).Select(y => y.BonusSalary).FirstOrDefault()
                             + x.Position.Salary / daysInMonth * (_dbContext.Vacations.Where(v=>v.WorkerId==x.Id && v.EndDate.Year == year && v.EndDate.Month == month).Select(v => (v.EndDate.Day - v.StartDate.Day)).Count())*2
 
-        }).Take(5).ToList();
+        }).Take(6).ToList();
 
             return View(salaryModel);
         }
@@ -112,12 +113,16 @@ namespace HRPayrollSystem.Controllers
         [Authorize(Roles = SD.PayrollSpecalist)]
         public IActionResult CalculateSalary(string selectedDate)
         {
-            ViewBag.SkipCount = 5;
+            string k = "";
+            ViewBag.TotalCount = _dbContext.Users.Where(x => !k.Contains("/" + x.EmployeeId + "/") && x.Working == true).Count();
+            ViewBag.SkipCount = 6;
+
             if (selectedDate == null)
             {
                 return NotFound();
             }
             var date = Convert.ToDateTime(selectedDate);
+
             var workers = _dbContext.Users
                .Include(x => x.Position)
                .Include(x => x.Position.Department)
@@ -129,7 +134,7 @@ namespace HRPayrollSystem.Controllers
                .Include(x => x.Store)
                .Include(x => x.Vacations)
                .Where(x=>x.Working==true).ToList();
-            string k = "";
+            
             int daysInMonth = DateTime.DaysInMonth(date.Year, date.Month);
             var empId = _dbContext.Salaries.Where(x => x.CalculatedDate.Year == date.Year && x.CalculatedDate.Month == date.Month).ToList();
 
@@ -185,8 +190,8 @@ namespace HRPayrollSystem.Controllers
                           .Where(y => y.CompanyWorkPlace.EmployeeId == x.EmployeeId && y.CompanyWorkPlace.ChangedDate.Year == date.Year && y.CompanyWorkPlace.ChangedDate.Month == date.Month).Select(y => y.BonusSalary).FirstOrDefault()
                           + (x.Position.Salary / daysInMonth * (_dbContext.Vacations.Where(v => v.WorkerId == x.Id && v.EndDate.Year==date.Year && v.EndDate.Month==date.Month).Select(v => (v.EndDate.Day - v.StartDate.Day)).Count())) * 2
 
-            }).Take(5).ToList();
-            ViewBag.TotalCount = salaryModel.AvialableWorkers.Count();
+            }).Take(6).ToList();
+            
             return View(salaryModel);
         }
 

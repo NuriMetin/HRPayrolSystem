@@ -27,29 +27,39 @@ namespace HRPayrollSystem.Controllers
         }
         public async Task<IActionResult> WorkerList()
         {
-            var workers = await _dbContext.Users.Where(x=>x.Working==true).ToListAsync();
-            var data =new List<Account>();
-            ViewBag.SkipCount = 5;
-           
-           
+            
+            string k = "";
+            var count =  _dbContext.Users
+                .Include(x => x.Employee)
+                .Include(x => x.Position)
+                .Include(x => x.Position.Department)
+                .Include(x => x.Store)
+                .Where(x => !k.Contains("/" + x.Employee.IDCardNumber + "/") && x.Working == true).Count();
+
+            ViewBag.TotalCount = count;
+            ViewBag.SkipCount = 8;
+
+            var data = new List<Account>();
             List<Account> account = new List<Account>();
             using (HttpClient httpClient = new HttpClient())
             {
-                // string jsonString = JsonConvert.SerializeObject();
                 var requestUrl = new Uri("https://localhost:44399/api/user");
                 HttpResponseMessage response = httpClient.GetAsync(requestUrl).Result;
                 var result = response.Content.ReadAsStringAsync().Result;
                 account = JsonConvert.DeserializeObject<List<Account>>(result);
             }
 
-            string k = "";
-
             foreach (var item in account)
             {
                 k += ("//" + item.IDCardNumber + "//");
             }
 
-            data =await _dbContext.Users.Include(x => x.Employee).Include(x => x.Position).Include(x => x.Position.Department).Where(x => !k.Contains("/" + x.Employee.IDCardNumber + "/") && x.Working==true).Select(x => new Account
+            data =await _dbContext.Users
+                .Include(x => x.Employee)
+                .Include(x => x.Position)
+                .Include(x => x.Position.Department)
+                .Include(x=>x.Store)
+                .Where(x => !k.Contains("/" + x.Employee.IDCardNumber + "/") && x.Working==true).Select(x => new Account
             {
                 Department = x.Position.Department.Name,
                 Name = x.Employee.Name,
@@ -58,9 +68,10 @@ namespace HRPayrollSystem.Controllers
                 IDcardFincode = x.Employee.IDCardFinCode,
                 Surname = x.Employee.Surname,
                 FatherName = x.Employee.FatherName,
-                WorkerId = x.Id
-            }).Take(5).ToListAsync();
-            ViewBag.TotalCount = data.Count();
+                WorkerId = x.Id,
+                StoreName=x.Store.Name
+            }).Take(8).ToListAsync();
+           
 
             return View(data);
         }

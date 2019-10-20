@@ -148,7 +148,8 @@ namespace HRPayrollSystem.Controllers
                 FatherName = x.FatherName,
                 Name = x.Name,
                 Surname = x.Surname,
-                Image = x.Image
+                Image = x.Image,
+                Born=x.Born
             }).Take(5).ToList();
 
             return View(data);

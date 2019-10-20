@@ -120,7 +120,7 @@ namespace HRPayrollSystem.Controllers
 
             IdentityResult result = await _userManager.ChangePasswordAsync(user,changePassword.OldPassword, changePassword.Password);
 
-            return RedirectToAction("Contact", "Home");
+            return RedirectToAction("Index", "Home");
         }
     }
 }

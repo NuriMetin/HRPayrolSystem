@@ -35,6 +35,7 @@
                             <td>@item.Surname</td>
                             <td>@item.Position</td>
                             <td>@item.Department</td>
+                            <td>@item.StoreName</td>
                             <td class="d-flex">
                                 <form asp-action="AddAccount" asp-controller="BankAccount" method="post" asp-route-id="@item.WorkerId">
                                     <input type="hidden" name="ID" value="@item.WorkerId" />

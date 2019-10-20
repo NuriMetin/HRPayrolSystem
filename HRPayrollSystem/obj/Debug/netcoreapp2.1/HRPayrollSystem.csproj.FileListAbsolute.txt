@@ -133,3 +133,4 @@ M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\HRPayrollSystem\o
 M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\HRPayrollSystem\obj\Debug\netcoreapp2.1\HRPayrollSystem.pdb
 M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\HRPayrollSystem\obj\Debug\netcoreapp2.1\HRPayrollSystem.csproj.CopyComplete
 M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\HRPayrollSystem\obj\Debug\netcoreapp2.1\Razor\Views\Home\Salary.g.cshtml.cs
+M:\Dərslər\Programmer\BackEnd\Projects\FinalProject\HRPayrol\HRPayrollSystem\obj\Debug\netcoreapp2.1\HRPayrollSystem.csprojAssemblyReference.cache
